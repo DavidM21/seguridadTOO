@@ -22,6 +22,17 @@ Route::get('/prueba', function () {
     return view('prueba');
 });
 
+Route::get('/loginTemplate', function () {
+    return view('loginTemplate');
+});
+
+Route::get('/registrar', function () {
+    return view('registrarUsuario');
+});
+
+Route::get('/contraseña', function () {
+    return view('restaurarPassword');
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
