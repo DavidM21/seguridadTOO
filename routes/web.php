@@ -22,8 +22,13 @@ Route::get('/base', function () {
     return view('base');
 });
 
+#TEMPLATES CRUD EMPLEADO
+Route::get('/empleados', function () {
+    return view('crudEmpleado.mostrarEmpleado');
+});
+
 Route::get('/prueba', function () {
-    return view('prueba');
+    return view('mostrarEmpleado');
 });
 
 Route::get('/loginTemplate', function () {
