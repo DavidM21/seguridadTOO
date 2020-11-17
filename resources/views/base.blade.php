@@ -24,7 +24,10 @@
     <!-- animation css -->
     <link rel="stylesheet" href="assets/plugins/animation/css/animate.min.css">
     <!-- vendor css -->
+    <link rel="stylesheet" href="assets/css/estilo.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- CDN FontAwesone -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -44,7 +47,7 @@
                     <div class="b-bg">
                         <i class="feather icon-trending-up"></i>
                     </div>
-                    <span class="b-title">Datta Able</span>
+                    <span class="b-title">TOO115</span>
                 </a>
                 <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
             </div>
@@ -230,10 +233,34 @@
             <div class="pcoded-content">
                 <div class="pcoded-inner-content">
                     <!-- [ breadcrumb ] start -->
-
+                    <div class="page-header">
+                        <div class="page-block">
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">@yield('tituloVista')</h5>
+                                    </div>
+                                    <ul class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                        @yield('sectiones')
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- [ breadcrumb ] end -->
                     <div class="main-body">
-                        @yield('contenido')
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header py-3">
+                                    <h5>@yield('tituloCard')</h5>
+                                    <hr>
+                                    <div class="card-header py-3 text-right">
+                                        @yield('contenido')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

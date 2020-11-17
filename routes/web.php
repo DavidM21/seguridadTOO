@@ -27,6 +27,12 @@ Route::get('/empleados', function () {
     return view('crudEmpleado.mostrarEmpleado');
 });
 
+Route::get('/crearEmpleado', function () {
+    return view('crudEmpleado.crearEmpleado');
+});
+
+
+
 Route::get('/prueba', function () {
     return view('mostrarEmpleado');
 });
