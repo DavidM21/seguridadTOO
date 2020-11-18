@@ -34,7 +34,7 @@ Route::get('/crearEmpleado', function () {
 
 
 Route::get('/prueba', function () {
-    return view('mostrarEmpleado');
+    return view('prueba');
 });
 
 Route::get('/loginTemplate', function () {
