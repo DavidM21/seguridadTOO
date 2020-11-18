@@ -45,3 +45,15 @@ Route::get('auth/2fa', 'Auth\LoginController@login')->name('auth.2fa');
 
 Route::post('/login-two-factor/{user}', 'Auth\LoginController@login2FA')->name('login.2fa');
 
+/* INICIO SOSA */
+
+/*Route::get('profile', function () {
+    // Only verified users may enter...
+})->middleware('verified');*/
+
+Route::get('/auth/login', 'Auth2\LoginController@index')->name('login');
+Route::post('/auth/login', 'Auth2\LoginController@login')->name('login_post');
+Route::post('/auth/logout', 'Auth2\LoginController@logout')->name('logout') ;
+
+
+/* FIN SOSA */
