@@ -51,9 +51,14 @@ Route::post('/login-two-factor/{user}', 'Auth\LoginController@login2FA')->name('
     // Only verified users may enter...
 })->middleware('verified');*/
 
-Route::get('/auth/login', 'Auth2\LoginController@index')->name('login');
-Route::post('/auth/login', 'Auth2\LoginController@login')->name('login_post');
-Route::post('/auth/logout', 'Auth2\LoginController@logout')->name('logout') ;
+Route::get('/login', 'Auth\LoginController@index')->name('login');
+Route::post('/login', 'Auth\LoginController@login')->name('login_post');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout') ;
+
+Route::get('/register', 'Auth\RegisterController@index')->name('register');
+Route::post('/register', 'Auth\RegisterController@register')->name('register_post');
+
+//Route::get('/verify', 'Auth\RegisterController@verify')->name('verify');
 
 
 /* FIN SOSA */
