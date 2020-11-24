@@ -24,7 +24,7 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        //
+        return view('crudOrganizacion.crearOrganizacion');
     }
 
     /**
@@ -33,9 +33,16 @@ class OrganizationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+
+        $fields =request()->validate([
+            'name' => 'required',
+        ]);
+
+        Organization::create($fields);
+
+        return redirect()->route('organizacion.show');
     }
 
     /**
@@ -46,7 +53,8 @@ class OrganizationController extends Controller
      */
     public function show(Organization $organization)
     {
-        //
+        $datos['organizations']=Organization::paginate(10);
+        return view('crudOrganizacion.mostrarOrganizacion',$datos);
     }
 
     /**
@@ -57,7 +65,10 @@ class OrganizationController extends Controller
      */
     public function edit(Organization $organization)
     {
-        //
+
+        return view('crudOrganizacion.editarOrganizacion', [
+            'organization' => $organization
+        ]);
     }
 
     /**
@@ -69,7 +80,13 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, Organization $organization)
     {
-        //
+        $fields=request()->validate([
+            'name' => 'required',
+        ]);
+
+        $organization->update($fields);
+
+        return redirect()->route('organizacion.show', $organization);
     }
 
     /**
@@ -80,6 +97,7 @@ class OrganizationController extends Controller
      */
     public function destroy(Organization $organization)
     {
-        //
+        $organization->delete();
+        return redirect()->route('organizacion.show');
     }
 }

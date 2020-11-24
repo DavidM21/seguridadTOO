@@ -22,6 +22,15 @@ Route::get('/base', function () {
     return view('base');
 });
 
+#TEMPLATES CRUD ORGANIZACION
+
+Route::get('crearOrganizacion', 'OrganizationController@create')->name('organizacion.create');
+Route::get('organizaciones', 'OrganizationController@show')->name('organizacion.show');
+Route::get('organizaciones/{organization}/editar', 'OrganizationController@edit')->name('organizacion.edit');
+Route::patch('organizaciones/{organization}', 'OrganizationController@update')->name('organizacion.update');
+Route::delete('organizaciones/{organization}', 'OrganizationController@destroy')->name('organizacion.destroy');
+Route::post('organizaciones', 'OrganizationController@store')->name('organizacion.store');
+
 #TEMPLATES CRUD EMPLEADO
 Route::get('/empleados', function () {
     return view('crudEmpleado.mostrarEmpleado');
@@ -30,7 +39,6 @@ Route::get('/empleados', function () {
 Route::get('/crearEmpleado', function () {
     return view('crudEmpleado.crearEmpleado');
 });
-
 
 
 Route::get('/prueba', function () {
