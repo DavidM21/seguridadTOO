@@ -33,9 +33,17 @@ class SeccionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        /*Validaciones */
+        request()->validate([
+            'nombre'=> 'required',
+            'salario'=> ['required','min:0']
+        ]);
+
+        //Para mensajes de error personalizados revisar el video 20 minuto 6
+
+        return 'Datos validados';
     }
 
     /**

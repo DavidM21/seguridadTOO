@@ -40,6 +40,21 @@ Route::get('/crearEmpleado', function () {
     return view('crudEmpleado.crearEmpleado');
 });
 
+Route::get('/editarEmpleado', function () {
+    return view('crudEmpleado.editarEmpleado');
+});
+
+#TEMPLATES CRUD PUESTO
+Route::get('/puestos', function () {
+    return view('crudPuestoDeTrabajo.mostrarPuesto');
+});
+
+Route::view('/crearPuesto','crudPuestoDeTrabajo.crearPuesto')->name('crearPuesto');
+Route::post('crearPuesto','SeccionController@store');
+
+Route::get('/editarPuesto', function () {
+    return view('crudPuestoDeTrabajo.editarPuesto');
+});
 
 Route::get('/prueba', function () {
     return view('prueba');

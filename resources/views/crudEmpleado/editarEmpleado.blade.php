@@ -1,16 +1,16 @@
 @extends('base')
 
 @section('titulo')
-Crear Empleado
+Editar Empleado
 @endsection
 
 @section('tituloVista')
-Crear Empleado
+Editar Empleado
 @endsection
 
 @section('sectiones')
 <li class="breadcrumb-item"><a href="javascript:">Empleado</a></li>
-<li class="breadcrumb-item"><a href="javascript:">Crear empleado</a></li>
+<li class="breadcrumb-item"><a href="javascript:">Editar empleado</a></li>
 @endsection
 
 @section('tituloCard')

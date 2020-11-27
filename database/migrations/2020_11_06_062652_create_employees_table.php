@@ -18,10 +18,10 @@ class CreateEmployeesTable extends Migration
             $table->timestamps();
             $table->string('first_name', 50);
             $table->string('last_name', 50);
-            $table->string('dui', 10);
-            $table->string('nit', 17);
-            $table->string('isss', 10);
-            $table->string('nup', 12);
+            $table->string('dui', 10)->unique();
+            $table->string('nit', 17)->unique();
+            $table->string('isss', 10)->unique();
+            $table->string('nup', 12)->unique();
             $table->string('address', 300);
 
 

@@ -255,7 +255,7 @@
                                 <div class="card-header py-3">
                                     <h5>@yield('tituloCard')</h5>
                                     <hr>
-                                    <div class="card-header py-3 text-right">
+                                    <div class="card-header py-3">
                                         @yield('contenido')
                                     </div>
                                 </div>
