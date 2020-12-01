@@ -62,3 +62,9 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register_pos
 
 
 /* FIN SOSA */
+
+//Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+
