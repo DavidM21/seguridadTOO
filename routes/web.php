@@ -83,3 +83,9 @@ Route::get('/users/create', 'super\UsersController@create')->name('users.create'
 
 
 /* FIN SOSA */
+
+//Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+
