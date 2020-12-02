@@ -22,7 +22,7 @@ Información del Puesto de trabajo
 @section('contenido')                           
 <div class="row">
     <div class="col-md-6" align="left">
-        <form id="formulario" method="POST" action="{{route('crearPuesto')}}">
+        <form id="formulario" method="POST" action="{{route('puestos.store')}}">
         @csrf 
             <div class="form-group">
                 <label><b>Nombre</b><span class="text-danger">*</span></label>

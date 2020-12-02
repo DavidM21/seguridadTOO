@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\JobPosition;
 use Illuminate\Http\Request;
+use DB;
 
 class JobPositionController extends Controller
 {
@@ -14,7 +15,8 @@ class JobPositionController extends Controller
      */
     public function index()
     {
-        //
+        $puestos = JobPosition ::get();
+        return view('crudPuestoDeTrabajo.mostrarPuesto',compact('puestos'));
     }
 
     /**
@@ -24,7 +26,7 @@ class JobPositionController extends Controller
      */
     public function create()
     {
-        //
+        return view('crudPuestoDeTrabajo.crearPuesto');
     }
 
     /**
@@ -35,7 +37,21 @@ class JobPositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //*Validaciones */
+        $fields = request()->validate([
+            'nombre'=> 'required',
+            'salario'=> ['required','min:0']
+        ]);
+
+        JobPosition::create([
+            'name' => request('nombre'),
+            'salary' => request('salario'),
+            'section_id' => request('seccion'),
+        ]);
+
+        //Para mensajes de error personalizados revisar el video 20 minuto 6
+
+        return redirect()->route('puestos.show');
     }
 
     /**
@@ -57,7 +73,10 @@ class JobPositionController extends Controller
      */
     public function edit(JobPosition $jobPosition)
     {
-        //
+        return view('crudPuestoDeTrabajo.editarPuesto',[
+            'jobPosition' => $jobPosition
+        ]);
+
     }
 
     /**
@@ -67,9 +86,21 @@ class JobPositionController extends Controller
      * @param  \App\JobPosition  $jobPosition
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobPosition $jobPosition)
+    public function update( JobPosition $jobPosition)
     {
-        //
+
+        $fields = request()->validate([
+            'nombre'=> 'required',
+            'salario'=> ['required','min:0']
+        ]);
+
+        $jobPosition->update([
+            'name' => request('nombre'),
+            'salary' => request('salario'),
+            'section_id' => request('seccion'),
+        ]);
+
+        return redirect()->route('puestos.show');
     }
 
     /**
@@ -80,6 +111,7 @@ class JobPositionController extends Controller
      */
     public function destroy(JobPosition $jobPosition)
     {
-        //
+        $jobPosition->delete();
+        return redirect()->route('puestos.show');
     }
 }

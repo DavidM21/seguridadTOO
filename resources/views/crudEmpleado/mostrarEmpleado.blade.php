@@ -18,7 +18,7 @@ Empleados
 <br>
 <br>
 <button type="button" class="btn btn-outline-primary text-right" data-toggle="tooltip">
-    <i class="feather icon-plus-circle"></i>Agregar Empleado</button>
+    <i class="feather icon-plus-circle"></i><a href="crearEmpleado">Agregar Empleado</a></button>
 @endsection
 
 @section('contenido')
@@ -28,49 +28,32 @@ Empleados
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DUI</th>
+                        <th>Municipio</th>
                         <th colspan="2">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
+                @foreach($empleados as $empleado)
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <th>{{$empleado->id}}</th>
+                        <td>{{$empleado->first_name}}</td>
+                        <td>{{$empleado->last_name}}</td>
+                        <td>{{$empleado->dui}}</td>
+                        <td>{{$empleado->city_id}}</td>
                         <td>
-                        <button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
+                        <a href="{{ route('empleado.edit', $empleado) }}"><button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
                         <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" title="Eliminar" data-toggle="tooltip">
-                        <i class="fas fa-trash-alt"></i></i></button>
+                        <form  method="POST" action="{{ route('empleado.destroy', $empleado) }}">
+                                    @csrf @method('DELETE')
+                                    <button  class="btn btn-danger mb-1" title="Eliminar" data-toggle="tooltip">
+                                    <i class="fas fa-trash-alt"></i></i></button>
+                        </form>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>
-                        <button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
-                        <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" title="Eliminar" data-toggle="tooltip">
-                        <i class="fas fa-trash-alt"></i></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>
-                        <button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
-                        <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" title="Eliminar" data-toggle="tooltip">
-                        <i class="fas fa-trash-alt"></i></i></button>
-                        </td>
-                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

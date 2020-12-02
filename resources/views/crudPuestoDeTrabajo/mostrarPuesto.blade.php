@@ -18,7 +18,7 @@ Puestos de trabajo
 <br>
 <br>
 <button type="button" class="btn btn-outline-primary text-right" data-toggle="tooltip">
-    <i class="feather icon-plus-circle"></i>Agregar Puesto de trabajo</button>
+    <i class="feather icon-plus-circle"></i><a href="crearPuesto">Agregar Puesto de trabajo</a></button>
 @endsection
 
 @section('contenido')
@@ -35,42 +35,24 @@ Puestos de trabajo
                     </tr>
                 </thead>
                 <tbody>
+                @foreach($puestos as $puesto)
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <th>{{$puesto->id}}</th>
+                        <td>{{$puesto->name}}</td>
+                        <td>{{$puesto->salary}}</td>
+                        <td>{{$puesto->section_id}}</td>
                         <td>
-                        <button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
-                        <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" title="Eliminar" data-toggle="tooltip">
-                        <i class="fas fa-trash-alt"></i></i></button>
+
+                        <a href="{{ route('puestos.edit', $puesto) }}"><button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
+                        <i class="fas fa-edit"></i></button></a>
+                        <form  method="POST" action="{{ route('puestos.destroy', $puesto) }}">
+                                    @csrf @method('DELETE')
+                                    <button  class="btn btn-danger mb-1" title="Eliminar" data-toggle="tooltip">
+                                    <i class="fas fa-trash-alt"></i></i></button>
+                        </form>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>
-                        <button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
-                        <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" title="Eliminar" data-toggle="tooltip">
-                        <i class="fas fa-trash-alt"></i></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>
-                        <button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
-                        <i class="fas fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger" title="Eliminar" data-toggle="tooltip">
-                        <i class="fas fa-trash-alt"></i></i></button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

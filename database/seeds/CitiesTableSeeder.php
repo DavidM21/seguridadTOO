@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 class CitiesTableSeeder extends Seeder
 {
     static $munAhuachapans = [
-        'Ahuachapan',
+        'Ahuachapán',
         'Apaneca',
         'Atiquizaya',
         'Concepción de Ataco',

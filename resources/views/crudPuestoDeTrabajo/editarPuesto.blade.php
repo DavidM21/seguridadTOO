@@ -1,20 +1,20 @@
 @extends('base')
 
 @section('titulo')
-Editar Empleado
+Editar Puesto de trabajo
 @endsection
 
 @section('tituloVista')
-Editar Empleado
+Editar Puesto de trabajo
 @endsection
 
 @section('sectiones')
-<li class="breadcrumb-item"><a href="javascript:">Empleado</a></li>
-<li class="breadcrumb-item"><a href="javascript:">Editar empleado</a></li>
+<li class="breadcrumb-item"><a href="javascript:">Puesto de trabajo</a></li>
+<li class="breadcrumb-item"><a href="javascript:">Editar Puesto de trabajo</a></li>
 @endsection
 
 @section('tituloCard')
-Información del empleado
+Información del Puesto de trabajo
 <br>
 <small class="text-danger">* Obligatorio</small>
 @endsection
@@ -22,88 +22,23 @@ Información del empleado
 @section('contenido')                           
 <div class="row">
     <div class="col-md-6" align="left">
-        <form id="formulario">
+        <form id="formulario" method="POST" action="{{route('puestos.update', $jobPosition)}}">
+        @csrf @method('PATCH')
             <div class="form-group">
                 <label><b>Nombre</b><span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Nombre">
+                <input type="text" name="nombre" class="form-control" placeholder="Nombre" value="{{ $jobPosition->name}}">
+                {!! $errors->first('nombre','<small class="text-danger">:message</small>')!!}
             </div>
             <div class="form-group">
-                <label><b>DUI</b><span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="00000000-0">
-            </div>
-            <div class="form-group">
-                <label><b>ISSS</b><span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="averiguar">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1"><b>Puesto de trabajo</b><span class="text-danger">*</span></label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="exampleFormControlSelect1"><b>Departamento</b><span class="text-danger">*</span></label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="exampleFormControlSelect1"><b>Municipio</b><span class="text-danger">*</span></label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+                <label><b>Salario</b><span class="text-danger">*</span></label>
+                <input type="number" name="salario" class="form-control" placeholder="0.00" value="{{ $jobPosition->salary}}">
+                {!! $errors->first('salario','<small class="text-danger">:message</small>')!!}
             </div>
     </div>
     <div class="col-md-6">
             <div class="form-group">
-                <label><b>Apellido</b><span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="Apellido">
-            </div>
-            <div class="form-group">
-                <label><b>NIT</b><span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="0000-000000-000-0">
-            </div>
-            <div class="form-group">
-                <label><b>NUP</b><span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="averiguar">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1"><b>Estado civil</b><span class="text-danger">*</span></label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1"><b>Género</b><span class="text-danger">*</span></label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1"><b>Dirección</b><span class="text-danger">*</span></label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label><b>Sección</b><span class="text-danger">*</span></label>
+                <input type="number" name="seccion" class="form-control" placeholder="Sección" value="{{ $jobPosition->section_id}}">
             </div>
         </form>
     </div>

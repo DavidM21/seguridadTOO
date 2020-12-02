@@ -31,31 +31,30 @@ Route::patch('organizaciones/{organization}', 'OrganizationController@update')->
 Route::delete('organizaciones/{organization}', 'OrganizationController@destroy')->name('organizacion.destroy');
 Route::post('organizaciones', 'OrganizationController@store')->name('organizacion.store');
 
-#TEMPLATES CRUD EMPLEADO
-Route::get('/empleados', function () {
-    return view('crudEmpleado.mostrarEmpleado');
-});
 
-Route::get('/crearEmpleado', function () {
-    return view('crudEmpleado.crearEmpleado');
-});
-
-Route::get('/editarEmpleado', function () {
-    return view('crudEmpleado.editarEmpleado');
-});
 
 #TEMPLATES CRUD PUESTO
-Route::get('/puestos', function () {
-    return view('crudPuestoDeTrabajo.mostrarPuesto');
-});
+Route::get('/puestos', 'JobPositionController@index')->name('puestos.show');
+Route::get('/crearPuesto', 'JobPositionController@create')->name('puestos.create');
+Route::get('/editarPuesto/{jobPosition}', 'JobPositionController@edit')->name('puestos.edit');
+Route::patch('/editarPuesto/{jobPosition}', 'JobPositionController@update')->name('puestos.update');
+Route::delete('/puestos/{jobPosition}', 'JobPositionController@destroy')->name('puestos.destroy');
+Route::post('/puestos', 'JobPositionController@store')->name('puestos.store');
 
-Route::view('/crearPuesto','crudPuestoDeTrabajo.crearPuesto')->name('crearPuesto');
-Route::post('crearPuesto','SeccionController@store');
+#TEMPLATES CRUD EMPLEADO
 
-Route::get('/editarPuesto', function () {
-    return view('crudPuestoDeTrabajo.editarPuesto');
-});
+#Route::get('/empleados', function () {
+    #return view('crudEmpleado.mostrarEmpleado');
+#});
+Route::get('/empleados', 'EmployeeController@index')->name('empleado.show');
+Route::get('/crearEmpleado', 'EmployeeController@create')->name('empleado.create');
+Route::get('/editarEmpleado/{employee}', 'EmployeeController@edit')->name('empleado.edit');
+Route::patch('/editarEmpleado/{employee}', 'EmployeeController@update')->name('empleado.update');
+Route::delete('/empleados/{employee}', 'EmployeeController@destroy')->name('empleado.destroy');
+Route::post('/crearEmpleado', 'EmployeeController@store')->name('empleado.store');
 
+
+#
 Route::get('/prueba', function () {
     return view('prueba');
 });

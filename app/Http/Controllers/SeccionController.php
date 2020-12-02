@@ -14,7 +14,7 @@ class SeccionController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -35,15 +35,7 @@ class SeccionController extends Controller
      */
     public function store()
     {
-        /*Validaciones */
-        request()->validate([
-            'nombre'=> 'required',
-            'salario'=> ['required','min:0']
-        ]);
-
-        //Para mensajes de error personalizados revisar el video 20 minuto 6
-
-        return 'Datos validados';
+        
     }
 
     /**

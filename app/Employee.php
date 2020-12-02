@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    protected $fillable = ['first_name','last_name','dui','nit','isss','nup','address','job_position_id','marital_status_id','gender_id','city_id'];
     public function jobPosition(){
         return $this->belongsTo('App/JobPosition');
     }
