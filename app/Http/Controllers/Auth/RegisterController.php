@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Ask;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -49,9 +53,18 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'cell_phone' => ['required', 'string', 'max:255'],
+            'passcode' => ['required', 'digits:4'],
+            'question_one' => ['required'],
+            'answer_one' => ['required', 'string', 'max:255'],
+            'question_two' => ['required'],
+            'answer_two' => ['required', 'string', 'max:255'],
+            'question_three' => ['required'],
+            'answer_three' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -68,5 +81,61 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function index()
+    {
+        $asks = Ask::all();
+        //dd($asks);
+        return view('auth.register', compact('asks'));
+    }
+
+    public function  verify()
+    {
+        return view('auth.verify');
+    }
+
+    protected function register(Request $request)
+    {
+         $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'cell_phone' => ['required', 'string', 'max:255'],
+            'passcode' => ['required', 'digits:4'],
+            'question_one' => ['required'],
+            'answer_one' => ['required', 'string', 'max:255'],
+            'question_two' => ['required'],
+            'answer_two' => ['required', 'string', 'max:255'],
+            'question_three' => ['required'],
+            'answer_three' => ['required', 'string', 'max:255'],
+        ]);
+
+        //Generando un nombre de usuario por defecto
+        $username = strtolower(stristr($request->email, "@", true));
+
+        // Generando un contraseña temporal aleatoria
+        $temp_password = str_random(12);
+
+        // Creación del usurio
+        $user = new User;
+        $user->username = $username;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->birthday = Date::make($request->birthday);
+        $user->email = $request->email;
+        $user->cell_phone = $request->cell_phone;
+        $user->passcode = Hash::make($request->passcode);
+        $user->password = Hash::make('prueba123'); // cambiar por $temp_password
+        $user->save();
+
+        // Asginando preguntas al usuario
+        $user->asks()->attach($request->question_one, ['anwer'=>Hash::make($request->answer_one)]);
+        $user->asks()->attach($request->question_two, ['anwer'=>Hash::make($request->answer_two)]);
+        $user->asks()->attach($request->question_three, ['anwer'=>Hash::make($request->answer_three)]);
+
+       //return "Se te ha enviado un email para que confirmes tu cuenta";
+       return view('auth.verify');
     }
 }

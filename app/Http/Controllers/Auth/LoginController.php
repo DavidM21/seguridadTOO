@@ -27,22 +27,42 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    protected $redirectTo = '/home'; // Una vez hacemos login nos direcciona aquí
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function index()
+    {
+        return view('auth.login');
+    }
+
+
+    public function username()
+    {
+        return 'email';
+    }
+
+    // Aquí podemos validar si el usuario tiene un rol activo
+    protected function authenticated(Request $request, $user)
+    {
+        //
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/auth/login');
     }
 
 public function login(Request $request)
@@ -63,12 +83,12 @@ public function login(Request $request)
         $user->update(['token_login' => (new Google2FA)->generateSecretKey()]);
 
         $urlQR = $this->createUserUrlQR($user);
-        
+
         return view("auth.2fa", compact('urlQR', 'user'));
     }
-    
+
     $this->incrementLoginAttempts($request);
-    
+
     return $this->sendFailedLoginResponse($request);
 }
 
@@ -83,7 +103,7 @@ public function createUserUrlQR($user)
         (new Google2FA)->getQRCodeUrl(
             config('app.name'),
             $user->email,
-            $user->token_login 
+            $user->token_login
         ), 'utf-8');
 
     return 'data:image/png;base64,' . base64_encode($data);
@@ -92,15 +112,15 @@ public function createUserUrlQR($user)
 public function login2FA(Request $request, User $user)
 {
     $request->validate(['code_verification' => 'required']);
- 
+
     if ((new Google2FA())->verifyKey($user->token_login, $request->code_verification)) {
         $request->session()->regenerate();
- 
+
         Auth::login($user);
- 
+
         return redirect()->intended($this->redirectPath());
     }
- 
+
     return redirect()->back()->withErrors(['error'=> 'Código de verificación incorrecto']);
 }
 }
