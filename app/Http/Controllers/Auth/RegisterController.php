@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -114,9 +115,8 @@ class RegisterController extends Controller
         //Generando un nombre de usuario por defecto
         $username = strtolower(stristr($request->email, "@", true));
 
-        // Generando un contraseña aleatro
+        // Generando un contraseña temporal aleatoria
         $temp_password = str_random(12);
-
 
         // Creación del usurio
         $user = new User;
@@ -127,7 +127,7 @@ class RegisterController extends Controller
         $user->email = $request->email;
         $user->cell_phone = $request->cell_phone;
         $user->passcode = Hash::make($request->passcode);
-        $user->password = Hash::make($temp_password);;
+        $user->password = Hash::make('prueba123'); // cambiar por $temp_password
         $user->save();
 
         // Asginando preguntas al usuario
