@@ -238,8 +238,8 @@
                                                     </select>
                                                     @error('question_three')
                                                     <span class="invalid-feedback text-left" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                     @enderror
                                                 </div>
                                                 <div class="input-group mb-3">
