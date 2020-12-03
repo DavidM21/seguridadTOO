@@ -13,7 +13,7 @@
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
                         <li class="breadcrumb-item"><a href="{{route('users.index')}}">Usuarios</a></li>
-                        <li class="breadcrumb-item"><a href="#">Crear usuario</a></li>
+                        <li class="breadcrumb-item"><a href="#">Editar usuario</a></li>
                     </ul>
                 </div>
             </div>
@@ -23,17 +23,17 @@
     <div class="col-xl-12">
         <div class="card Recent-Users">
             <div class="card-header unread">
-                <h5>Usuario</h5>
+                <h5>Usuario: {{$user->username}}</h5>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('users.store') }}">
-                    @csrf
+                <form method="POST" action="{{ route('users.update', $user->id) }}">
+                    @csrf @method('PATCH')
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nombres</label>
                                 <input class="form-control @error('first_name') is-invalid @enderror" id="first_name"
-                                       name="first_name" placeholder="Nombres" value="{{ old('first_name') }}">
+                                       name="first_name" placeholder="Nombres" value="{{ old('first_name',  $user->first_name ? : '')}}">
 
                                 @error('first_name')
                                 <span class="invalid-feedback text-left" role="alert">
@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Apellidos</label>
                                 <input class="form-control @error('last_name') is-invalid @enderror" id="last_name"
-                                       name="last_name" placeholder="Apellidos" value="{{ old('last_name') }}">
+                                       name="last_name" placeholder="Apellidos" value="{{ old('last_name',  $user->last_name ? : '')}}">
 
                                 @error('last_name')
                                 <span class="invalid-feedback text-left" role="alert">
@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Correo Electrónico</label>
                                 <input class="form-control @error('email') is-invalid @enderror" id="email"
-                                       name="email" placeholder="email@dominio.com" value="{{ old('email') }}">
+                                       name="email" placeholder="email@dominio.com" value="{{ old('email',  $user->email ? : '')}}">
 
                                 @error('email')
                                 <span class="invalid-feedback text-left" role="alert">
@@ -83,7 +83,7 @@
                                 <label for="exampleInputEmail1">Cumpleaños</label>
                                 <input class="form-control @error('birthday') is-invalid @enderror" id="birthday"
                                        name="birthday" placeholder="mm/dd/aaaa" data-mask="00/00/0000"
-                                       value="{{ old('birthday') }}">
+                                       value="{{ old('birthday',  $user->birthday ? : '')}}">
 
                                 @error('birthday')
                                 <span class="invalid-feedback text-left" role="alert">
@@ -100,7 +100,7 @@
                                 <label for="exampleInputEmail1">Teléfono Celular</label>
                                 <input class="form-control @error('cell_phone') is-invalid @enderror" id="cell_phone"
                                        name="cell_phone" placeholder="(999) 9999-9999" data-mask="(000) 0000-0000"
-                                       value="{{ old('cell_phone') }}">
+                                       value="{{ old('cell_phone',  $user->cell_phone ? : '')}}">
 
                                 @error('cell_phone')
                                 <span class="invalid-feedback text-left" role="alert">
@@ -112,6 +112,7 @@
 
                         </div>
                         <div class="col-md-4">
+
                             <div class="form-group">
                                 <label>Roles</label>
                                 <select name="role[]" id="role[]" multiple class="selectpicker
@@ -119,12 +120,16 @@
                                                     @enderror" id="number-multiple"
                                         data-container="body" data-live-search="true" title="Selección de Roles"
                                         data-hide-disabled="true" data-actions-box="true" data-virtual-scroll="false">
-                                    @foreach($roles as $role)
-                                        <option value="{{ $role->id }}"
-                                                @if (old('role') == $role->id) selected="selected" @endif">
-                                        {{ $role->name }}
-                                        </option>
-                                    @endforeach
+
+
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->id }}"
+                                                    @foreach($user->roles->pluck('name') as $role2)
+                                                        @if ($role2 == $role->name) selected="selected" @endif"
+                                                    @endforeach>
+                                            {{ $role->name }}
+                                            </option>
+                                        @endforeach
                                 </select>
 
                                 @error('role')

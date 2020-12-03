@@ -54,12 +54,10 @@
                                                autofocus placeholder="Correo Electrónico">
                                         @error('email')
                                         <span class="invalid-feedback text-left" role="alert">
-                                           <strong>{{ $message }}</strong>
-                                </span>
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
-
-
                                 </div>
                                 <div class="row">
                                     <div class="input-group mb-3 col-6">
@@ -109,9 +107,10 @@
                             -->
                                 <div class="row justify-content-md-center">
                                     <div class="input-group mb-3 col-6">
-                                        <input id="passcode" type="password" class="form-control @error('passcode') is-invalid @enderror"
+                                        <input id="passcode" type="password" class="form-control text-center
+                                                @error('passcode') is-invalid @enderror"
                                                name="passcode" value="{{ old('passcode') }}" autocomplete=""
-                                               autofocus placeholder="Código de 4 digitos">
+                                               autofocus placeholder="Código de 4 digitos" data-mask="0000">
                                         @error('passcode')
                                         <span class="invalid-feedback text-left" role="alert">
                                            <strong>{{ $message }}</strong>

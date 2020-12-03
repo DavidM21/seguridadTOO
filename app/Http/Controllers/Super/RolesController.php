@@ -12,6 +12,11 @@ use Illuminate\Validation\Rule;
 
 class RolesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,10 +24,9 @@ class RolesController extends Controller
      */
     public function index()
     {
+
         $roles = Role::all();
-        $user = User::findORFail(4);
-       // dd($roles->permissions[0]->name);
-        //dd($user->asks);
+
         return view('super.roles.index', compact('roles'));
     }
 
@@ -93,7 +97,8 @@ class RolesController extends Controller
             'name' => [
                 'required',
                 Rule::unique('roles')->ignore($role->name, 'name')
-            ]
+            ],
+            'permission' => ['required'],
         ]);
 
         $role->name = $request->name;

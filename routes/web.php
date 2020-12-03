@@ -17,10 +17,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
-Route::get('/base', function () {
-    return view('base');
-});
+})->name('/');
 
 #TEMPLATES CRUD ORGANIZACION
 
@@ -92,11 +89,13 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout') ;
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register_post');
 
-//super
+// Super
+
+// Roles
 Route::get('/super/roles', 'super\RolesController@index')->name('roles.index');
 
 Route::get('/super/roles/create', 'super\RolesController@create')->name('roles.create');
-Route::post('/super/roles/store', 'super\RolesController@store')->name('roles.store');
+Route::post('/super/roles/create', 'super\RolesController@store')->name('roles.store');
 
 Route::get('/super/roles/{id}/edit', 'super\RolesController@edit')->name('roles.edit');
 Route::patch('/super/roles/{id}', 'super\RolesController@update')->name('roles.update');
@@ -104,10 +103,23 @@ Route::patch('/super/roles/{id}', 'super\RolesController@update')->name('roles.u
 Route::get('/super/roles/{id}/confirm', 'super\RolesController@confirm')->name('roles.confirm');
 Route::delete('/super/roles/{id}' , 'super\RolesController@destroy')->name('roles.destroy');
 
+// Users
+Route::get('/super/users', 'Super\UsersController@index')->name('users.index');
 
-Route::get('/users', 'Super\UsersController@index')->name('users.index');
+Route::get('/super/users/create', 'super\UsersController@create')->name('users.create');
+Route::post('/super/users/store', 'super\UsersController@store')->name('users.store');
 
-Route::get('/users/create', 'super\UsersController@create')->name('users.create');
+Route::get('/super/users/{id}/show', 'super\UsersController@show')->name('users.show');
+
+Route::get('/super/users/{id}/edit', 'super\UsersController@edit')->name('users.edit');
+Route::patch('/super/users/{id}', 'super\UsersController@update')->name('users.update');
+
+Route::get('/super/users/{id}/confirm', 'super\UsersController@confirm')->name('users.confirm');
+Route::delete('/super/users/{id}' , 'super\UsersController@destroy')->name('users.destroy');
+
+
+
+
 
 
 

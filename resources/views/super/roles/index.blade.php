@@ -11,7 +11,7 @@
                         <h5 class="m-b-10">ROLES & PERMISOS</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
                         <li class="breadcrumb-item"><a href="{{route('roles.index')}}">Roles & Permisos</a></li>
                     </ul>
                 </div>
@@ -23,7 +23,8 @@
         <div class="card Recent-Users">
             <div class="card-header unread">
                 <h5>Roles & Permisos</h5>
-                <a href="{{ route('roles.create') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Nuevo">
+                <span class="badge badge-success">{{count($roles)}}</span>
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('roles.create') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Nuevo">
                     <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
@@ -56,7 +57,7 @@
                                             @endif
                                         @endfor
                                     @else
-                                        Rol sin permisos
+                                        <span class="badge badge-warning">Rol sin permisos</span>
                                     @endif
                                 </td>
                                 <!--<td>
@@ -103,8 +104,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('js_after')
-
 @endsection
