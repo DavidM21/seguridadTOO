@@ -23,7 +23,6 @@ Route::get('/base', function () {
 });
 
 #TEMPLATES CRUD ORGANIZACION
-
 Route::get('crearOrganizacion', 'OrganizationController@create')->name('organizacion.create');
 Route::get('organizaciones', 'OrganizationController@show')->name('organizacion.show');
 Route::get('organizaciones/{organization}/editar', 'OrganizationController@edit')->name('organizacion.edit');
@@ -31,7 +30,21 @@ Route::patch('organizaciones/{organization}', 'OrganizationController@update')->
 Route::delete('organizaciones/{organization}', 'OrganizationController@destroy')->name('organizacion.destroy');
 Route::post('organizaciones', 'OrganizationController@store')->name('organizacion.store');
 
+#TEMPLATES CRUD DEPARTAMENTO
+Route::get('departamento', 'DepartmentController@show')->name('departamento.show');
+Route::get('departamento/{department}/editar', 'DepartmentController@edit')->name('departamento.edit');
+Route::patch('departamento/{department}', 'DepartmentController@update')->name('departamento.update');
+Route::delete('departamento/{department}', 'DepartmentController@destroy')->name('departamento.destroy');
+Route::get('crearDepartamento', 'DepartmentController@create')->name('departamento.create');
+Route::post('departamento', 'DepartmentController@store')->name('departamento.store');
 
+#TEMPLATES CRUD SECCION
+Route::get('seccion', 'SectionController@show')->name('seccion.show');
+Route::get('crearSeccion', 'SectionController@create')->name('seccion.create');
+Route::post('seccion', 'SectionController@store')->name('seccion.store');
+Route::get('seccion/{section}/editar', 'SectionController@edit')->name('seccion.edit');
+Route::patch('seccion/{section}', 'SectionController@update')->name('seccion.update');
+Route::delete('seccion/{section}', 'SectionController@destroy')->name('seccion.destroy');
 
 #TEMPLATES CRUD PUESTO
 Route::get('/puestos', 'JobPositionController@index')->name('puestos.show');

@@ -1,24 +1,25 @@
 @extends('base')
 
 @section('titulo')
-Organización
+Secciones
 @endsection
 
 @section('tituloVista')
-Lista de organizaciones
+Lista de secciones
 @endsection
 
 @section('sectiones')
-<li class="breadcrumb-item"><a href="javascript:">Organización</a></li>
+<li class="breadcrumb-item"><a href="javascript:">Sección</a></li>
 <li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
 @endsection
 
 @section('tituloCard')
-Organizaciones
+Secciones
 <br>
 <br>
 <button type="button" class="btn btn-outline-primary text-right" data-toggle="tooltip">
-    <i class="feather icon-plus-circle" ></i><a href="crearOrganizacion">Agregar Organización</a></button>
+    <i class="feather icon-plus-circle"></i><a href="{{ route('seccion.create')}}">Agregar Sección</a></button>
+<a class="btn btn-outline-danger mb-1" href="{{ route('departamento.show')}}">Cancelar</a>
 @endsection
 
 @section('contenido')
@@ -28,27 +29,28 @@ Organizaciones
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Organization name</th>
-                        <th colspan="2">Actions</th>
+                        <th>Nombre</th>
+                        <th>Id Departamento</th>
+                        <th colspan="2">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-
-                    @foreach($organizations as $organization)
+                    @foreach($sections as $section)
                         <tr>
-                            <td>{{$organization->id}}</td>
-                            <td>{{$organization->name}}</td>
+                            <td>{{$section->id}}</td>
+                            <td>{{$section->name}}</td>
+                            <td>{{$section->department_id}}</td>
                             <td>
-                                <a href="{{ route('departamento.show') }}"><button type="button" class="btn btn-outline-primary text-right" title="Agregar" data-toggle="tooltip">
+                                <a href=""><button type="button" class="btn btn-outline-primary text-right" title="Agregar" data-toggle="tooltip">
                                 <i class="fas fa-edit"></i></button></a>
 
-                                <a href="{{ route('organizacion.edit', $organization) }}"><button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
+                                <a href="{{ route('seccion.edit', $section) }}"><button type="button" class="btn btn-dark" title="Editar"data-toggle="tooltip">
                                 <i class="fas fa-edit"></i></button></a>
-                            <form  method="POST" action="{{ route('organizacion.destroy', $organization) }}">
+                                <form  method="POST" action="{{ route('seccion.destroy', $section) }}">
                                     @csrf @method('DELETE')
                                     <button  class="btn btn-danger mb-1" title="Eliminar" data-toggle="tooltip">
                                     <i class="fas fa-trash-alt"></i></i></button>
-                            </form>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

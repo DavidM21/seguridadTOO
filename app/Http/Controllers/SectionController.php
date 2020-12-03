@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Seccion;
+use App\Section;
 use Illuminate\Http\Request;
+use App\Department;
 
-class SeccionController extends Controller
+class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class SeccionController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -24,7 +25,8 @@ class SeccionController extends Controller
      */
     public function create()
     {
-        //
+        $departamentos=Department::all();
+        return view('crudSeccion.crearSeccion', compact ('departamentos'));
     }
 
     /**
@@ -35,7 +37,14 @@ class SeccionController extends Controller
      */
     public function store()
     {
-        
+        $fields =request()->validate([
+            'name' => 'required',
+            'department_id' => 'required',
+        ]);
+
+        Section::create($fields);
+
+        return redirect()->route('seccion.show');
     }
 
     /**
@@ -44,9 +53,10 @@ class SeccionController extends Controller
      * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function show(Seccion $seccion)
+    public function show(Section $section)
     {
-        //
+        $datos['sections']=Section::paginate(5);
+        return view('crudSeccion.mostrarSeccion', $datos);
     }
 
     /**
@@ -55,9 +65,10 @@ class SeccionController extends Controller
      * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Seccion $seccion)
+    public function edit(Section $section)
     {
-        //
+        $departamentos=Department::all();
+        return view('crudSeccion.editarSeccion', compact('section', 'departamentos'));
     }
 
     /**
@@ -67,9 +78,16 @@ class SeccionController extends Controller
      * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Seccion $seccion)
+    public function update(Request $request, Section $section)
     {
-        //
+        $fields=request()->validate([
+            'name' => 'required',
+            'department_id' => 'required',
+        ]);
+
+        $section->update($fields);
+
+        return redirect()->route('seccion.show', $section);
     }
 
     /**
@@ -78,8 +96,9 @@ class SeccionController extends Controller
      * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Seccion $seccion)
+    public function destroy(Section $section)
     {
-        //
+        $section->delete();
+        return redirect()->route('seccion.show');
     }
 }

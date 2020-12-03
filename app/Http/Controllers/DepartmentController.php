@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+//namespace App\Http\Controllers\OrganizationController;
 
 use App\Department;
 use Illuminate\Http\Request;
+use App\Organization;
 
 class DepartmentController extends Controller
 {
@@ -24,7 +26,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        $organizaciones=Organization::all();
+        return view('crudDepartamento.crearDepartamento', compact ('organizaciones'));
     }
 
     /**
@@ -35,7 +38,14 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $fields =request()->validate([
+            'name' => 'required',
+            'organization_id' => 'required',
+        ]);
+
+        Department::create($fields);
+
+        return redirect()->route('departamento.show');
     }
 
     /**
@@ -46,7 +56,8 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        //
+        $datos['departments']=Department::paginate(5);
+        return view('crudDepartamento.mostrarDepartamento', $datos);
     }
 
     /**
@@ -57,7 +68,8 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        $organizaciones=Organization::all();
+        return view('crudDepartamento.editarDepartamento', compact('department', 'organizaciones'));
     }
 
     /**
@@ -69,7 +81,14 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        $fields=request()->validate([
+            'name' => 'required',
+            'organization_id' => 'required',
+        ]);
+
+        $department->update($fields);
+
+        return redirect()->route('departamento.show', $department);
     }
 
     /**
@@ -80,6 +99,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+        return redirect()->route('departamento.show');
     }
 }
