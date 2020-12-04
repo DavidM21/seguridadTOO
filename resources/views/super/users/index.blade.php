@@ -2,7 +2,31 @@
 
 @section('section', 'Roles')
 
+@section('css_before')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+@endsection
+
+
 @section('content')
+    @if( session('notification'))
+        <!-- Then put toasts within -->
+        <div id="toast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+             style="position: absolute; top: 0; right: 0;" data-delay="6000">
+            <div class="toast-header alert-success">
+                <strong class="mr-auto">Notificación</strong>
+                <small class="text-muted"></small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                {{ session('notification') }}
+            </div>
+        </div>
+    @endif
+
+
     <div class="page-header">
         <div class="page-block">
             <div class="row align-items-center">
@@ -127,6 +151,12 @@
 @endsection
 
 @section('js_after')
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function (){
+            $('.toast').toast('show')
+        });
+    </script>
 @endsection
 

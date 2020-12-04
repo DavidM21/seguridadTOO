@@ -69,7 +69,7 @@ Route::get('/contraseña', function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('auth/2fa', 'Auth\LoginController@login')->name('auth.2fa');
 
 
@@ -77,10 +77,8 @@ Route::post('/login-two-factor/{user}', 'Auth\LoginController@login2FA')->name('
 
 /* INICIO SOSA */
 
-/*Route::get('profile', function () {
-    // Only verified users may enter...
-})->middleware('verified');*/
 Auth::routes(['verify' => true]);
+
 
 Route::get('/login', 'Auth\LoginController@index')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('login_post');
@@ -92,16 +90,11 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register_pos
 // Super
 
 // Roles
-Route::get('/super/roles', 'super\RolesController@index')->name('roles.index');
 
-Route::get('/super/roles/create', 'super\RolesController@create')->name('roles.create');
-Route::post('/super/roles/create', 'super\RolesController@store')->name('roles.store');
-
-Route::get('/super/roles/{id}/edit', 'super\RolesController@edit')->name('roles.edit');
-Route::patch('/super/roles/{id}', 'super\RolesController@update')->name('roles.update');
-
-Route::get('/super/roles/{id}/confirm', 'super\RolesController@confirm')->name('roles.confirm');
-Route::delete('/super/roles/{id}' , 'super\RolesController@destroy')->name('roles.destroy');
+Route::group(['prefix'=>'super', 'namespace'=>'super', 'middleware'=>'role:Super Administrador'], function(){
+    Route::resource('roles', 'RolesController');
+    Route::get('/roles/{id}/confirm', 'super\RolesController@confirm')->name('roles.confirm');
+});
 
 // Users
 Route::get('/super/users', 'Super\UsersController@index')->name('users.index');
@@ -119,12 +112,7 @@ Route::delete('/super/users/{id}' , 'super\UsersController@destroy')->name('user
 
 
 
-
-
-
-
-
-//Route::get('/verify', 'Auth\RegisterController@verify')->name('verify');
+Route::get('/verify', 'Auth\RegisterController@verify')->name('verify');
 
 
 /* FIN SOSA */

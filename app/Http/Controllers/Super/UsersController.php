@@ -77,7 +77,7 @@ class UsersController extends Controller
         $user->assignRole($request->role);
 
         //return 'funciona';
-        return redirect()->route('users.index')->with('notification', '¡Nuevo usuario ' .'"'. $user->username .'"'. 'guardado correctamente!');
+        return redirect()->route('users.index')->with('notification', '¡Nuevo usuario ' .'"'. $user->username .'"'. ' guardado correctamente!');
     }
 
     /**
@@ -139,7 +139,7 @@ class UsersController extends Controller
         $user->syncRoles([$request->role]);
 
 
-        return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'. 'actualizado correctamente!');
+        return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'. ' actualizado correctamente!');
     }
 
     public function confirm($id)
@@ -160,6 +160,6 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'. 'eliminado correctamente!');
+        return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'. ' eliminado correctamente!');
     }
 }
