@@ -20,8 +20,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $empleados = Employee ::get();
-        
+        $empleados = Employee ::all();
+        //dd($empleados);
         return view('crudEmpleado.mostrarEmpleado',compact('empleados'));
     }
 
@@ -33,11 +33,13 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        
         $generos = Gender::all();
         $estadoCiviles = MaritalStatus::all();
         $municipios = City::all();
         $departamentos = State::all();
         $puestos = JobPosition::all();
+        //dd($puestos);
         return view('crudEmpleado.crearEmpleado',compact('generos','estadoCiviles','municipios','departamentos','puestos'));
     }
 
@@ -105,9 +107,14 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
+        $generos = Gender::all();
+        $estadoCiviles = MaritalStatus::all();
+        $municipios = City::all();
+        $departamentos = State::all();
+        $puestos = JobPosition::all();
         return view('crudEmpleado.editarEmpleado',[
             'employee' => $employee
-        ]);
+        ],compact('generos','estadoCiviles','municipios','departamentos','puestos'));
     }
 
     /**
@@ -148,7 +155,6 @@ class EmployeeController extends Controller
             'gender_id' => request('genero'),
             'city_id' => request('municipio'),
         ]);
-
         //Para mensajes de error personalizados revisar el video 20 minuto 6
     
         return redirect()->route('empleado.show');
@@ -161,9 +167,24 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+
+    public function confirm($id)
     {
-        $employee->delete();
+        $empleado = Employee::findOrFail($id);
+
+        return view('crudEmpleado.confirmEmpleado', compact('empleado'));
+    }
+
+    public function destroy($id)
+    {
+
+        $empleado = Employee::findOrFail($id);
+        $empleado->delete();
         return redirect()->route('empleado.show');
+    }
+
+    public function byDepartamentos($id)
+    {
+        return City::where('state_id',$id)->get();
     }
 }

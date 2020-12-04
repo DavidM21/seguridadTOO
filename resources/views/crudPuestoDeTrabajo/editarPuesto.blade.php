@@ -9,7 +9,7 @@ Editar Puesto de trabajo
 @endsection
 
 @section('sectiones')
-<li class="breadcrumb-item"><a href="javascript:">Puesto de trabajo</a></li>
+<li class="breadcrumb-item"><a href="{{ route('puestos.show')}}">Puesto de trabajo</a></li>
 <li class="breadcrumb-item"><a href="javascript:">Editar Puesto de trabajo</a></li>
 @endsection
 
@@ -45,7 +45,7 @@ Información del Puesto de trabajo
 </div>
 
 <div class="card-footer text-right">
-                <a class="btn btn-outline-danger mb-2" href="#">Cancelar</a>
+                <a class="btn btn-outline-danger mb-2" href="{{ route('puestos.show')}}">Cancelar</a>
                 <button type="submit" class="btn btn-outline-primary"  form="formulario">Guardar</button>
 </div>
 @endsection

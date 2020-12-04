@@ -18,7 +18,7 @@ Empleados
 <br>
 <br>
 <button type="button" class="btn btn-outline-primary text-right" data-toggle="tooltip">
-    <i class="feather icon-plus-circle"></i><a href="crearEmpleado">Agregar Empleado</a></button>
+    <i class="feather icon-plus-circle"></i><a href="{{route('empleado.create')}}">Agregar Empleado</a></button>
 @endsection
 
 @section('contenido')
@@ -44,13 +44,18 @@ Empleados
                         <td>{{$empleado->dui}}</td>
                         <td>{{$empleado->city_id}}</td>
                         <td>
-                        <a href="{{ route('empleado.edit', $empleado) }}"><button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
-                        <i class="fas fa-edit"></i></button>
-                        <form  method="POST" action="{{ route('empleado.destroy', $empleado) }}">
-                                    @csrf @method('DELETE')
-                                    <button  class="btn btn-danger mb-1" title="Eliminar" data-toggle="tooltip">
-                                    <i class="fas fa-trash-alt"></i></i></button>
-                        </form>
+
+                        <a href="{{ route('empleado.edit', $empleado) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
+                                       data-placement="top" title="Editar">
+                                        <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
+                                        <!--<span class="pcoded-mtext">Editar</span>-->
+                        </a>
+
+                        <a href="{{ route('empleado.confirm', $empleado->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
+                                       data-placement="top" title="Eliminar">
+                                        <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
+                                        <!--<span class="pcoded-mtext">Eliminar</span>-->
+                        </a>
                         </td>
                     </tr>
                 @endforeach

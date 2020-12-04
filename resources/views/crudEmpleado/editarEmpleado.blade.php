@@ -9,7 +9,7 @@ Editar Empleado
 @endsection
 
 @section('sectiones')
-<li class="breadcrumb-item"><a href="javascript:">Empleado</a></li>
+<li class="breadcrumb-item"><a href="{{route('empleado.show')}}">Empleado</a></li>
 <li class="breadcrumb-item"><a href="javascript:">Editar empleado</a></li>
 @endsection
 
@@ -43,35 +43,29 @@ Información del empleado
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><b>Puesto de trabajo</b><span class="text-danger">*</span></label>
                 <select class="form-control" id="exampleFormControlSelect1" name="puestoDeTrabajo" value="{{ $employee->job_position_id}}">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    @foreach($puestos as $puesto)
+                    <option value="{{ $puesto->id}}">{{ $puesto->name}}</option>
+                    @endforeach
                 </select>
                 {!! $errors->first('puestoDeTrabajo','<small class="text-danger">:message</small>')!!}
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><b>Departamento</b><span class="text-danger">*</span></label>
-                <select class="form-control" id="exampleFormControlSelect1" name="departamento">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control" id="departamento2" >
+                    @foreach($departamentos as $departamento)
+                    <option value="{{ $departamento->id}}">{{ $departamento->name}}</option>
+                    @endforeach
                 </select>
                 {!! $errors->first('departamento','<small class="text-danger">:message</small>')!!}
             </div>
             
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><b>Municipio</b><span class="text-danger">*</span></label>
-                <select class="form-control" id="exampleFormControlSelect1" name="municipio" value="{{ $employee->city_id}}">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control" id="municipio" name="municipio">
+                    @foreach($municipios as $municipio)
+                    <option value="{{ $municipio->id}}">{{ $municipio->name}}</option>
+                    @endforeach
                 </select>
                 {!! $errors->first('municipio','<small class="text-danger">:message</small>')!!}
             </div>
@@ -95,22 +89,18 @@ Información del empleado
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><b>Estado civil</b><span class="text-danger">*</span></label>
                 <select class="form-control" id="exampleFormControlSelect1" name="estadoCivil" value="{{ $employee->marital_status_id}}">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    @foreach($estadoCiviles as $estadoCivil)
+                    <option value="{{$estadoCivil->id}}">{{$estadoCivil->name}}</option>
+                    @endforeach
                 </select>
                 {!! $errors->first('estadoCivil','<small class="text-danger">:message</small>')!!}
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><b>Género</b><span class="text-danger">*</span></label>
                 <select class="form-control" id="exampleFormControlSelect1" name="genero" value="{{ $employee->gender_id}}">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    @foreach ($generos as $genero)
+                    <option value="{{$genero->id}}">{{$genero->name}}</option>
+                    @endforeach
                 </select>
                 {!! $errors->first('genero','<small class="text-danger">:message</small>')!!}
             </div>
@@ -124,7 +114,7 @@ Información del empleado
 </div>
 
 <div class="card-footer text-right">
-                <a class="btn btn-outline-danger mb-2" href="#">Cancelar</a>
+                <a class="btn btn-outline-danger mb-2" href="{{route('empleado.show')}}">Cancelar</a>
                 <button type="submit" class="btn btn-outline-primary"  form="formulario">Guardar</button>
 </div>
 @endsection

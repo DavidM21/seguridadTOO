@@ -51,6 +51,7 @@ Route::get('/puestos', 'JobPositionController@index')->name('puestos.show');
 Route::get('/crearPuesto', 'JobPositionController@create')->name('puestos.create');
 Route::get('/editarPuesto/{jobPosition}', 'JobPositionController@edit')->name('puestos.edit');
 Route::patch('/editarPuesto/{jobPosition}', 'JobPositionController@update')->name('puestos.update');
+Route::get('/confirmPuesto/{jobPosition}', 'JobPositionController@confirm')->name('puestos.confirm');
 Route::delete('/puestos/{jobPosition}', 'JobPositionController@destroy')->name('puestos.destroy');
 Route::post('/puestos', 'JobPositionController@store')->name('puestos.store');
 
@@ -63,6 +64,7 @@ Route::get('/empleados', 'EmployeeController@index')->name('empleado.show');
 Route::get('/crearEmpleado', 'EmployeeController@create')->name('empleado.create');
 Route::get('/editarEmpleado/{employee}', 'EmployeeController@edit')->name('empleado.edit');
 Route::patch('/editarEmpleado/{employee}', 'EmployeeController@update')->name('empleado.update');
+Route::get('/confirmEmpleado/{employee}', 'EmployeeController@confirm')->name('empleado.confirm');
 Route::delete('/empleados/{employee}', 'EmployeeController@destroy')->name('empleado.destroy');
 Route::post('/crearEmpleado', 'EmployeeController@store')->name('empleado.store');
 
