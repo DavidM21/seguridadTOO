@@ -27,6 +27,7 @@ Route::get('crearOrganizacion', 'OrganizationController@create')->name('organiza
 Route::get('organizaciones', 'OrganizationController@show')->name('organizacion.show');
 Route::get('organizaciones/{organization}/editar', 'OrganizationController@edit')->name('organizacion.edit');
 Route::patch('organizaciones/{organization}', 'OrganizationController@update')->name('organizacion.update');
+Route::get('confirmOrganizaciones/{organization}', 'OrganizationController@confirm')->name('organizacion.confirm');
 Route::delete('organizaciones/{organization}', 'OrganizationController@destroy')->name('organizacion.destroy');
 Route::post('organizaciones', 'OrganizationController@store')->name('organizacion.store');
 
@@ -34,6 +35,7 @@ Route::post('organizaciones', 'OrganizationController@store')->name('organizacio
 Route::get('departamento', 'DepartmentController@show')->name('departamento.show');
 Route::get('departamento/{department}/editar', 'DepartmentController@edit')->name('departamento.edit');
 Route::patch('departamento/{department}', 'DepartmentController@update')->name('departamento.update');
+Route::get('confirmDepartamento/{department}', 'DepartmentController@confirm')->name('departamento.confirm');
 Route::delete('departamento/{department}', 'DepartmentController@destroy')->name('departamento.destroy');
 Route::get('crearDepartamento', 'DepartmentController@create')->name('departamento.create');
 Route::post('departamento', 'DepartmentController@store')->name('departamento.store');
@@ -44,6 +46,7 @@ Route::get('crearSeccion', 'SectionController@create')->name('seccion.create');
 Route::post('seccion', 'SectionController@store')->name('seccion.store');
 Route::get('seccion/{section}/editar', 'SectionController@edit')->name('seccion.edit');
 Route::patch('seccion/{section}', 'SectionController@update')->name('seccion.update');
+Route::get('confirmSeccion/{section}', 'SectionController@confirm')->name('seccion.confirm');
 Route::delete('seccion/{section}', 'SectionController@destroy')->name('seccion.destroy');
 
 #TEMPLATES CRUD PUESTO
@@ -57,9 +60,6 @@ Route::post('/puestos', 'JobPositionController@store')->name('puestos.store');
 
 #TEMPLATES CRUD EMPLEADO
 
-#Route::get('/empleados', function () {
-    #return view('crudEmpleado.mostrarEmpleado');
-#});
 Route::get('/empleados', 'EmployeeController@index')->name('empleado.show');
 Route::get('/crearEmpleado', 'EmployeeController@create')->name('empleado.create');
 Route::get('/editarEmpleado/{employee}', 'EmployeeController@edit')->name('empleado.edit');

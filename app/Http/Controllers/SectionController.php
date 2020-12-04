@@ -96,8 +96,17 @@ class SectionController extends Controller
      * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function confirm($id)
     {
+        $section = Section::findOrFail($id);
+
+        return view('crudSeccion.confirmSeccion', compact('section'));
+    }
+    
+    public function destroy($id)
+    {
+
+        $section = Section::findOrFail($id);
         $section->delete();
         return redirect()->route('seccion.show');
     }

@@ -1,35 +1,43 @@
-@extends('base')
+@extends('layouts.business')
 
-@section('titulo')
-Organización
-@endsection
+@section('section', 'Organizaciones')
 
-@section('tituloVista')
-Lista de organizaciones
-@endsection
+@section('content')
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">Lista de organizaciones</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Organización</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-@section('sectiones')
-<li class="breadcrumb-item"><a href="javascript:">Organización</a></li>
-<li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
-@endsection
+    <div class="col-xl-12">
+        <div class="card Recent-Users">
+            <div class="card-header unread">
+                <h5>Organizaciones</h5>
+                <a href="{{ route('organizacion.create') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Nuevo">
+                    <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
+                    <!--<span class="pcoded-mtext">Nuevo</span>-->
+                </a>
+            </div>
 
-@section('tituloCard')
-Organizaciones
-<br>
-<br>
-<button type="button" class="btn btn-outline-primary text-right" data-toggle="tooltip">
-    <i class="feather icon-plus-circle" ></i><a href="crearOrganizacion">Agregar Organización</a></button>
-@endsection
-
-@section('contenido')
-    <div class="card-block table-border-style">
+            <div class="card-block table-border-style">
         <div class="table-responsive">
             <table class="table table-striped text-center">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Organization name</th>
-                        <th colspan="2">Actions</th>
+                        <th>Nombre</th>
+                        <th colspan="2">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,16 +47,21 @@ Organizaciones
                             <td>{{$organization->id}}</td>
                             <td>{{$organization->name}}</td>
                             <td>
-                                <a href="{{ route('departamento.show') }}"><button type="button" class="btn btn-outline-primary text-right" title="Agregar" data-toggle="tooltip">
-                                <i class="fas fa-edit"></i></button></a>
+                            <a href="{{ route('departamento.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
+                                data-placement="top" title="Agregar departamento">
+                                <span class="pcoded-micon"><i class="feather icon-plus-circle"></i></span>
+                            </a>
+                            <a href="{{ route('organizacion.edit', $organization) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
+                                    data-placement="top" title="Editar">
+                                    <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
+                                        <!--<span class="pcoded-mtext">Editar</span>-->
+                            </a>
 
-                                <a href="{{ route('organizacion.edit', $organization) }}"><button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
-                                <i class="fas fa-edit"></i></button></a>
-                            <form  method="POST" action="{{ route('organizacion.destroy', $organization) }}">
-                                    @csrf @method('DELETE')
-                                    <button  class="btn btn-danger mb-1" title="Eliminar" data-toggle="tooltip">
-                                    <i class="fas fa-trash-alt"></i></i></button>
-                            </form>
+                            <a href="{{ route('organizacion.confirm', $organization->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
+                                    data-placement="top" title="Eliminar">
+                                    <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
+                                    <!--<span class="pcoded-mtext">Eliminar</span>-->
+                            </a>
                             </td>
                         </tr>
                     @endforeach
@@ -56,4 +69,16 @@ Organizaciones
             </table>
         </div>
     </div>
+            
+        </div>
+    </div>
 @endsection
+
+@section('js_after')
+
+@endsection
+
+
+
+
+

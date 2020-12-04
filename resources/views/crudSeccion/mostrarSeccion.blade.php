@@ -1,29 +1,40 @@
-@extends('base')
+@extends('layouts.business')
 
-@section('titulo')
-Secciones
-@endsection
+@section('section', 'Secciones')
 
-@section('tituloVista')
-Lista de secciones
-@endsection
+@section('content')
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">Lista de Secciones</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Sección</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-@section('sectiones')
-<li class="breadcrumb-item"><a href="javascript:">Sección</a></li>
-<li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
-@endsection
+    <div class="col-xl-12">
+        <div class="card Recent-Users">
+            <div class="card-header unread">
+                <h5>Secciones</h5>
+                <a href="{{ route('seccion.create') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Nuevo">
+                    <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
+                    <!--<span class="pcoded-mtext">Nuevo</span>-->
+                </a>
+                <a href="{{ route('departamento.show') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Atras">
+                    <span class="pcoded-micon"><i class="feather icon-corner-up-left"></i></span>
+                    <!--<span class="pcoded-mtext">Nuevo</span>-->
+                </a>
+            </div>
 
-@section('tituloCard')
-Secciones
-<br>
-<br>
-<button type="button" class="btn btn-outline-primary text-right" data-toggle="tooltip">
-    <i class="feather icon-plus-circle"></i><a href="{{ route('seccion.create')}}">Agregar Sección</a></button>
-<a class="btn btn-outline-danger mb-1" href="{{ route('departamento.show')}}">Cancelar</a>
-@endsection
-
-@section('contenido')
-    <div class="card-block table-border-style">
+            <div class="card-block table-border-style">
         <div class="table-responsive">
             <table class="table table-striped text-center">
                 <thead>
@@ -35,22 +46,28 @@ Secciones
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach($sections as $section)
                         <tr>
                             <td>{{$section->id}}</td>
                             <td>{{$section->name}}</td>
                             <td>{{$section->department_id}}</td>
                             <td>
-                                <a href=""><button type="button" class="btn btn-outline-primary text-right" title="Agregar" data-toggle="tooltip">
-                                <i class="fas fa-edit"></i></button></a>
+                            <a href="{{ route('puestos.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
+                                data-placement="top" title="Agregar puesto de trabajo">
+                                <span class="pcoded-micon"><i class="feather icon-plus-circle"></i></span>
+                            </a>
+                            <a href="{{ route('seccion.edit', $section) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
+                                    data-placement="top" title="Editar">
+                                    <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
+                                        <!--<span class="pcoded-mtext">Editar</span>-->
+                            </a>
 
-                                <a href="{{ route('seccion.edit', $section) }}"><button type="button" class="btn btn-dark" title="Editar"data-toggle="tooltip">
-                                <i class="fas fa-edit"></i></button></a>
-                                <form  method="POST" action="{{ route('seccion.destroy', $section) }}">
-                                    @csrf @method('DELETE')
-                                    <button  class="btn btn-danger mb-1" title="Eliminar" data-toggle="tooltip">
-                                    <i class="fas fa-trash-alt"></i></i></button>
-                                </form>
+                            <a href="{{ route('seccion.confirm', $section) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
+                                    data-placement="top" title="Eliminar">
+                                    <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
+                                    <!--<span class="pcoded-mtext">Eliminar</span>-->
+                            </a>
                             </td>
                         </tr>
                     @endforeach
@@ -58,4 +75,11 @@ Secciones
             </table>
         </div>
     </div>
+            
+        </div>
+    </div>
+@endsection
+
+@section('js_after')
+
 @endsection

@@ -97,8 +97,16 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function confirm($id)
     {
+        $department = Department::findOrFail($id);
+
+        return view('crudDepartamento.confirmDepartamento', compact('department'));
+    }
+
+    public function destroy($id)
+    {
+        $department = Department::findOrFail($id);
         $department->delete();
         return redirect()->route('departamento.show');
     }

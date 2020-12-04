@@ -95,8 +95,17 @@ class OrganizationController extends Controller
      * @param  \App\Organization  $organization
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Organization $organization)
+
+    public function confirm($id)
     {
+        $organization = Organization::findOrFail($id);
+
+        return view('crudOrganizacion.confirmOrganizacion', compact('organization'));
+    }
+    public function destroy($id)
+    {
+
+        $organization = Organization::findOrFail($id);
         $organization->delete();
         return redirect()->route('organizacion.show');
     }
