@@ -6,11 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Cache;
 
 class User extends Authenticatable
 {
     use Notifiable;
-    use HasRoles;
+    //use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -42,5 +43,10 @@ class User extends Authenticatable
     public function asks()
     {
         return $this->belongsToMany(Ask::class);
+    }
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-'. $this->id);
     }
 }

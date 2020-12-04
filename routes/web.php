@@ -22,6 +22,12 @@ Route::get('/base', function () {
     return view('base');
 });
 
+//Cris
+Route::get('/estadistica', 'EstadisticaController@mostrarestadistica')->name('estadistica.mostrarestadistica');
+Route::get('/estado', 'EstadisticaController@mostrarestado')->name('estado.mostrarestado');
+Route::get('/password/reset', 'EstadisticaController@mostrarestado')->name('estado.mostrarestado');
+//Final Cris
+
 #TEMPLATES CRUD ORGANIZACION
 
 Route::get('crearOrganizacion', 'OrganizationController@create')->name('organizacion.create');
@@ -67,9 +73,8 @@ Route::get('/registrar', function () {
     return view('registrarUsuario');
 });
 
-Route::get('/contraseña', function () {
-    return view('restaurarPassword');
-});
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -132,3 +137,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 */
+/*Auth::routes();
+*/
+Route::get('/home', 'HomeController@index')->name('home');
+

@@ -24,6 +24,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
+    
     public function create()
     {
         return view('super.users.create', compact(''));
