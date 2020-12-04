@@ -55,6 +55,7 @@
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
             </div>
+
             <div class="card-block table-border-style">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -102,27 +103,6 @@
                                     </a>
                                 </td>
                             </tr>
-                            <!--<tr class="unread">
-                                <th scope="row">1</th>
-                                <td>
-                                    Isabella Christensen
-
-                                </td>
-                                <td>Otto asddfgfbdvs gdfhmjnhbgvfd ntybrtvfcd</td>
-                                <td>
-                                    <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
-                                </td>
-                                <td>
-                                    <a href="#!" class="label btn-info text-white f-12">
-                                        <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
-                                        <span class="pcoded-mtext">Editar</span>
-                                    </a>
-                                    <a href="#!" class="label btn-danger text-white f-12">
-                                        <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
-                                        <span class="pcoded-mtext">Eliminar</span>
-                                    </a>
-                                </td>
-                            </tr>-->
                         @endforeach
                         </tbody>
                     </table>

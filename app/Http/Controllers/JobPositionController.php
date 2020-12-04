@@ -109,8 +109,17 @@ class JobPositionController extends Controller
      * @param  \App\JobPosition  $jobPosition
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobPosition $jobPosition)
+
+    public function confirm($id)
     {
+        $puesto = JobPosition::findOrFail($id);
+
+        return view('crudPuestoDeTrabajo.confirmPuesto', compact('puesto'));
+    }
+
+    public function destroy($id)
+    {
+        $jobPosition = JobPosition::findOrFail($id);
         $jobPosition->delete();
         return redirect()->route('puestos.show');
     }

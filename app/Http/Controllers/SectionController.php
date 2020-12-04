@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Organization;
+use App\Section;
 use Illuminate\Http\Request;
+use App\Department;
 
-class OrganizationController extends Controller
+class SectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -24,7 +25,8 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        return view('crudOrganizacion.crearOrganizacion');
+        $departamentos=Department::all();
+        return view('crudSeccion.crearSeccion', compact ('departamentos'));
     }
 
     /**
@@ -35,78 +37,77 @@ class OrganizationController extends Controller
      */
     public function store()
     {
-
         $fields =request()->validate([
             'name' => 'required',
+            'department_id' => 'required',
         ]);
 
-        Organization::create($fields);
+        Section::create($fields);
 
-        return redirect()->route('organizacion.show');
+        return redirect()->route('seccion.show');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Organization  $organization
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function show(Organization $organization)
+    public function show(Section $section)
     {
-        $datos['organizations']=Organization::paginate(10);
-        return view('crudOrganizacion.mostrarOrganizacion',$datos);
+        $datos['sections']=Section::paginate(5);
+        return view('crudSeccion.mostrarSeccion', $datos);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Organization  $organization
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Organization $organization)
+    public function edit(Section $section)
     {
-
-        return view('crudOrganizacion.editarOrganizacion', [
-            'organization' => $organization
-        ]);
+        $departamentos=Department::all();
+        return view('crudSeccion.editarSeccion', compact('section', 'departamentos'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Organization  $organization
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Organization $organization)
+    public function update(Request $request, Section $section)
     {
         $fields=request()->validate([
             'name' => 'required',
+            'department_id' => 'required',
         ]);
 
-        $organization->update($fields);
+        $section->update($fields);
 
-        return redirect()->route('organizacion.show', $organization);
+        return redirect()->route('seccion.show', $section);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Organization  $organization
+     * @param  \App\Seccion  $seccion
      * @return \Illuminate\Http\Response
      */
-
     public function confirm($id)
     {
-        $organization = Organization::findOrFail($id);
+        $section = Section::findOrFail($id);
 
-        return view('crudOrganizacion.confirmOrganizacion', compact('organization'));
+        return view('crudSeccion.confirmSeccion', compact('section'));
     }
+    
     public function destroy($id)
     {
 
-        $organization = Organization::findOrFail($id);
-        $organization->delete();
-        return redirect()->route('organizacion.show');
+        $section = Section::findOrFail($id);
+        $section->delete();
+        return redirect()->route('seccion.show');
     }
 }

@@ -18,14 +18,13 @@
     <meta name="author" content="CodedThemes"/>
 
     <!-- Favicon icon -->
-    <link rel="icon" href="{{ URL::asset('assets/images/favicon.ico')}}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
     <!-- fontawesome icon -->
-    <link rel="stylesheet" href="{{ URL::asset('assets/fonts/fontawesome/css/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome/css/fontawesome-all.min.css') }}">
     <!-- animation css -->
-    <link rel="stylesheet" href="{{ URL::asset('assets/plugins/animation/css/animate.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/animation/css/animate.min.css') }}">
     <!-- vendor css -->
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/estilo.css')}}">
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!-- CDN FontAwesone -->
     <link href="{{ URL::asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
@@ -316,9 +315,10 @@
     <!-- Warning Section Ends -->
 
     <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
-	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
+    <script src="{{ asset('assets/js/vendor-all.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
+    <script src="{{ asset('assets/js/empleado.js') }}"></script>
 
 </body>
 </html>
