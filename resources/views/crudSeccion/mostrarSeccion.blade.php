@@ -56,7 +56,7 @@
                         <tr>
                             <td>{{$section->id}}</td>
                             <td>{{$section->name}}</td>
-                            <td>{{$section->department_id}}</td>
+                            <td>{{$section->department}}</td>
                             <td>
                             <a href="{{ route('puestos.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
                                 data-placement="top" title="Agregar puesto de trabajo">

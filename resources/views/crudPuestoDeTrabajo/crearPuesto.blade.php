@@ -46,7 +46,12 @@
                     <div class="col-md-6">
                     <div class="form-group">
                         <label><b>Sección</b><span class="text-danger">*</span></label>
-                        <input type="number" name="seccion" class="form-control" placeholder="Sección">
+                        <select class="form-control" name="seccion" class="form-control" value="{{ old('seccion')}}">
+                            <option>Seleccione una sección</option>
+                                @foreach($secciones as $seccion)
+                                <option value="{{ $seccion->id}}">{{ $seccion->name}}</option>
+                                @endforeach
+                        </select>
                     </div>
                 </form>
                 </div>

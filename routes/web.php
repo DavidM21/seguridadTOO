@@ -20,7 +20,11 @@
 Route::get('/', function () {
     return view('welcome');
 })->name('/');
-
+/*
+Route::get('/mail', function () {
+    return view('mails.auth.verify');
+})->name('/');
+*/
 
 Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Organizaciones'], function (){
     #TEMPLATES CRUD ORGANIZACION

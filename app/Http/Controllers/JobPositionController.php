@@ -36,7 +36,8 @@ class JobPositionController extends Controller
      */
     public function create()
     {
-        return view('crudPuestoDeTrabajo.crearPuesto');
+        $secciones = Section::all();
+        return view('crudPuestoDeTrabajo.crearPuesto',compact('secciones'));
     }
 
     /**
@@ -83,9 +84,10 @@ class JobPositionController extends Controller
      */
     public function edit(JobPosition $jobPosition)
     {
+        $secciones = Section::all();
         return view('crudPuestoDeTrabajo.editarPuesto',[
             'jobPosition' => $jobPosition
-        ]);
+        ],compact('secciones'));
 
     }
 
