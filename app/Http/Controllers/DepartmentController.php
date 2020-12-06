@@ -34,7 +34,7 @@ class DepartmentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -52,11 +52,12 @@ class DepartmentController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Department  $department
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function show(Department $department)
     {
-        $datos['departments']=Department::paginate(5);
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $datos['departments']=Department::whereIn('organization_id', $organizations)->paginate(5);
         return view('crudDepartamento.mostrarDepartamento', $datos);
     }
 
@@ -64,7 +65,7 @@ class DepartmentController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Department  $department
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Department $department)
     {
@@ -77,7 +78,7 @@ class DepartmentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Department  $department
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Department $department)
     {

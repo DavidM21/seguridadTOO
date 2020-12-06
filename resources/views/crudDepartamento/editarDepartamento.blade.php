@@ -8,13 +8,13 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Editar Departamento</h5>
-                        
+                        <h5 class="m-b-10">DEPARTAMENTOS</h5>
+
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
                         <li class="breadcrumb-item"><a href="javascript:">Departamento</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Editar</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Editar departamento</a></li>
                     </ul>
                 </div>
             </div>

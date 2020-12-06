@@ -8,12 +8,11 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Lista de Puestos de trabajo</h5>
+                        <h5 class="m-b-10">PUESTOS DE TRABAJOS</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Puesto de trabajo</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Puestos de trabajo</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,11 +23,15 @@
         <div class="card Recent-Users">
             <div class="card-header unread">
                 <h5>Puestos de trabajo</h5>
-                <a href="{{ route('puestos.create') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Nuevo">
+                <span class="badge badge-success">{{count($puestos)}}</span>
+
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('puestos.create') }}"
+                   class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip"
+                   data-placement="top" title="Nuevo">
                     <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
-                <a href="{{ route('seccion.show') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Atras">
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('seccion.show') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Atras">
                     <span class="pcoded-micon"><i class="feather icon-corner-up-left"></i></span>
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
@@ -78,7 +81,7 @@
             </table>
         </div>
     </div>
-            
+
         </div>
     </div>
 @endsection

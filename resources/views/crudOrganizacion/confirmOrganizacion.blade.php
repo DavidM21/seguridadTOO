@@ -8,12 +8,12 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Eliminar Organización</h5>
+                        <h5 class="m-b-10">ORGANIZACIONES</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Organización</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Eliminar</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Organizaciones</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Eliminar organización</a></li>
                     </ul>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                             <label for="exampleInputEdition"><b>Nombre</b><span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="name" aria-describedby="orgNameHelp" 
+                            <input type="text" class="form-control" name="name" aria-describedby="orgNameHelp"
                             value="{{ $organization->name }}" disabled>
                             </div>
                             <a href="{{ route('organizacion.show')}}" type="button" class="btn btn-outline-danger">Cancelar</a>

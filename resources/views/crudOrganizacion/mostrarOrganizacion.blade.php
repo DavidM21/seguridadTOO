@@ -8,12 +8,11 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Lista de organizaciones</h5>
+                        <h5 class="m-b-10">ORGANIZACIONES</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Organización</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Organizaciones</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,7 +23,11 @@
         <div class="card Recent-Users">
             <div class="card-header unread">
                 <h5>Organizaciones</h5>
-                <a href="{{ route('organizacion.create') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Nuevo">
+                <span class="badge badge-success">{{count($organizations)}}</span>
+
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('organizacion.create') }}"
+                   class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip"
+                   data-placement="top" title="Nuevo">
                     <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
@@ -49,7 +52,7 @@
                             <td>
                             <a href="{{ route('departamento.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
                                 data-placement="top" title="Agregar departamento">
-                                <span class="pcoded-micon"><i class="feather icon-plus-circle"></i></span>
+                                <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
                             </a>
                             <a href="{{ route('organizacion.edit', $organization) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
                                     data-placement="top" title="Editar">
@@ -69,7 +72,7 @@
             </table>
         </div>
     </div>
-            
+
         </div>
     </div>
 @endsection

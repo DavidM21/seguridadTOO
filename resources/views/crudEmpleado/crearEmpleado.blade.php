@@ -8,13 +8,12 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Crear Empleado</h5>
-                        
+                        <h5 class="m-b-10">EMPLEADOS</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Empleado</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Crear</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Empleados</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Crear empleado</a></li>
                     </ul>
                 </div>
             </div>
@@ -31,7 +30,7 @@
             <div class="card-header py-3"> <!--pegar desde row-->
             <div class="row">
                 <div class="col-md-6">
-                <form id="formulario" method="POST" action="{{route('empleado.create')}}"> 
+                <form id="formulario" method="POST" action="{{route('empleado.create')}}">
             @csrf
             <div class="form-group">
                 <label><b>Nombre</b><span class="text-danger">*</span></label>
@@ -70,7 +69,7 @@
                 </select>
                 {!! $errors->first('departamento','<small class="text-danger">:message</small>')!!}
             </div>
-            
+
             <div class="form-group">
                 <label for="exampleFormControlSelect1"><b>Municipio</b><span class="text-danger">*</span></label>
                 <select class="form-control" name="municipio" id="municipio" value="{{ old('municipio')}}">

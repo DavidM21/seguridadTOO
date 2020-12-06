@@ -8,13 +8,13 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Crear Sección</h5>
-                        
+                        <h5 class="m-b-10">SECCIONES</h5>
+
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Sección</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Crear</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Secciones</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Crear sección</a></li>
                     </ul>
                 </div>
             </div>

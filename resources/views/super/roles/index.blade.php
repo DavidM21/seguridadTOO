@@ -12,7 +12,7 @@
 @if( session('notification'))
     <!-- Then put toasts within -->
     <div id="toast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
-         style="position: absolute; top: 0; right: 0;" data-delay="6000">
+         style="position: absolute; z-index: 100; top: 0; right: 0;" data-delay="6000">
         <div class="toast-header alert-success">
             <strong class="mr-auto">Notificación</strong>
             <small class="text-muted"></small>

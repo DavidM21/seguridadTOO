@@ -8,13 +8,12 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Crear Puesto de trabajo</h5>
-                        
+                        <h5 class="m-b-10">PUESTOS DE TRABAJOS</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Puesto de trabajo</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Crear</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Puestos de trabajo</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Crear puesto de trabajo</a></li>
                     </ul>
                 </div>
             </div>
@@ -32,7 +31,7 @@
             <div class="row">
                 <div class="col-md-6">
                 <form id="formulario" method="POST" action="{{route('puestos.store')}}">
-                @csrf 
+                @csrf
                     <div class="form-group">
                         <label><b>Nombre</b><span class="text-danger">*</span></label>
                         <input type="text" name="nombre" class="form-control" placeholder="Nombre" value="{{ old('nombre')}}">

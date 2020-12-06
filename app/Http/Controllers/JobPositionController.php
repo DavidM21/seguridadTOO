@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
+use App\Employee;
 use App\JobPosition;
+use App\Organization;
+use App\Section;
 use Illuminate\Http\Request;
 use DB;
 
@@ -11,11 +15,17 @@ class JobPositionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        $puestos = JobPosition ::get();
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
+        $sections = Section::whereIn('department_id', $departments)->pluck('id');
+        $jobpositions = JobPosition::whereIn('section_id', $sections)->pluck('id');
+
+        $puestos = JobPosition::whereIn('id', $jobpositions)->get();
+        //dd('department_id', $sections, 'section_id', $jobpositions, $puestos);
         return view('crudPuestoDeTrabajo.mostrarPuesto',compact('puestos'));
     }
 

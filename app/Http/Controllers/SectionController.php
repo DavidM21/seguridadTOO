@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\JobPosition;
+use App\Organization;
 use App\Section;
 use Illuminate\Http\Request;
 use App\Department;
@@ -51,11 +53,15 @@ class SectionController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Seccion  $seccion
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function show(Section $section)
     {
-        $datos['sections']=Section::paginate(5);
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
+        $sections = Section::whereIn('department_id', $departments)->pluck('id');
+
+        $datos['sections']=Section::whereIn('department_id', $sections)->paginate(5);
         return view('crudSeccion.mostrarSeccion', $datos);
     }
 
@@ -102,7 +108,7 @@ class SectionController extends Controller
 
         return view('crudSeccion.confirmSeccion', compact('section'));
     }
-    
+
     public function destroy($id)
     {
 

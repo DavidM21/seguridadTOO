@@ -108,16 +108,18 @@
                                         <span class="pcoded-micon"><i class="feather icon-eye"></i></span>
                                         <!--<span class="pcoded-mtext">Editar</span>-->
                                     </a>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
-                                       data-placement="top" title="Editar">
-                                        <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
-                                        <!--<span class="pcoded-mtext">Editar</span>-->
-                                    </a>
-                                    <a href="{{ route('users.confirm', $user->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
-                                       data-placement="top" title="Eliminar">
-                                        <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
-                                        <!--<span class="pcoded-mtext">Eliminar</span>-->
-                                    </a>
+                                    @role('Super Administrador')
+                                        <a href="{{ route('users.edit', $user->id) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
+                                           data-placement="top" title="Editar">
+                                            <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
+                                            <!--<span class="pcoded-mtext">Editar</span>-->
+                                        </a>
+                                        <a href="{{ route('users.confirm', $user->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
+                                           data-placement="top" title="Eliminar">
+                                            <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
+                                            <!--<span class="pcoded-mtext">Eliminar</span>-->
+                                        </a>
+                                    @endrole
                                 </td>
                             </tr>
                             <!--<tr class="unread">

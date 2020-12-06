@@ -20,7 +20,7 @@ class OrganizationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
@@ -31,17 +31,17 @@ class OrganizationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store()
+    public function store(Request $request)
     {
-
-        $fields =request()->validate([
+        $fields = request()->validate([
             'name' => 'required',
         ]);
-
-        Organization::create($fields);
-
+        $organization = new Organization;
+        $organization->name = $request->name;
+        $organization->user_id = auth()->user()->id;
+        $organization->save();
         return redirect()->route('organizacion.show');
     }
 
@@ -49,11 +49,13 @@ class OrganizationController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Organization  $organization
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function show(Organization $organization)
     {
-        $datos['organizations']=Organization::paginate(10);
+        //dd(auth()->user()->id);
+        // Consulta que entrega las organizaciones del usuario logueado
+        $datos['organizations']=Organization::where('user_id', '=', auth()->user()->id)->paginate(10);
         return view('crudOrganizacion.mostrarOrganizacion',$datos);
     }
 
@@ -61,7 +63,7 @@ class OrganizationController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Organization  $organization
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Organization $organization)
     {

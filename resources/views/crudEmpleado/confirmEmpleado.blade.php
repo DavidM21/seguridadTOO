@@ -8,12 +8,12 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Eliminar empleado</h5>
+                        <h5 class="m-b-10">EMPLEADOS</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Empleado</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Eliminar</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Empleados</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Eliminar empleado</a></li>
                     </ul>
                 </div>
             </div>

@@ -8,12 +8,11 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Lista de Departamentos</h5>
+                        <h5 class="m-b-10">DEPARTAMENTOS</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Departamento</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Departamentos</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,11 +23,16 @@
         <div class="card Recent-Users">
             <div class="card-header unread">
                 <h5>Departamentos</h5>
-                <a href="{{ route('departamento.create') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Nuevo">
+                <span class="badge badge-success">{{count($departments)}}</span>
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('departamento.create') }}"
+                   class="fa-pull-right label btn-primary text-white f-12 badge-pill"
+                   data-toggle="tooltip" data-placement="top" title="Nuevo">
                     <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
-                <a href="{{ route('organizacion.show') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Atras">
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('organizacion.show') }}"
+                   class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip"
+                   data-placement="top" title="Atras">
                     <span class="pcoded-micon"><i class="feather icon-corner-up-left"></i></span>
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
@@ -41,7 +45,7 @@
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
-                        <th>Id Organizacion</th>
+                        <th>Organización</th>
                         <th colspan="2">Acciones</th>
                     </tr>
                 </thead>
@@ -51,11 +55,11 @@
                         <tr>
                             <td>{{$department->id}}</td>
                             <td>{{$department->name}}</td>
-                            <td>{{$department->organization_id}}</td>
+                            <td>{{$department->organization->name}}</td>
                             <td>
                             <a href="{{ route('seccion.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
                                 data-placement="top" title="Agregar sección">
-                                <span class="pcoded-micon"><i class="feather icon-plus-circle"></i></span>
+                                <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
                             </a>
                             <a href="{{ route('departamento.edit', $department) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
                                     data-placement="top" title="Editar">
@@ -75,7 +79,7 @@
             </table>
         </div>
     </div>
-            
+
         </div>
     </div>
 @endsection

@@ -8,12 +8,11 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Lista de Empleados</h5>
+                        <h5 class="m-b-10">EMPLEADOS</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Empleado</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Empleados</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,11 +23,17 @@
         <div class="card Recent-Users">
             <div class="card-header unread">
                 <h5>Empleados</h5>
-                <a href="{{ route('empleado.create') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Nuevo">
+                <span class="badge badge-success">{{count($empleados)}}</span>
+
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('empleado.create') }}"
+                   class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip"
+                   data-placement="top" title="Nuevo">
                     <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
-                <a href="{{ route('puestos.show') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Atras">
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('puestos.show') }}"
+                   class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip"
+                   data-placement="top" title="Atras">
                     <span class="pcoded-micon"><i class="feather icon-corner-up-left"></i></span>
                     <!--<span class="pcoded-mtext">Nuevo</span>-->
                 </a>
@@ -75,7 +80,7 @@
             </table>
         </div>
     </div>
-            
+
         </div>
     </div>
 @endsection

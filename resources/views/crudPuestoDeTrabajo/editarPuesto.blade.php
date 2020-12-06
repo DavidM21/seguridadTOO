@@ -8,12 +8,12 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Editar Puesto de Trabajo</h5>
+                        <h5 class="m-b-10">PUESTOS DE TRABAJOS</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Puesto de Trabajo</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Editar</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Puestos de trabajo</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Editar puesto de trabajo</a></li>
                     </ul>
                 </div>
             </div>

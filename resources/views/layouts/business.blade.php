@@ -134,7 +134,7 @@
                 @endcan
                 @can('Gestor Departamentos')
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="{{ route('departamento.show') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-copy"></i>
                         </span><span class="pcoded-mtext">Departamentos</span>
@@ -143,7 +143,7 @@
                 @endcan
                 @can('Gestor Secciones')
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="{{ route('seccion.show') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-grid"></i>
                         </span>
@@ -171,40 +171,59 @@
                     </a>
                 </li>
                 @endcan
-                <!--
+<!--
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-heart"></i>
                         </span><span class="pcoded-mtext">Estados Civiles</span>
+                        <span class="pcoded-badge label label-danger">
+                            <i class="feather icon-alert-triangle"></i>
+                        </span>
                     </a>
                 </li>
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-flag"></i>
                         </span>
                         <span class="pcoded-mtext">Géneros</span>
+                        <span class="pcoded-badge label label-danger">
+                            <i class="feather icon-alert-triangle"></i>
+                        </span>
                     </a>
                 </li>
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-map"></i>
                         </span>
                         <span class="pcoded-mtext">Departamentos</span>
+                        <span class="pcoded-badge label label-danger">
+                            <i class="feather icon-alert-triangle"></i>
+                        </span>
+
                     </a>
                 </li>
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-map-pin"></i>
                         </span>
                         <span class="pcoded-mtext">Municipios</span>
+                        <span class="pcoded-badge label label-danger">
+                            <i class="feather icon-alert-triangle"></i>
+                        </span>
                     </a>
                 </li>
-                -->
-                <li data-username="Disabled Menu" class="nav-item disabled"><a href="javascript:" class="nav-link"><span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Disabled menu</span></a></li>
+-->
+
+                <li data-username="Disabled Menu" class="nav-item disabled">
+                    <a href="javascript:" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-power"></i></span>
+                        <span class="pcoded-mtext">Disabled menu</span></a>
+                </li>
+                <br><br><br><br>
             </ul>
         </div>
     </div>

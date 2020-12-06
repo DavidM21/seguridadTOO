@@ -8,12 +8,12 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Eliminar puesto de trabajo</h5>
+                        <h5 class="m-b-10">PUESTOS DE TRABAJOS</h5>
                     </div>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Puesto de trabajo</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Eliminar</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Puestos de trabajo</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Eliminar puesto de trabajo</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,7 +24,6 @@
         <div class="card Recent-Users">
             <div class="card-header unread">
                 <h5>Eliminar Puesto de trabajo</h5>
-
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ route('puestos.destroy', $puesto->id) }}">
@@ -38,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label><b>Salario</b><span class="text-danger">*</span></label>
-                                <input type="number" name="salario" class="form-control" placeholder="0.00" 
+                                <input type="number" name="salario" class="form-control" placeholder="0.00"
                                 value="{{$puesto->salary}}" disabled>
                             </div>
 

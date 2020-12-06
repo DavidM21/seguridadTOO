@@ -15,61 +15,84 @@
  * Route::view('/url','view');
  */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
-#TEMPLATES CRUD ORGANIZACION
-Route::get('crearOrganizacion', 'OrganizationController@create')->name('organizacion.create');
-Route::get('organizaciones', 'OrganizationController@show')->name('organizacion.show');
-Route::get('organizaciones/{organization}/editar', 'OrganizationController@edit')->name('organizacion.edit');
-Route::patch('organizaciones/{organization}', 'OrganizationController@update')->name('organizacion.update');
-Route::get('confirmOrganizaciones/{organization}', 'OrganizationController@confirm')->name('organizacion.confirm');
-Route::delete('organizaciones/{organization}', 'OrganizationController@destroy')->name('organizacion.destroy');
-Route::post('organizaciones', 'OrganizationController@store')->name('organizacion.store');
 
-#TEMPLATES CRUD DEPARTAMENTO
-Route::get('departamento', 'DepartmentController@show')->name('departamento.show');
-Route::get('departamento/{department}/editar', 'DepartmentController@edit')->name('departamento.edit');
-Route::patch('departamento/{department}', 'DepartmentController@update')->name('departamento.update');
-Route::get('confirmDepartamento/{department}', 'DepartmentController@confirm')->name('departamento.confirm');
-Route::delete('departamento/{department}', 'DepartmentController@destroy')->name('departamento.destroy');
-Route::get('crearDepartamento', 'DepartmentController@create')->name('departamento.create');
-Route::post('departamento', 'DepartmentController@store')->name('departamento.store');
+Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Organizaciones'], function (){
+    #TEMPLATES CRUD ORGANIZACION
+    Route::get('organizations', 'OrganizationController@show')->name('organizacion.show');
 
-#TEMPLATES CRUD SECCION
-Route::get('seccion', 'SectionController@show')->name('seccion.show');
-Route::get('crearSeccion', 'SectionController@create')->name('seccion.create');
-Route::post('seccion', 'SectionController@store')->name('seccion.store');
-Route::get('seccion/{section}/editar', 'SectionController@edit')->name('seccion.edit');
-Route::patch('seccion/{section}', 'SectionController@update')->name('seccion.update');
-Route::get('confirmSeccion/{section}', 'SectionController@confirm')->name('seccion.confirm');
-Route::delete('seccion/{section}', 'SectionController@destroy')->name('seccion.destroy');
+    Route::get('organizations/create', 'OrganizationController@create')->name('organizacion.create');
+    Route::post('organizations/store', 'OrganizationController@store')->name('organizacion.store');
 
-#TEMPLATES CRUD PUESTO
-Route::get('/puestos', 'JobPositionController@index')->name('puestos.show');
-Route::get('/crearPuesto', 'JobPositionController@create')->name('puestos.create');
-Route::get('/editarPuesto/{jobPosition}', 'JobPositionController@edit')->name('puestos.edit');
-Route::patch('/editarPuesto/{jobPosition}', 'JobPositionController@update')->name('puestos.update');
-Route::get('/confirmPuesto/{jobPosition}', 'JobPositionController@confirm')->name('puestos.confirm');
-Route::delete('/puestos/{jobPosition}', 'JobPositionController@destroy')->name('puestos.destroy');
-Route::post('/puestos', 'JobPositionController@store')->name('puestos.store');
+    Route::get('organizations/{organization}/edit', 'OrganizationController@edit')->name('organizacion.edit');
+    Route::patch('organizations/{organization}', 'OrganizationController@update')->name('organizacion.update');
 
-#TEMPLATES CRUD EMPLEADO
-
-Route::get('/empleados', 'EmployeeController@index')->name('empleado.show');
-Route::get('/crearEmpleado', 'EmployeeController@create')->name('empleado.create');
-Route::get('/editarEmpleado/{employee}', 'EmployeeController@edit')->name('empleado.edit');
-Route::patch('/editarEmpleado/{employee}', 'EmployeeController@update')->name('empleado.update');
-Route::get('/confirmEmpleado/{employee}', 'EmployeeController@confirm')->name('empleado.confirm');
-Route::delete('/empleados/{employee}', 'EmployeeController@destroy')->name('empleado.destroy');
-Route::post('/crearEmpleado', 'EmployeeController@store')->name('empleado.store');
-
-
-#
-Route::get('/prueba', function () {
-    return view('prueba');
+    Route::get('organizations/{organization}/confirm', 'OrganizationController@confirm')->name('organizacion.confirm');
+    Route::delete('organizations/{organization}', 'OrganizationController@destroy')->name('organizacion.destroy');
 });
+
+Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Departamentos'], function (){
+    #TEMPLATES CRUD DEPARTAMENTO
+    Route::get('departments', 'DepartmentController@show')->name('departamento.show');
+
+    Route::get('departments/create', 'DepartmentController@create')->name('departamento.create');
+    Route::post('departments/store', 'DepartmentController@store')->name('departamento.store');
+
+    Route::get('departments/{department}/edit', 'DepartmentController@edit')->name('departamento.edit');
+    Route::patch('departments/{department}', 'DepartmentController@update')->name('departamento.update');
+
+    Route::get('departments/{department}/confirm', 'DepartmentController@confirm')->name('departamento.confirm');
+    Route::delete('departments/{department}', 'DepartmentController@destroy')->name('departamento.destroy');
+
+});
+
+Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Secciones'], function (){
+    #TEMPLATES CRUD SECCION
+    Route::get('sections', 'SectionController@show')->name('seccion.show');
+
+    Route::get('sections/create', 'SectionController@create')->name('seccion.create');
+    Route::post('sections/store', 'SectionController@store')->name('seccion.store');
+
+    Route::get('sections/{section}/edit', 'SectionController@edit')->name('seccion.edit');
+    Route::patch('sections/{section}', 'SectionController@update')->name('seccion.update');
+
+    Route::get('sections/{section}/confirm', 'SectionController@confirm')->name('seccion.confirm');
+    Route::delete('sections/{section}', 'SectionController@destroy')->name('seccion.destroy');
+});
+
+Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Puestos'], function (){
+    #TEMPLATES CRUD PUESTO
+    Route::get('/jobpositions', 'JobPositionController@index')->name('puestos.show');
+
+    Route::get('/jobpositions/create', 'JobPositionController@create')->name('puestos.create');
+    Route::post('/jobpositions/store', 'JobPositionController@store')->name('puestos.store');
+
+    Route::get('/jobpositions/{jobPosition}', 'JobPositionController@edit')->name('puestos.edit');
+    Route::patch('/jobpositions/{jobPosition}', 'JobPositionController@update')->name('puestos.update');
+
+    Route::get('/jobpositions/{jobPosition}/confirm', 'JobPositionController@confirm')->name('puestos.confirm');
+    Route::delete('/jobpositions/{jobPosition}', 'JobPositionController@destroy')->name('puestos.destroy');
+});
+
+Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Empleados'], function (){
+    #TEMPLATES CRUD EMPLEADO
+    Route::get('/employees', 'EmployeeController@index')->name('empleado.show');
+
+    Route::get('/employees/create', 'EmployeeController@create')->name('empleado.create');
+    Route::post('/employees/store', 'EmployeeController@store')->name('empleado.store');
+
+    Route::get('/employees/{employee}/edit', 'EmployeeController@edit')->name('empleado.edit');
+    Route::patch('/editarEmpleado/{employee}', 'EmployeeController@update')->name('empleado.update');
+
+    Route::get('/employees/{employee}/confirm', 'EmployeeController@confirm')->name('empleado.confirm');
+    Route::delete('/employees/{employee}', 'EmployeeController@destroy')->name('empleado.destroy');
+});
+
 
 Route::get('/loginTemplate', function () {
     return view('loginTemplate');
@@ -102,48 +125,30 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout') ;
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register_post');
 
-// Super
+// Super Administrador & Administrador
 
 // Roles
 
 Route::group(['prefix'=>'super', 'namespace'=>'super', 'middleware'=>'role:Super Administrador'], function(){
     Route::resource('roles', 'RolesController');
-    Route::get('/roles/{id}/confirm', 'super\RolesController@confirm')->name('roles.confirm');
+    Route::get('/roles/{id}/confirm', 'RolesController@confirm')->name('roles.confirm');
 });
 
 // Users
-Route::get('/super/users', 'Super\UsersController@index')->name('users.index');
-
-Route::get('/super/users/create', 'super\UsersController@create')->name('users.create');
-Route::post('/super/users/store', 'super\UsersController@store')->name('users.store');
-
-Route::get('/super/users/{id}/show', 'super\UsersController@show')->name('users.show');
-
-Route::get('/super/users/{id}/edit', 'super\UsersController@edit')->name('users.edit');
-Route::patch('/super/users/{id}', 'super\UsersController@update')->name('users.update');
-
-Route::get('/super/users/{id}/confirm', 'super\UsersController@confirm')->name('users.confirm');
-Route::delete('/super/users/{id}' , 'super\UsersController@destroy')->name('users.destroy');
-
-
-
-Route::get('/verify', 'Auth\RegisterController@verify')->name('verify');
-
+Route::group(['prefix'=>'admin', 'namespace'=>'super', 'middleware'=>'role:Super Administrador|Administrador'], function (){
+    Route::resource('users', 'UsersController');
+    Route::get('/users/{id}/confirm', 'UsersController@confirm')->name('users.confirm');
+});
 
 /* FIN SOSA */
 
 //Auth::routes();
-
 //Route::get('/home', 'HomeController@index')->name('home');
-
-
 /*
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 */
 /*
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 */
