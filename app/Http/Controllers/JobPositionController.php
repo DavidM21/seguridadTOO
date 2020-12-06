@@ -32,7 +32,7 @@ class JobPositionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
@@ -44,7 +44,7 @@ class JobPositionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -80,14 +80,13 @@ class JobPositionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\JobPosition  $jobPosition
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(JobPosition $jobPosition)
     {
         $secciones = Section::all();
-        return view('crudPuestoDeTrabajo.editarPuesto',[
-            'jobPosition' => $jobPosition
-        ],compact('secciones'));
+        return view('crudPuestoDeTrabajo.editarPuesto',['jobPosition' => $jobPosition],
+            compact('secciones'));
 
     }
 

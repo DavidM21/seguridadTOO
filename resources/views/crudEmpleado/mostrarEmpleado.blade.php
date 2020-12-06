@@ -59,7 +59,7 @@
                         <td>{{$empleado->first_name}}</td>
                         <td>{{$empleado->last_name}}</td>
                         <td>{{$empleado->dui}}</td>
-                        <td>{{$empleado->city_id}}</td>
+                        <td>{{$empleado->city->name}}</td>
                         <td>
 
                         <a href="{{ route('empleado.edit', $empleado) }}" class="label btn-info text-white f-12" data-toggle="tooltip"

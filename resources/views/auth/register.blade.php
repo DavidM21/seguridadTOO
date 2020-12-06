@@ -139,13 +139,7 @@
 
                                     </div>
                                 </div>
-                                <!--
-                                    <option>¿Nombre de tu primera mascota?</option>
-                                    <option>¿Cuál es el lugar de nacimiento tu abuela?</option>
-                                    <option>¿Primera escuela donde estudiaste?</option>
-                                    <option>¿Cantante o banda favorita en la secundaria?</option>
-                                    <option>¿Cómo se llama la calle donde creciste?</option>
-                                -->
+
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">

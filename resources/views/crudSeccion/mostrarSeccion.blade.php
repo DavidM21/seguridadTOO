@@ -46,7 +46,7 @@
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
-                        <th>Id Departamento</th>
+                        <th>Departamento</th>
                         <th colspan="2">Acciones</th>
                     </tr>
                 </thead>
@@ -56,7 +56,7 @@
                         <tr>
                             <td>{{$section->id}}</td>
                             <td>{{$section->name}}</td>
-                            <td>{{$section->department}}</td>
+                            <td>{{$section->department->name}}</td>
                             <td>
                             <a href="{{ route('puestos.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
                                 data-placement="top" title="Agregar puesto de trabajo">

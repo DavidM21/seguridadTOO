@@ -27,7 +27,7 @@ class EmployeeController extends Controller
         $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
         $sections = Section::whereIn('department_id', $departments)->pluck('id');
         $jobpositions = JobPosition::whereIn('section_id', $sections)->pluck('id');
-        $empleados = Employee::whereIn('job_position_id', $jobpositions)->pluck('id');
+        $empleados = Employee::whereIn('job_position_id', $jobpositions)->get();
         //dd($empleados);
         return view('crudEmpleado.mostrarEmpleado',compact('empleados'));
     }

@@ -55,7 +55,7 @@
                         <th>{{$puesto->id}}</th>
                         <td>{{$puesto->name}}</td>
                         <td>{{$puesto->salary}}</td>
-                        <td>{{$puesto->section_id}}</td>
+                        <td>{{$puesto->section->name}}</td>
                         <td>
 
                         <a href="{{ route('empleado.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
