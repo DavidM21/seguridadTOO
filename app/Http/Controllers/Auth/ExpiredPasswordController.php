@@ -18,13 +18,13 @@ class ExpiredPasswordController extends Controller
     {
         // Checking current password
         if (!Hash::check($request->current_password, $request->user()->password)) {
-            return redirect()->back()->withErrors(['current_password' => 'Current password is not correct']);
+            return redirect()->back()->withErrors(['current_password' => 'Contraseña actual no es correcta']);
         }
 
         $request->user()->update([
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'password_changed_at' => Carbon::now()->toDateTimeString()
         ]);
-        return redirect()->back()->with(['status' => 'Password changed successfully']);
+        return redirect()->back()->with(['status' => 'Contraseña actualizada correctamente']);
     }
 }

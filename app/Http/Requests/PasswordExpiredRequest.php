@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\especial;
+use App\Rules\mayuscula;
 
 class PasswordExpiredRequest extends FormRequest
 {
@@ -20,7 +22,7 @@ class PasswordExpiredRequest extends FormRequest
     {
         return [
             'current_password' => 'required',
-            'password' => 'required|confirmed|min:12',
+            'password' => ['required', 'string', 'min:12',new especial, new mayuscula],
         ];
     }
 }
