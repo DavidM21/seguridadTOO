@@ -28,20 +28,11 @@ Route::get('/estado', 'EstadisticaController@mostrarestado')->name('estado.mostr
 Route::get('/password/reset', 'EstadisticaController@mostrarestado')->name('estado.mostrarestado');
 
 //Cris Password expiracion
-Route::get('password/expired', 'Auth\ExpiredPasswordController@expired')
-        ->name('password.expired');
-
-Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')
-        ->name('password.post_expired');
-
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['password_expired'])->group(function () {
-        Route::get('/prueba', function () {
-            return 'See dashboard';
-        });
+        Route::get('/home', 'HomeController@index')->name('home');
     });
-
     Route::get('password/expired', 'Auth\ExpiredPasswordController@expired')
         ->name('password.expired');
     Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')
@@ -96,7 +87,7 @@ Route::get('/registrar', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 Route::get('auth/2fa', 'Auth\LoginController@login')->name('auth.2fa');
 
 
@@ -133,30 +124,4 @@ Route::get('/users', 'Super\UsersController@index')->name('users.index');
 
 Route::get('/users/create', 'super\UsersController@create')->name('users.create');
 
-
-
-
-//Route::get('/verify', 'Auth\RegisterController@verify')->name('verify');
-
-
-/* FIN SOSA */
-
-//Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');
-
-
-/*
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-*/
-/*
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-*/
-/*Auth::routes();
-*/
-Route::get('/home', 'HomeController@index')->name('home');
 
