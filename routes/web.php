@@ -26,6 +26,14 @@ Route::get('/base', function () {
 Route::get('/estadistica', 'EstadisticaController@mostrarestadistica')->name('estadistica.mostrarestadistica');
 Route::get('/estado', 'EstadisticaController@mostrarestado')->name('estado.mostrarestado');
 Route::get('/password/reset', 'EstadisticaController@mostrarestado')->name('estado.mostrarestado');
+
+//Cris Password expiracion
+Route::get('password/expired', 'Auth\ExpiredPasswordController@expired')
+        ->name('password.expired');
+
+Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')
+        ->name('password.post_expired');
+
 //Final Cris
 
 #TEMPLATES CRUD ORGANIZACION
