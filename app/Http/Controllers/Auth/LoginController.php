@@ -27,6 +27,8 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    public  $maxAttempts = 3;
+    public  $decayMinutes = 5;
     protected $redirectTo = '/home'; // Una vez hacemos login nos direcciona aquí
 
 
@@ -62,65 +64,66 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/auth/login');
+        return $this->loggedOut($request) ?: redirect('/login');
     }
 
-public function login(Request $request)
-{
-    $this->validateLogin($request);
+    public function login(Request $request)
+    {
 
-    if ($this->hasTooManyLoginAttempts($request)) {
-        $this->fireLockoutEvent($request);
+        $this->validateLogin($request);
 
-        return $this->sendLockoutResponse($request);
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        $user = User::where($this->username(), '=', $request->email)->first();
+
+        if (password_verify($request->password, optional($user)->password)) {
+            $this->clearLoginAttempts($request);
+
+            $user->update(['token_login' => (new Google2FA)->generateSecretKey()]);
+
+            $urlQR = $this->createUserUrlQR($user);
+
+            return view("auth.2fa", compact('urlQR', 'user'));
+        }
+
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 
-    $user = User::where($this->username(), '=', $request->email)->first();
+    public function createUserUrlQR($user)
+    {
+        $bacon = new BaconQrCodeWriter(new ImageRenderer(
+            new RendererStyle(200),
+            new ImagickImageBackEnd()
+        ));
 
-    if (password_verify($request->password, optional($user)->password)) {
-        $this->clearLoginAttempts($request);
+        $data = $bacon->writeString(
+            (new Google2FA)->getQRCodeUrl(
+                config('app.name'),
+                $user->email,
+                $user->token_login
+            ), 'utf-8');
 
-        $user->update(['token_login' => (new Google2FA)->generateSecretKey()]);
-
-        $urlQR = $this->createUserUrlQR($user);
-
-        return view("auth.2fa", compact('urlQR', 'user'));
+        return 'data:image/png;base64,' . base64_encode($data);
     }
 
-    $this->incrementLoginAttempts($request);
+    public function login2FA(Request $request, User $user)
+    {
+        $request->validate(['code_verification' => 'required']);
 
-    return $this->sendFailedLoginResponse($request);
-}
+        if ((new Google2FA())->verifyKey($user->token_login, $request->code_verification)) {
+            $request->session()->regenerate();
 
-public function createUserUrlQR($user)
-{
-    $bacon = new BaconQrCodeWriter(new ImageRenderer(
-        new RendererStyle(200),
-        new ImagickImageBackEnd()
-    ));
+            Auth::login($user);
 
-    $data = $bacon->writeString(
-        (new Google2FA)->getQRCodeUrl(
-            config('app.name'),
-            $user->email,
-            $user->token_login
-        ), 'utf-8');
+            return redirect()->intended($this->redirectPath());
+        }
 
-    return 'data:image/png;base64,' . base64_encode($data);
-}
-
-public function login2FA(Request $request, User $user)
-{
-    $request->validate(['code_verification' => 'required']);
-
-    if ((new Google2FA())->verifyKey($user->token_login, $request->code_verification)) {
-        $request->session()->regenerate();
-
-        Auth::login($user);
-
-        return redirect()->intended($this->redirectPath());
+        return redirect()->back()->withErrors(['error'=> 'Código de verificación incorrecto']);
     }
-
-    return redirect()->back()->withErrors(['error'=> 'Código de verificación incorrecto']);
-}
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\DepartamentoOrg;
+use App\Ban;
 use Illuminate\Http\Request;
 
-class DepartamentoOrgController extends Controller
+class BanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class DepartamentoOrgController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\DepartamentoOrg  $departamentoOrg
+     * @param  \App\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    public function show(DepartamentoOrg $departamentoOrg)
+    public function show(Ban $ban)
     {
         //
     }
@@ -52,10 +52,10 @@ class DepartamentoOrgController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\DepartamentoOrg  $departamentoOrg
+     * @param  \App\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    public function edit(DepartamentoOrg $departamentoOrg)
+    public function edit(Ban $ban)
     {
         //
     }
@@ -64,10 +64,10 @@ class DepartamentoOrgController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\DepartamentoOrg  $departamentoOrg
+     * @param  \App\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DepartamentoOrg $departamentoOrg)
+    public function update(Request $request, Ban $ban)
     {
         //
     }
@@ -75,10 +75,10 @@ class DepartamentoOrgController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\DepartamentoOrg  $departamentoOrg
+     * @param  \App\Ban  $ban
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DepartamentoOrg $departamentoOrg)
+    public function destroy(Ban $ban)
     {
         //
     }

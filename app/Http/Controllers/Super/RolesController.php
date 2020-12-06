@@ -12,6 +12,11 @@ use Illuminate\Validation\Rule;
 
 class RolesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,10 +24,9 @@ class RolesController extends Controller
      */
     public function index()
     {
+
         $roles = Role::all();
-        $user = User::findORFail(4);
-       // dd($roles->permissions[0]->name);
-        //dd($user->asks);
+
         return view('super.roles.index', compact('roles'));
     }
 
@@ -56,7 +60,8 @@ class RolesController extends Controller
         $role->syncPermissions($request->permission);
 
 
-        return redirect()->route('roles.index')->with('notification', '¡Nuevo rol ' .'"'. $role->name .'"'. 'guardado correctamente!');
+        return redirect()->route('roles.index')
+            ->with('notification', '¡Nuevo rol ' .'"'. $role->name .'" '. 'guardado correctamente!');
     }
 
 
@@ -93,14 +98,15 @@ class RolesController extends Controller
             'name' => [
                 'required',
                 Rule::unique('roles')->ignore($role->name, 'name')
-            ]
+            ],
+            'permission' => ['required'],
         ]);
 
         $role->name = $request->name;
         $role->save();
         $role->syncPermissions($request->permission);
 
-        return redirect()->route('roles.index')->with('notification', '¡Rol ' .'"'. $role->name .'"'. 'actualizado correctamente!');
+        return redirect()->route('roles.index')->with('notification', '¡Rol ' .' "'. $role->name .'" '. 'actualizado correctamente!');
     }
 
     public function confirm($id)
@@ -121,6 +127,6 @@ class RolesController extends Controller
         $role = Role::findOrFail($id);
         $role->delete();
 
-        return redirect()->route('roles.index')->with('notification', '¡Rol ' .'"'. $role->name .'"'. 'eliminado correctamente!');
+        return redirect()->route('roles.index')->with('notification', '¡Rol ' .' "'. $role->name .'" '. 'eliminado correctamente!');
     }
 }

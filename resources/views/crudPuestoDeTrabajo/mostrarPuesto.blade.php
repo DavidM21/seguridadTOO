@@ -1,28 +1,43 @@
-@extends('base')
+@extends('layouts.business')
 
-@section('titulo')
-Puestos de trabajo
-@endsection
+@section('section', 'Puesto de Trabajo')
 
-@section('tituloVista')
-Lista de puestos de trabajo
-@endsection
+@section('content')
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">PUESTOS DE TRABAJOS</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Puestos de trabajo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-@section('sectiones')
-<li class="breadcrumb-item"><a href="javascript:">Puesto de trabajo</a></li>
-<li class="breadcrumb-item"><a href="javascript:">Lista</a></li>
-@endsection
+    <div class="col-xl-12">
+        <div class="card Recent-Users">
+            <div class="card-header unread">
+                <h5>Puestos de trabajo</h5>
+                <span class="badge badge-success">{{count($puestos)}}</span>
 
-@section('tituloCard')
-Puestos de trabajo 
-<br>
-<br>
-<button type="button" class="btn btn-outline-primary text-right" data-toggle="tooltip">
-    <i class="feather icon-plus-circle"></i><a href="crearPuesto">Agregar Puesto de trabajo</a></button>
-@endsection
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('puestos.create') }}"
+                   class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip"
+                   data-placement="top" title="Nuevo">
+                    <span class="pcoded-micon"><i class="feather icon-plus"></i></span>
+                    <!--<span class="pcoded-mtext">Nuevo</span>-->
+                </a>
+                <a style="box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);" href="{{ route('seccion.show') }}" class="fa-pull-right label btn-primary text-white f-12 badge-pill" data-toggle="tooltip" data-placement="top" title="Atras">
+                    <span class="pcoded-micon"><i class="feather icon-corner-up-left"></i></span>
+                    <!--<span class="pcoded-mtext">Nuevo</span>-->
+                </a>
+            </div>
 
-@section('contenido')
-    <div class="card-block table-border-style">
+            <div class="card-block table-border-style">
         <div class="table-responsive">
             <table class="table table-striped text-center">
                 <thead>
@@ -40,16 +55,25 @@ Puestos de trabajo
                         <th>{{$puesto->id}}</th>
                         <td>{{$puesto->name}}</td>
                         <td>{{$puesto->salary}}</td>
-                        <td>{{$puesto->section_id}}</td>
+                        <td>{{$puesto->section->name}}</td>
                         <td>
 
-                        <a href="{{ route('puestos.edit', $puesto) }}"><button type="button" class="btn btn-dark" title="Editar" data-toggle="tooltip">
-                        <i class="fas fa-edit"></i></button></a>
-                        <form  method="POST" action="{{ route('puestos.destroy', $puesto) }}">
-                                    @csrf @method('DELETE')
-                                    <button  class="btn btn-danger mb-1" title="Eliminar" data-toggle="tooltip">
-                                    <i class="fas fa-trash-alt"></i></i></button>
-                        </form>
+                        <a href="{{ route('empleado.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
+                                       data-placement="top" title="Agregar empleado">
+                                        <span class="pcoded-micon"><i class="feather icon-user-plus"></i></span>
+                                        <!--<span class="pcoded-mtext">Eliminar</span>-->
+                        </a>
+                        <a href="{{ route('puestos.edit', $puesto) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
+                                       data-placement="top" title="Editar">
+                                        <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
+                                        <!--<span class="pcoded-mtext">Editar</span>-->
+                        </a>
+
+                        <a href="{{ route('puestos.confirm', $puesto->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
+                                       data-placement="top" title="Eliminar">
+                                        <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
+                                        <!--<span class="pcoded-mtext">Eliminar</span>-->
+                        </a>
                         </td>
                     </tr>
                     @endforeach
@@ -57,4 +81,13 @@ Puestos de trabajo
             </table>
         </div>
     </div>
+
+        </div>
+    </div>
 @endsection
+
+@section('js_after')
+
+@endsection
+
+

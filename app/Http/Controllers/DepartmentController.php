@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+//namespace App\Http\Controllers\OrganizationController;
 
 use App\Department;
 use Illuminate\Http\Request;
+use App\Organization;
 
 class DepartmentController extends Controller
 {
@@ -24,40 +26,51 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        $organizaciones=Organization::all();
+        return view('crudDepartamento.crearDepartamento', compact ('organizaciones'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+         $fields =request()->validate([
+            'name' => 'required',
+            'organization_id' => 'required',
+        ]);
+
+        Department::create($fields);
+
+        return redirect()->route('departamento.show');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Department  $department
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function show(Department $department)
     {
-        //
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $datos['departments']=Department::whereIn('organization_id', $organizations)->paginate(5);
+        return view('crudDepartamento.mostrarDepartamento', $datos);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Department  $department
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Department $department)
     {
-        //
+        $organizaciones=Organization::all();
+        return view('crudDepartamento.editarDepartamento', compact('department', 'organizaciones'));
     }
 
     /**
@@ -65,11 +78,18 @@ class DepartmentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Department  $department
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Department $department)
     {
-        //
+        $fields=request()->validate([
+            'name' => 'required',
+            'organization_id' => 'required',
+        ]);
+
+        $department->update($fields);
+
+        return redirect()->route('departamento.show', $department);
     }
 
     /**
@@ -78,8 +98,17 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function confirm($id)
     {
-        //
+        $department = Department::findOrFail($id);
+
+        return view('crudDepartamento.confirmDepartamento', compact('department'));
+    }
+
+    public function destroy($id)
+    {
+        $department = Department::findOrFail($id);
+        $department->delete();
+        return redirect()->route('departamento.show');
     }
 }

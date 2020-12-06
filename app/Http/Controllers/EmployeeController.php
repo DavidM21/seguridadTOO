@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
 use App\Gender;
 use App\MaritalStatus;
 use App\City;
+use App\Organization;
+use App\Section;
 use App\State;
 use App\JobPosition;
 use App\Employee;
@@ -16,12 +19,16 @@ class EmployeeController extends Controller
      * Display a listing of the empleados.
      * Muestra una lista de los objetos creados
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        $empleados = Employee ::get();
-        
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
+        $sections = Section::whereIn('department_id', $departments)->pluck('id');
+        $jobpositions = JobPosition::whereIn('section_id', $sections)->pluck('id');
+        $empleados = Employee::whereIn('job_position_id', $jobpositions)->get();
+        //dd($empleados);
         return view('crudEmpleado.mostrarEmpleado',compact('empleados'));
     }
 
@@ -29,15 +36,17 @@ class EmployeeController extends Controller
      * Show the form for creating a new resource.
      * Muestrar el formulario para agregar un nuevo empleado
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
+
         $generos = Gender::all();
         $estadoCiviles = MaritalStatus::all();
         $municipios = City::all();
         $departamentos = State::all();
         $puestos = JobPosition::all();
+        //dd($puestos);
         return view('crudEmpleado.crearEmpleado',compact('generos','estadoCiviles','municipios','departamentos','puestos'));
     }
 
@@ -46,7 +55,7 @@ class EmployeeController extends Controller
      * Guarda el empleado en la base de datos que fue enviado previamente por el método create
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -80,7 +89,7 @@ class EmployeeController extends Controller
         ]);
 
         //Para mensajes de error personalizados revisar el video 20 minuto 6
-    
+
         return redirect()->route('empleado.show');
     }
 
@@ -101,13 +110,17 @@ class EmployeeController extends Controller
      * Mostramos el formulario para editar un recurso que ya existe
      *
      * @param  \App\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Employee $employee)
     {
-        return view('crudEmpleado.editarEmpleado',[
-            'employee' => $employee
-        ]);
+        $generos = Gender::all();
+        $estadoCiviles = MaritalStatus::all();
+        $municipios = City::all();
+        $departamentos = State::all();
+        $puestos = JobPosition::all();
+        return view('crudEmpleado.editarEmpleado',['employee' => $employee],
+            compact('generos','estadoCiviles','municipios','departamentos','puestos'));
     }
 
     /**
@@ -148,9 +161,8 @@ class EmployeeController extends Controller
             'gender_id' => request('genero'),
             'city_id' => request('municipio'),
         ]);
-
         //Para mensajes de error personalizados revisar el video 20 minuto 6
-    
+
         return redirect()->route('empleado.show');
     }
 
@@ -161,9 +173,24 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+
+    public function confirm($id)
     {
-        $employee->delete();
+        $empleado = Employee::findOrFail($id);
+
+        return view('crudEmpleado.confirmEmpleado', compact('empleado'));
+    }
+
+    public function destroy($id)
+    {
+
+        $empleado = Employee::findOrFail($id);
+        $empleado->delete();
         return redirect()->route('empleado.show');
+    }
+
+    public function byDepartamentos($id)
+    {
+        return City::where('state_id',$id)->get();
     }
 }

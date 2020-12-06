@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary shadow-2 mb-4">Iniciar sesión</button>
-                        <p class="mb-2 text-muted">¿Olvidó la contraseña? <a href="{{ route('password.request') }}">Reset</a></p>
+                        <p class="mb-2 text-muted">¿Olvidó la contraseña? <a href="{{ route('password.request') }}">Reiniciar</a></p>
                         <p class="mb-0 text-muted">¿No tienes una cuenta? <a href="{{ route('register') }}">Regístrate</a></p>
                     </form>
                 </div>

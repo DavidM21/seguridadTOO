@@ -16,7 +16,7 @@
     <meta name="description" content="Datta Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
     <meta name="keywords" content="admin templates, bootstrap admin templates, bootstrap 4, dashboard, dashboard templets, sass admin templets, html admin templates, responsive, bootstrap admin templates free download,premium bootstrap admin templates, datta able, datta able bootstrap admin template, free admin theme, free dashboard template"/>
     <meta name="author" content="CodedThemes"/>
-@yield('css_before')
+    @yield('css_before')
 <!-- Favicon icon -->
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" type="image/x-icon">
     <!-- fontawesome icon -->
@@ -41,21 +41,30 @@
 <nav class="pcoded-navbar">
     <div class="navbar-wrapper">
         <div class="navbar-brand header-logo">
-            <a href="index.html" class="b-brand">
+            <a href="{{route('home')}}" class="b-brand">
                 <div class="b-bg">
                     <i class="feather icon-trending-up"></i>
                 </div>
-                <span class="b-title">Datta Able</span>
+                <span class="b-title">DOVHAKIN</span>
             </a>
             <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+        </div>
+        <div class=" navbar-brand header-logo text-center">
+            <div class="media" style="margin-left: 60px;">
+                <img width="85%" class="img-radius" src="{{asset('assets/images/user/avatar-2.jpg')}}" alt="Generic placeholder image">
+                <div class="media-body"></div>
+            </div>
         </div>
         <div class="navbar-content scroll-div">
             <ul class="nav pcoded-inner-navbar">
                 <li class="nav-item pcoded-menu-caption">
-                    <label>Navigation</label>
+                    <label style="margin-bottom: 0px;">
+                        {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                    </label><br>
                 </li>
+
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
-                    <a href="index.html" class="nav-link ">
+                    <a href="{{route('home')}}" class="nav-link ">
                         <span class="pcoded-micon">
                             <i class="feather icon-layout"></i>
                         </span>
@@ -77,9 +86,14 @@
                     </ul>
                 </li>
                 -->
+
+                <!-- Inicio Super Admin -->
+                @if(auth()->user()->can('Gestor Usuarios') || auth()->user()->can('Gestor Roles'))
                 <li class="nav-item pcoded-menu-caption">
-                    <label>Super Administrador</label>
+                    <label>Administración</label>
                 </li>
+                @endif
+                @can('Gestor Usuarios')
                 <li data-username="form elements advance componant validation masking wizard picker select"
                     class="nav-item">
                     <a href="{{ route('users.index') }}" class="nav-link ">
@@ -88,101 +102,128 @@
                         </span>
                         <span class="pcoded-mtext">Usuarios</span></a>
                 </li>
-                <li data-username="Table bootstrap datatable footable" class="nav-item">
+                @endcan
+                @can('Gestor Roles')
+                <li data-username="form elements advance componant validation masking wizard picker select"
+                    class="nav-item">
                     <a href="{{route('roles.index')}}" class="nav-link ">
                         <span class="pcoded-micon">
                             <i class="feather icon-award"></i>
                         </span>
                         <span class="pcoded-mtext">Roles & Permisos</span></a>
                 </li>
-
+                @endcan
+                <!-- Fin Super Admin -->
+<!--
                 <li class="nav-item pcoded-menu-caption">
                     <label>Administrador</label>
-                </li>
-                <li data-username="form elements advance componant validation masking wizard picker select"
-                    class="nav-item">
-                    <a href="form_elements.html" class="nav-link ">
-                        <span class="pcoded-micon">
-                            <i class="feather icon-users"></i>
-                        </span>
-                        <span class="pcoded-mtext">Usuarios</span></a>
-                </li>
+                </li>-->
 
                 <li class="nav-item pcoded-menu-caption">
-                    <label>Administración</label>
+                    <label>Negocio</label>
                 </li>
+                @can('Gestor Organizaciones')
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="{{ route('organizacion.show') }}" class="nav-link">
                         <span class="pcoded-micon">
-                            <i class="feather icon-home"></i>
+                            <i class="feather icon-shield"></i>
                         </span>
                         <span class="pcoded-mtext">Organizaciones</span>
                     </a>
                 </li>
+                @endcan
+                @can('Gestor Departamentos')
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="{{ route('departamento.show') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-copy"></i>
-                        </span><span class="pcoded-mtext">Áreas</span>
+                        </span><span class="pcoded-mtext">Departamentos</span>
                     </a>
                 </li>
+                @endcan
+                @can('Gestor Secciones')
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="{{ route('seccion.show') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-grid"></i>
                         </span>
                         <span class="pcoded-mtext">Secciones</span>
                     </a>
                 </li>
+                @endcan
+                @can('Gestor Puestos')
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="{{route('puestos.show')}}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-monitor"></i>
                         </span>
                         <span class="pcoded-mtext">Puestos de Trabajo</span>
                     </a>
                 </li>
+                @endcan
+                @can('Gestor Empleados')
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="{{route('empleado.show')}}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-user"></i>
                         </span>
                         <span class="pcoded-mtext">Empleados</span>
                     </a>
                 </li>
+                @endcan
+<!--
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-heart"></i>
                         </span><span class="pcoded-mtext">Estados Civiles</span>
+                        <span class="pcoded-badge label label-danger">
+                            <i class="feather icon-alert-triangle"></i>
+                        </span>
                     </a>
                 </li>
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-flag"></i>
                         </span>
                         <span class="pcoded-mtext">Géneros</span>
+                        <span class="pcoded-badge label label-danger">
+                            <i class="feather icon-alert-triangle"></i>
+                        </span>
                     </a>
                 </li>
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-map"></i>
                         </span>
                         <span class="pcoded-mtext">Departamentos</span>
+                        <span class="pcoded-badge label label-danger">
+                            <i class="feather icon-alert-triangle"></i>
+                        </span>
+
                     </a>
                 </li>
                 <li data-username="Sample Page" class="nav-item">
-                    <a href="sample-page.html" class="nav-link">
+                    <a href="#" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-map-pin"></i>
                         </span>
                         <span class="pcoded-mtext">Municipios</span>
+                        <span class="pcoded-badge label label-danger">
+                            <i class="feather icon-alert-triangle"></i>
+                        </span>
                     </a>
                 </li>
+-->
 
-                <li data-username="Disabled Menu" class="nav-item disabled"><a href="javascript:" class="nav-link"><span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Disabled menu</span></a></li>
+                <li data-username="Disabled Menu" class="nav-item disabled">
+                    <a href="javascript:" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-power"></i></span>
+                        <span class="pcoded-mtext">Disabled menu</span></a>
+                </li>
+                <br><br><br><br>
             </ul>
         </div>
     </div>
@@ -217,7 +258,7 @@
             <li class="nav-item">
                 <div class="main-search">
                     <div class="input-group">
-                        <input type="text" id="m-search" class="form-control" placeholder="Search . . .">
+                        <input type="text" id="m-search" class="form-control" placeholder="Buscar . . .">
                         <a href="javascript:" class="input-group-append search-close">
                             <i class="feather icon-x input-group-text"></i>
                         </a>
@@ -246,7 +287,7 @@
                             </li>
                             <li class="notification">
                                 <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+                                    <img class="img-radius" src="{{asset('assets/images/user/avatar-2.jpg')}}" alt="Generic placeholder image">
                                     <div class="media-body">
                                         <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
                                         <p>New ticket Added</p>
@@ -258,7 +299,7 @@
                             </li>
                             <li class="notification">
                                 <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+                                    <img class="img-radius" src="{{asset('assets/images/user/avatar-2.jpg')}}" alt="Generic placeholder image">
                                     <div class="media-body">
                                         <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
                                         <p>Prchace New Theme and make payment</p>
@@ -267,7 +308,7 @@
                             </li>
                             <li class="notification">
                                 <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-3.jpg" alt="Generic placeholder image">
+                                    <img class="img-radius" src="{{asset('assets/images/user/avatar-3.jpg')}}" alt="Generic placeholder image">
                                     <div class="media-body">
                                         <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
                                         <p>currently login</p>
@@ -276,7 +317,7 @@
                             </li>
                         </ul>
                         <div class="noti-footer">
-                            <a href="javascript:">show all</a>
+                            <a href="#">show all</a>
                         </div>
                     </div>
                 </div>
@@ -288,17 +329,22 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
-                            <img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-                            <span>John Doe</span>
-                            <a href="auth-signin.html" class="dud-logout" title="Logout">
+                            <img src="{{asset('assets/images/user/avatar-2.jpg')}}" class="img-radius" alt="User-Profile-Image">
+                            <span>{{ auth()->user()->first_name }}</span>
+                            <a href="{{ route('logout') }}" class="dud-logout" title="Logout"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                                 <i class="feather icon-log-out"></i>
                             </a>
                         </div>
                         <ul class="pro-body">
-                            <li><a href="javascript:" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
-                            <li><a href="javascript:" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-                            <li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-                            <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="feather icon-settings"></i> Ajustes</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="feather icon-user"></i> Perfil</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="feather icon-mail"></i> Mensajes</a></li>
+                            <li><a href="#" class="dropdown-item"><i class="feather icon-lock"></i> Bloquear pantalla</a></li>
                         </ul>
                     </div>
                 </div>
@@ -342,32 +388,32 @@
 <div class="iew-container">
     <ul class="iew-download">
         <li>
-            <a href="http://www.google.com/chrome/">
-                <img src="assets/images/browser/chrome.png" alt="Chrome">
+            <a href="#">
+                <img src="{{asset('assets/images/browser/chrome.png')}}" alt="Chrome">
                 <div>Chrome</div>
             </a>
         </li>
         <li>
-            <a href="https://www.mozilla.org/en-US/firefox/new/">
-                <img src="assets/images/browser/firefox.png" alt="Firefox">
+            <a href="#">
+                <img src="{{asset('assets/images/browser/firefox.png')}}" alt="Firefox">
                 <div>Firefox</div>
             </a>
         </li>
         <li>
-            <a href="http://www.opera.com">
-                <img src="assets/images/browser/opera.png" alt="Opera">
+            <a href="#">
+                <img src="{{asset('assets/images/browser/opera.png')}}" alt="Opera">
                 <div>Opera</div>
             </a>
         </li>
         <li>
-            <a href="https://www.apple.com/safari/">
-                <img src="assets/images/browser/safari.png" alt="Safari">
+            <a href="#">
+                <img src="{{asset('assets/images/browser/safari.png')}}" alt="Safari">
                 <div>Safari</div>
             </a>
         </li>
         <li>
-            <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                <img src="assets/images/browser/ie.png" alt="">
+            <a href="#">
+                <img src="{{asset('assets/images/browser/ie.png')}}" alt="">
                 <div>IE (11 & above)</div>
             </a>
         </li>
@@ -383,6 +429,8 @@
 <script src="{{ asset('assets/js/vendor-all.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
+
+
 @yield('js_after')
 </body>
 </html>

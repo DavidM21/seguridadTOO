@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Ask;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use App\Mail\EmailVerification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Rules\especial;
@@ -119,7 +122,7 @@ class RegisterController extends Controller
         $username = strtolower(stristr($request->email, "@", true));
 
         // Generando un contraseña temporal aleatoria
-        $temp_password = str_random(12);
+        $temp_password = str_random(16);
 
         // Creación del usurio
         $user = new User;
@@ -139,7 +142,8 @@ class RegisterController extends Controller
         $user->asks()->attach($request->question_two, ['anwer'=>Hash::make($request->answer_two)]);
         $user->asks()->attach($request->question_three, ['anwer'=>Hash::make($request->answer_three)]);
 
-       //return "Se te ha enviado un email para que confirmes tu cuenta";
+        // Envio de email para verificación de cuenta
+        Mail::to($user->email)->send(new EmailVerification($user, $temp_password));
        return view('auth.verify');
     }
 }

@@ -8,12 +8,12 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Form Elements</h5>
+                        <h5 class="m-b-10">ROLES & PERMISOS</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Form Componants</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:">Form Elements</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Roles & Permisos</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:">Editar rol</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,11 +60,8 @@
                                         {{ $permission->name }}
                                         </option>
                                     @endforeach
-
-                                        @foreach($role->permissions->pluck('name') as $permission)
-                                            <span class="badge badge-info">{{ $permission }}</span>
-                                        @endforeach
                                 </select>
+
 
                                 @error('permission')
                                 <span class="invalid-feedback text-left" role="alert">

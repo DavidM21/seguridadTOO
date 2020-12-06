@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Cache;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     //use HasRoles;
@@ -43,6 +43,21 @@ class User extends Authenticatable
     public function asks()
     {
         return $this->belongsToMany(Ask::class);
+    }
+
+    public function organizations()
+    {
+        return $this->hasMany(Organization::class);
+    }
+
+    public function activityStatistics()
+    {
+        return $this->hasMany(ActivityStatistic::class);
+    }
+
+    public function ban()
+    {
+        return $this->hasOne(Ban::class);
     }
 
     public function isOnline()

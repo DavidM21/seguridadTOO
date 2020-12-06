@@ -8,10 +8,10 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="page-header-title">
-                        <h5 class="m-b-10">Form Elements</h5>
+                        <h5 class="m-b-10">ROLES & PERMISOS</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
                         <li class="breadcrumb-item"><a href="javascript:">Roles & Permisos</a></li>
                         <li class="breadcrumb-item"><a href="javascript:">Crear Rol</a></li>
                     </ul>
@@ -69,11 +69,6 @@
                                 </span>
                                 @enderror
                         </div>
-
-
-
-
-
                         </div>
 
                     </div>
