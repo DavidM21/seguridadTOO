@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\PasswordExpiredRequest;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 class ExpiredPasswordController extends Controller
 {
-    //
     public function expired()
     {
         return view('auth.passwords.expired');
     }
-
+    
     public function postExpired(PasswordExpiredRequest $request)
     {
         // Checking current password
