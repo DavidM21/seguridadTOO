@@ -17,10 +17,6 @@ class UserTableSeeder extends Seeder
             'first_name'=> 'Administrador',
             'last_name'=> 'a',
             'email'=> 'conermendez95@gmail.com',
-            'birthday'=> '1111-11-11',
-            'cell_phone'=> 22736000,
-            'passcode'=> '1234',
-            'password'=> 'admin',
         ]);
     }
 }
