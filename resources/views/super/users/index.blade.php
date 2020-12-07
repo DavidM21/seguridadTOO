@@ -114,11 +114,13 @@
                                             <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
                                             <!--<span class="pcoded-mtext">Editar</span>-->
                                         </a>
+                                    @if(auth()->user()->id != $user->id)
                                         <a href="{{ route('users.confirm', $user->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
                                            data-placement="top" title="Eliminar">
                                             <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
                                             <!--<span class="pcoded-mtext">Eliminar</span>-->
                                         </a>
+                                    @endif
                                     @endrole
                                 </td>
                             </tr>

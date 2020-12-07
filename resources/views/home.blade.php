@@ -4,50 +4,55 @@
 
 @section('content')
 
-    <!-- [ statistics year chart ] start -->
-    <div class="col-xl-4 col-md-6">
-        <div class="card card-event">
-            <div class="card-block">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col">
-                        <h5 class="m-0">USUARIOS</h5>
+    <!-- Inicio Card Usuarios -->
+    @can('Gestor Usuarios')
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-event">
+                <div class="card-block">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col">
+                            <h5 class="m-0">USUARIOS</h5>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('users.index')}}">
+                                <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{route('users.index')}}">
-                            <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
-                        </a>
-                    </div>
+                    <h2 class="mt-3 f-w-300">{{$users}}<sub class="text-muted f-14">Usuarios</sub></h2>
+                    <h6 class="text-muted mt-4 mb-0"></h6>
+                    <i class="feather icon-users text-c-purple f-50"></i>
                 </div>
-                <h2 class="mt-3 f-w-300">{{$users}}<sub class="text-muted f-14">Usuarios</sub></h2>
-                <h6 class="text-muted mt-4 mb-0"></h6>
-                <i class="feather icon-users text-c-purple f-50"></i>
             </div>
         </div>
-    </div>
-    <!-- [ statistics year chart ] end -->
-    <!-- [ statistics year chart ] start -->
-    <div class="col-xl-4 col-md-6">
-        <div class="card card-event">
-            <div class="card-block">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col">
-                        <h5 class="m-0">ROLES & PERMISOS</h5>
+    @endcan
+    <!-- Inicio Card Usuarios -->
+    <!-- Inicio Card Roles -->
+    @can('Gestor Roles')
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-event">
+                <div class="card-block">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col">
+                            <h5 class="m-0">ROLES & PERMISOS</h5>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('roles.index')}}">
+                                <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{route('roles.index')}}">
-                            <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
-                        </a>
-                    </div>
+                    <h2 class="mt-3 f-w-300">{{$roles_and_permisison}}<sub class="text-muted f-14">Roles & permisos</sub></h2>
+                    <h6 class="text-muted mt-4 mb-0"></h6>
+                    <i class="feather icon-award text-c-purple f-50"></i>
                 </div>
-                <h2 class="mt-3 f-w-300">{{$roles_and_permisison}}<sub class="text-muted f-14">Roles & permisos</sub></h2>
-                <h6 class="text-muted mt-4 mb-0"></h6>
-                <i class="feather icon-award text-c-purple f-50"></i>
             </div>
         </div>
-    </div>
-    <!-- [ statistics year chart ] end -->
-    <!-- [ statistics year chart ] start -->
-    <div class="col-xl-4 col-md-6">
+    @endcan
+    <!-- Inicio Card Roles -->
+    <!-- Inicio Card Organizaciones -->
+    @can('Gestor Organizaciones')
+        <div class="col-xl-4 col-md-6">
         <div class="card card-event">
             <div class="card-block">
                 <div class="row align-items-center justify-content-center">
@@ -66,94 +71,105 @@
             </div>
         </div>
     </div>
-    <!-- [ statistics year chart ] end -->
-    <!-- [ statistics year chart ] start -->
-    <div class="col-xl-4 col-md-6">
-        <div class="card card-event">
-            <div class="card-block">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col">
-                        <h5 class="m-0">DEPARTAMENTOS</h5>
+    @endcan
+    <!-- Fin Card Organizaciones -->
+    <!-- Inicio Card Departamentos -->
+    @can('Gestor Departamentos')
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-event">
+                <div class="card-block">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col">
+                            <h5 class="m-0">DEPARTAMENTOS</h5>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('departamento.show')}}">
+                                <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{route('departamento.show')}}">
-                            <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
-                        </a>
-                    </div>
+                    <h2 class="mt-3 f-w-300">{{$departments}}<sub class="text-muted f-14">Departamentos</sub></h2>
+                    <h6 class="text-muted mt-4 mb-0"></h6>
+                    <i class="feather icon-copy text-c-purple f-50"></i>
                 </div>
-                <h2 class="mt-3 f-w-300">{{$departments}}<sub class="text-muted f-14">Departamentos</sub></h2>
-                <h6 class="text-muted mt-4 mb-0"></h6>
-                <i class="feather icon-copy text-c-purple f-50"></i>
             </div>
         </div>
-    </div>
-    <!-- [ statistics year chart ] end -->
-    <!-- [ statistics year chart ] start -->
-    <div class="col-xl-4 col-md-6">
-        <div class="card card-event">
-            <div class="card-block">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col">
-                        <h5 class="m-0">SECCIONES</h5>
-                    </div>
-                    <div class="col-auto">
-                        <a href="{{route('seccion.show')}}">
-                            <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
-                        </a>
-                    </div>
-                </div>
-                <h2 class="mt-3 f-w-300">{{$sections}}<sub class="text-muted f-14">Secciones</sub></h2>
-                <h6 class="text-muted mt-4 mb-0"></h6>
-                <i class="feather icon-grid text-c-purple f-50"></i>
-            </div>
-        </div>
-    </div>
-    <!-- [ statistics year chart ] end -->
+    @endcan
+    <!-- Fin Card Departamentos -->
 
-    <!-- [ statistics year chart ] start -->
-    <div class="col-xl-4 col-md-6">
-        <div class="card card Recent-Users card-event">
-            <div class="card-block">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col">
-                        <h5 class="m-0">PUESTOS</h5>
+    <!-- Inicio Card Secciones -->
+    @can('Gestor Secciones')
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-event">
+                <div class="card-block">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col">
+                            <h5 class="m-0">SECCIONES</h5>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('seccion.show')}}">
+                                <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{route('puestos.show')}}">
-                            <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
-                        </a>
-                    </div>
+                    <h2 class="mt-3 f-w-300">{{$sections}}<sub class="text-muted f-14">Secciones</sub></h2>
+                    <h6 class="text-muted mt-4 mb-0"></h6>
+                    <i class="feather icon-grid text-c-purple f-50"></i>
                 </div>
-                <h2 class="mt-3 f-w-300">{{$jobpositions}}<sub class="text-muted f-14">Puestos</sub></h2>
-                <h6 class="text-muted mt-4 mb-0"></h6>
-                <i class="feather icon-monitor text-c-purple f-50"></i>
             </div>
         </div>
-    </div>
-    <!-- [ statistics year chart ] end -->
+    @endcan
+    <!-- Fin Card Secciones -->
 
-    <!-- [ statistics year chart ] start -->
-    <div class="col-xl-4 col-md-6">
-        <div class="card card-event">
-            <div class="card-block">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col">
-                        <h5 class="m-0">EMPLEADOS</h5>
+    <!-- Inicio Card Puestos -->
+    @can('Gestor Puestos')
+        <div class="col-xl-4 col-md-6">
+            <div class="card card Recent-Users card-event">
+                <div class="card-block">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col">
+                            <h5 class="m-0">PUESTOS</h5>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('puestos.show')}}">
+                                <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <a href="{{route('empleado.show')}}">
-                            <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
-                        </a>
-                    </div>
+                    <h2 class="mt-3 f-w-300">{{$jobpositions}}<sub class="text-muted f-14">Puestos</sub></h2>
+                    <h6 class="text-muted mt-4 mb-0"></h6>
+                    <i class="feather icon-monitor text-c-purple f-50"></i>
                 </div>
-                <h2 class="mt-3 f-w-300">{{$employee}}<sub class="text-muted f-14">Empleados</sub></h2>
-                <h6 class="text-muted mt-4 mb-0"></h6>
-                <i class="feather icon-user text-c-purple f-50"></i>
             </div>
         </div>
-    </div>
-    <!-- [ statistics year chart ] end -->
-    <!-- [ statistics year chart ] start -->
+    @endcan
+    <!-- Fin Card Puestos -->
+
+    <!-- Inicio Card Empleados -->
+    @can('Gestor Empleados')
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-event">
+                <div class="card-block">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col">
+                            <h5 class="m-0">EMPLEADOS</h5>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('empleado.show')}}">
+                                <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
+                            </a>
+                        </div>
+                    </div>
+                    <h2 class="mt-3 f-w-300">{{$employee}}<sub class="text-muted f-14">Empleados</sub></h2>
+                    <h6 class="text-muted mt-4 mb-0"></h6>
+                    <i class="feather icon-user text-c-purple f-50"></i>
+                </div>
+            </div>
+        </div>
+    @endcan
+    <!-- Fin Card Empleados -->
+    <!-- Inicio Card Ajustes -->
+    @hasanyrole('Super Administrador|Administrador|Usuarios')
     <div class="col-xl-4 col-md-6">
         <div class="card card-event">
             <div class="card-block">
@@ -173,8 +189,9 @@
             </div>
         </div>
     </div>
-    <!-- [ statistics year chart ] end -->
-    <!-- [ statistics year chart ] start -->
+    @endhasanyrole
+    <!-- Fin Card Ajustes -->
+    <!-- Inicio Card Salir -->
     <div class="col-xl-4 col-md-6">
         <div class="card card-event">
             <div class="card-block">
@@ -183,7 +200,11 @@
                         <h5 class="m-0"></h5>
                     </div>
                     <div class="col-auto">
-                        <a href="{{route('empleado.show')}}">
+                        <a href="{{ route('logout') }}" class="dud-logout" title="Logout" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                             <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Salir</span>
                         </a>
                     </div>
@@ -194,7 +215,7 @@
             </div>
         </div>
     </div>
-    <!-- [ statistics year chart ] end -->
+    <!-- Fin Card Salir -->
 
 @endsection
 

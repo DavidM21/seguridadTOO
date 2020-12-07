@@ -63,7 +63,7 @@
                                     <div class="input-group mb-3 col-6">
                                         <input name="birthday" class="form-control @error('birthday') is-invalid @enderror"
                                                value="{{ old('birthday') }}" autocomplete="name"
-                                               autofocus data-mask="00/00/0000" placeholder="Fecha de Nac - dd/mm/aaaa">
+                                               autofocus data-mask="00/00/0000" placeholder="Fecha de Nac - mm/dd/aaaa">
                                         @error('birthday')
                                         <span class="invalid-feedback text-left" role="alert">
                                                <strong>{{ $message }}</strong>
@@ -81,30 +81,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                            <!-- Campos de contraseña
-                            <div class="row">
-                                <div class="input-group mb-4 col-6">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                           name="password" value="{{ old('password') }}" autocomplete="name"
-                                           autofocus placeholder="Contraseña">
-                                    @error('password')
-                                <span class="invalid-feedback text-left" role="alert">
-                                       <strong>{{ $message }}</strong>
-                                </span>
-                                    @enderror
-                                </div>
-                                <div class="input-group mb-4 col-6">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                           name="password_confirmation" value="{{ old('password') }}" autocomplete="name"
-                                           autofocus placeholder="Confirmar Contraseña">
-                                    @error('password')
-                                <span class="invalid-feedback text-left" role="alert">
-                                       <strong>{{ $message }}</strong>
-                                </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            -->
                                 <div class="row justify-content-md-center">
                                     <div class="input-group mb-3 col-6">
                                         <input id="passcode" type="password" class="form-control text-center
