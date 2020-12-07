@@ -76,6 +76,8 @@ class UsersController extends Controller
 
         // Asignando roles
         $user->assignRole($request->role);
+        $user->increment('cantidad_roles');
+
 
         //return 'funciona';
         return redirect()->route('users.index')->with('notification', '¡Nuevo usuario ' .'"'. $user->username .'"'. ' guardado correctamente!');

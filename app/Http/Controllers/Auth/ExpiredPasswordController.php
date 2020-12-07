@@ -6,6 +6,7 @@ use App\Http\Requests\PasswordExpiredRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class ExpiredPasswordController extends Controller
 {
@@ -23,8 +24,9 @@ class ExpiredPasswordController extends Controller
 
         $request->user()->update([
             'password' => Hash::make($request->password),
-            'password_changed_at' => Carbon::now()->toDateTimeString()
+            'password_changed_at' => Carbon::now()->toDateTimeString(),
         ]);
+        $request->user()->increment('cantidad_cambios_contra');
         return redirect()->back()->with(['status' => 'Contraseña actualizada correctamente']);
     }
 }

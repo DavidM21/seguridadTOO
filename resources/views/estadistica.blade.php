@@ -49,7 +49,7 @@
                                                             <th>Nombre usuario</th>
                                                             <th># bloqueos</th>
                                                             <th># cambios de clave</th>
-                                                            <th>Roles tenidos</th>
+                                                            <th># roles tenidos</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -57,8 +57,8 @@
                                                         <tr>                                                        
                                                             <td>{{$user->first_name}}</td>
                                                             <td>6</td>
-                                                            <td>9</td>
-                                                            <td>Admin, Gerente</td>
+                                                            <td>{{$user->cantidad_cambios_contra}}</td>
+                                                            <td>{{$user->cantidad_roles}}</td>
                                                         </tr>
                                                     @endforeach    
                                                     </tbody>
