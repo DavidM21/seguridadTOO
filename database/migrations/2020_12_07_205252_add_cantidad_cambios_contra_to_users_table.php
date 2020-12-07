@@ -26,7 +26,7 @@ class AddCantidadCambiosContraToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('cantidad_roles');
+            $table->dropColumn('cantidad_cambios_contra');
         });
     }
 }
