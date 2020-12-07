@@ -54,6 +54,7 @@ Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Departament
 Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Secciones'], function (){
     #TEMPLATES CRUD SECCION
     Route::get('sections', 'SectionController@show')->name('seccion.show');
+#TEMPLATES CRUD ORGANIZACION
 
     Route::get('sections/create', 'SectionController@create')->name('seccion.create');
     Route::post('sections/store', 'SectionController@store')->name('seccion.store');
@@ -94,20 +95,9 @@ Route::group(['prefix'=>'business', 'middleware'=>'permission:Gestor Empleados']
 });
 
 
-Route::get('/loginTemplate', function () {
-    return view('loginTemplate');
-});
-
-Route::get('/registrar', function () {
-    return view('registrarUsuario');
-});
-
-Route::get('/contraseña', function () {
-    return view('restaurarPassword');
-});
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('auth/2fa', 'Auth\LoginController@login')->name('auth.2fa');
 
 
@@ -141,5 +131,22 @@ Route::group(['prefix'=>'admin', 'namespace'=>'super', 'middleware'=>'role:Super
     Route::resource('users', 'UsersController');
     Route::get('/users/{id}/confirm', 'UsersController@confirm')->name('users.confirm');
 });
-
 /* FIN SOSA */
+
+//Cris
+Route::get('/estadistica', 'EstadisticaController@mostrarestadistica')->name('estadistica.mostrarestadistica');
+Route::get('/estado', 'EstadisticaController@mostrarestado')->name('estado.mostrarestado');
+//Route::get('/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
+//Cris Password expiracion
+
+Route::middleware(['auth'])->group(function () {
+    Route::middleware(['password_expired'])->group(function () {
+        Route::get('/home', 'HomeController@index')->name('home');
+    });
+    Route::get('password/expired', 'Auth\ExpiredPasswordController@expired')
+        ->name('password.expired');
+    Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')
+        ->name('password.post_expired');
+});
+//Final Cris

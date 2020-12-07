@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Rules\especial;
+use App\Rules\mayuscula;
 
 class RegisterController extends Controller
 {
@@ -69,6 +71,7 @@ class RegisterController extends Controller
             'answer_two' => ['required', 'string', 'max:255'],
             'question_three' => ['required'],
             'answer_three' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:11',new especial, new mayuscula]
         ]);
     }
 
@@ -133,7 +136,10 @@ class RegisterController extends Controller
         $user->passcode = Hash::make($request->passcode);
         $user->password = Hash::make($temp_password);
         $user->temp_password = $temp_password;
+        //$user->password = Hash::make('prueba123admin'); // cambiar por $temp_password
+        $user->estado = 'Inactivo';
         $user->save();
+
         // Asginando preguntas al usuario
         $user->asks()->attach($request->question_one, ['anwer'=>Hash::make($request->answer_one)]);
         $user->asks()->attach($request->question_two, ['anwer'=>Hash::make($request->answer_two)]);

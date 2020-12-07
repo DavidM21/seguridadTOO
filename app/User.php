@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
+use Cache;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
@@ -18,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'token_login',
+        'name', 'email', 'password', 'token_login','password_changed_at',
     ];
 
     /**
@@ -57,5 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function ban()
     {
         return $this->hasOne(Ban::class);
+    }
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-'. $this->id);
     }
 }
