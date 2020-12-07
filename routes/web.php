@@ -115,6 +115,8 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout') ;
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register_post');
 
+Route::get('/verify/{id}', 'Auth\VerificationController@resendEmail')->name('verify.resend');
+
 // Super Administrador & Administrador
 
 // Roles
@@ -129,6 +131,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'super', 'middleware'=>'role:Super
     Route::resource('users', 'UsersController');
     Route::get('/users/{id}/confirm', 'UsersController@confirm')->name('users.confirm');
 });
+/* FIN SOSA */
 
 //Cris
 Route::get('/estadistica', 'EstadisticaController@mostrarestadistica')->name('estadistica.mostrarestadistica');
@@ -145,5 +148,5 @@ Route::middleware(['auth'])->group(function () {
         ->name('password.expired');
     Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')
         ->name('password.post_expired');
-});        
+});
 //Final Cris

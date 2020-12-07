@@ -22,6 +22,7 @@ class OrganizationTableSeeder extends Seeder
         foreach(self::$organizations as $organization){
             DB::table('organizations')->insert([
                 'name'=> $organization,
+                'user_id'=>1
             ]);
         }
     }

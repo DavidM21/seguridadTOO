@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerification;
+use http\Env\Request;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\User;
 
 class VerificationController extends Controller
 {
@@ -25,7 +30,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    //protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -34,8 +39,21 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    public function resendEmail(int $id){
+        $temp_password = str_random(16);
+
+        $user = User::findOrFail($id);
+        $user->password = Hash::make($temp_password);
+        $user->temp_password = $temp_password;
+        $user->save();
+
+        Mail::to($user->email)->send(new EmailVerification($user, $user->temp_password));
+
+        return view('auth.verify', compact('user'));
     }
 }

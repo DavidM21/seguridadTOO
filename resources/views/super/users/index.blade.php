@@ -12,7 +12,7 @@
     @if( session('notification'))
         <!-- Then put toasts within -->
         <div id="toast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
-             style="position: absolute; top: 0; right: 0;" data-delay="6000">
+             style="position: absolute; z-index: 100; top: 0; right: 0;" data-delay="6000">
             <div class="toast-header alert-success">
                 <strong class="mr-auto">Notificación</strong>
                 <small class="text-muted"></small>
@@ -114,11 +114,13 @@
                                             <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
                                             <!--<span class="pcoded-mtext">Editar</span>-->
                                         </a>
+                                    @if(auth()->user()->id != $user->id)
                                         <a href="{{ route('users.confirm', $user->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
                                            data-placement="top" title="Eliminar">
                                             <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
                                             <!--<span class="pcoded-mtext">Eliminar</span>-->
                                         </a>
+                                    @endif
                                     @endrole
                                 </td>
                             </tr>

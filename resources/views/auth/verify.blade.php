@@ -38,31 +38,25 @@
                 <div class="mb-3">
                     <i class="feather icon-user-check auth-icon"></i>
                 </div>
-                <h3 class="mb-4">{{ __('Verify Your Email Address') }}</h3>
+                    @csrf @method('GET')
+                    <h3 class="mb-4">{{ __('Verify Your Email Address') }}</h3>
 
-
-                        @if (session('resent'))
-                            <div class="alert alert-success" role="alert">
-                                {{ __('A fresh verification link has been sent to your email address.') }}
-                            </div>
-                        @endif
-                <p class="mb-4">
+                    @if (session('resent'))
+                        <div class="alert alert-success" role="alert">
+                            {{ __('A fresh verification link has been sent to your email address.') }}
+                        </div>
+                    @endif
+                    <p class="mb-4">
                         {{ __('Before proceeding, please check your email for a verification link.') }}
                         {{ __('If you did not receive the email') }},
-                    <a href="">{{ __('click here to request another') }}</a>.
-                </p>
+                        <b>pulsa el botón para que te enviemos otro</b>.
+                    </p>
 
+                    <a href="{{ route('verify.resend', $user->id)}}" class="btn btn-primary text-white">Enviar de Nuevo</a><br><br>
 
-                <button class="btn btn-primary mb-4 shadow-2">Enviar de Nuevo</button>
-                <button type="submit" class="btn btn-primary shadow-2 mb-4">Registrarme</button>
-                <p class="mb-0 text-muted">¿Ya tienes una cuenta?  <a href="{{ route('login') }}"> Iniciar Sesión</a></p>
-
-
-
-
-
-
-
+                    <!--<button type="submit" class="btn btn-primary mb-4 shadow-2">Enviar de Nuevo</button>-->
+                    <p class="mb-0 text-muted">¿No tienes una cuenta? <a href="{{ route('register') }}">Regístrate</a></p>
+                    <p class="mb-0 text-muted">¿Ya tienes una cuenta?  <a href="{{ route('login') }}"> Iniciar Sesión</a></p>
 
             </div>
         </div>

@@ -61,6 +61,21 @@
                     <label style="margin-bottom: 0px;">
                         {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                     </label><br>
+                    @role('Super Administrador')
+                    <small style="margin-bottom: 0px;">
+                        Super Administrador
+                    </small><br>
+                    @endrole
+                    @role('Administrador')
+                    <small style="margin-bottom: 0px;">
+                        Administrador
+                    </small><br>
+                    @endrole
+                    @role('Usuario')
+                    <small style="margin-bottom: 0px;">
+                        Usuario
+                    </small><br>
+                    @endrole
                 </li>
 
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
@@ -171,53 +186,6 @@
                     </a>
                 </li>
                 @endcan
-<!--
-                <li data-username="Sample Page" class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="pcoded-micon">
-                            <i class="feather icon-heart"></i>
-                        </span><span class="pcoded-mtext">Estados Civiles</span>
-                        <span class="pcoded-badge label label-danger">
-                            <i class="feather icon-alert-triangle"></i>
-                        </span>
-                    </a>
-                </li>
-                <li data-username="Sample Page" class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="pcoded-micon">
-                            <i class="feather icon-flag"></i>
-                        </span>
-                        <span class="pcoded-mtext">Géneros</span>
-                        <span class="pcoded-badge label label-danger">
-                            <i class="feather icon-alert-triangle"></i>
-                        </span>
-                    </a>
-                </li>
-                <li data-username="Sample Page" class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="pcoded-micon">
-                            <i class="feather icon-map"></i>
-                        </span>
-                        <span class="pcoded-mtext">Departamentos</span>
-                        <span class="pcoded-badge label label-danger">
-                            <i class="feather icon-alert-triangle"></i>
-                        </span>
-
-                    </a>
-                </li>
-                <li data-username="Sample Page" class="nav-item">
-                    <a href="#" class="nav-link">
-                        <span class="pcoded-micon">
-                            <i class="feather icon-map-pin"></i>
-                        </span>
-                        <span class="pcoded-mtext">Municipios</span>
-                        <span class="pcoded-badge label label-danger">
-                            <i class="feather icon-alert-triangle"></i>
-                        </span>
-                    </a>
-                </li>
--->
-
                 <li data-username="Disabled Menu" class="nav-item disabled">
                     <a href="javascript:" class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-power"></i></span>
