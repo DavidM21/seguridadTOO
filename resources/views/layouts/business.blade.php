@@ -61,6 +61,21 @@
                     <label style="margin-bottom: 0px;">
                         {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                     </label><br>
+                    @role('Super Administrador')
+                    <small style="margin-bottom: 0px;">
+                        Super Administrador
+                    </small><br>
+                    @endrole
+                    @role('Administrador')
+                    <small style="margin-bottom: 0px;">
+                        Administrador
+                    </small><br>
+                    @endrole
+                    @role('Usuario')
+                    <small style="margin-bottom: 0px;">
+                        Usuario
+                    </small><br>
+                    @endrole
                 </li>
 
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">

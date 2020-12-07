@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use App\Mail\EmailVerification;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -130,16 +131,16 @@ class RegisterController extends Controller
         $user->email = $request->email;
         $user->cell_phone = $request->cell_phone;
         $user->passcode = Hash::make($request->passcode);
-        $user->password = Hash::make('prueba'); // cambiar por $temp_password
+        $user->password = Hash::make($temp_password);
+        $user->temp_password = $temp_password;
         $user->save();
-
         // Asginando preguntas al usuario
         $user->asks()->attach($request->question_one, ['anwer'=>Hash::make($request->answer_one)]);
         $user->asks()->attach($request->question_two, ['anwer'=>Hash::make($request->answer_two)]);
         $user->asks()->attach($request->question_three, ['anwer'=>Hash::make($request->answer_three)]);
 
         // Envio de email para verificación de cuenta
-        Mail::to($user->email)->send(new EmailVerification($user, $temp_password));
-       return view('auth.verify');
+        Mail::to($user->email)->send(new EmailVerification($user, $user->temp_password));
+       return view('auth.verify', compact('user'));
     }
 }

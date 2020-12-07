@@ -124,6 +124,6 @@ class LoginController extends Controller
             return redirect()->intended($this->redirectPath());
         }
 
-        return redirect()->back()->withErrors(['error'=> 'Código de verificación incorrecto']);
+        return redirect()->back()->withErrors(['email'=> 'Código de verificación incorrecto']);
     }
 }

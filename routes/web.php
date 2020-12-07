@@ -125,6 +125,8 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout') ;
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register_post');
 
+Route::get('/verify/{id}', 'Auth\VerificationController@resendEmail')->name('verify.resend');
+
 // Super Administrador & Administrador
 
 // Roles
@@ -141,14 +143,3 @@ Route::group(['prefix'=>'admin', 'namespace'=>'super', 'middleware'=>'role:Super
 });
 
 /* FIN SOSA */
-
-//Auth::routes();
-//Route::get('/home', 'HomeController@index')->name('home');
-/*
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-*/
-/*
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-*/
