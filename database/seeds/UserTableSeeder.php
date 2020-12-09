@@ -28,7 +28,7 @@ class UserTableSeeder extends Seeder
             'username'=> 'Administrador',
             'first_name'=> 'Víctor',
             'last_name'=> 'Navarrete',
-            'email'=> 'nm14001@gmail.com',
+            'email'=> 'nm14001@ues.edu.sv',
             'cell_phone'=> '64789568',
             'passcode' => '1234',
             'password'=> Hash::make('nm14001')
