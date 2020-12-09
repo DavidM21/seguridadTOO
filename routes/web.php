@@ -135,7 +135,11 @@ Route::group(['prefix'=>'admin', 'namespace'=>'super', 'middleware'=>'role:Super
 
 //Cris
 Route::get('/estadistica', 'ActivityStatisticController@mostrarestadistica')->name('estadistica.mostrarestadistica');
+Route::get('/estadistica/search', 'ActivityStatisticController@search')->name('estadistica.search');
+
 Route::get('/estado', 'ActivityStatisticController@mostrarestado')->name('estado.mostrarestado');
+
+
 //Route::get('/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 //Cris Password expiracion

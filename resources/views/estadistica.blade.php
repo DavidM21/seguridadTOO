@@ -5,7 +5,6 @@
 @section('content')
 
 
-
 <section class="pcoded-main-container">
         <div class="pcoded-wrapper">
             <div class="pcoded-content">
@@ -19,11 +18,21 @@
                                         <h5 class="m-b-10">Estadisticas</h5>
                                     </div>
                                 </div>
+                                <div class="clo-md-6">
+                                    <form action="/estadistica/search" method="get">
+                                        <div class="input-group">
+                                            <input type="search" name="search" class="form-control">
+                                            <span class="input-group-prepend">
+                                                <button type="submit" class="btn btn-primary">Search</button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- [ breadcrumb ] end -->
-
+                    
 
                     <div class="main-body">
                         <div class="page-wrapper">
@@ -64,8 +73,8 @@
                                     </div>
                                 </div>
                                 <!-- [ Hover-table ] end -->
+                            {!! $estadisticas ->links() !!}    
 
-                                
                             </div>
                             <!-- [ Main Content ] end -->
                         </div>

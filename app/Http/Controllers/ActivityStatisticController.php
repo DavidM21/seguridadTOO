@@ -16,13 +16,20 @@ class ActivityStatisticController extends Controller
 
     public function mostrarestadistica()
     {
-        $estadisticas = ActivityStatistic::get();
+        $estadisticas = ActivityStatistic::paginate(10);
         return view('estadistica',compact('estadisticas'));
     } 
 
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $estadisticas = ActivityStatistic::where('user_id','like','%'.$search.'%')->paginate(10);
+        return view('estadistica',['estadisticas'=>$estadisticas]);
+    }
+
     public function mostrarestado()
     {
-        $usuario = User::get();
+        $usuario = User::paginate(10);
         return view('estado',compact('usuario'));
     }
 

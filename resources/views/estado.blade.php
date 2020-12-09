@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 <!-- [ Hover-table ] end -->
-
+                                {!! $usuario ->links() !!}   
                                 
                             </div>
                             <!-- [ Main Content ] end -->
