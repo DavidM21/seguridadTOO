@@ -4,15 +4,7 @@
 
 @section('content')
 
-<div class="container">
-            <div class="auth-bg">
-                <span class="r"></span>
-                <span class="r s"></span>
-                <span class="r s"></span>
-                <span class="r"></span>
-            </div>
 
-</div>
 
 <section class="pcoded-main-container">
         <div class="pcoded-wrapper">
@@ -21,8 +13,8 @@
                     <!-- [ breadcrumb ] start -->
                     <div class="page-header">
                         <div class="page-block">
-                            <div class="row align-items-center">
-                                <div class="col-md-12">
+                            <div class="row align-items-left">
+                                <div class="col-md-6">
                                     <div class="page-header-title">
                                         <h5 class="m-b-10">Estadisticas</h5>
                                     </div>
@@ -31,6 +23,8 @@
                         </div>
                     </div>
                     <!-- [ breadcrumb ] end -->
+
+
                     <div class="main-body">
                         <div class="page-wrapper">
                             <!-- [ Main Content ] start -->
@@ -50,15 +44,17 @@
                                                             <th># bloqueos</th>
                                                             <th># cambios de clave</th>
                                                             <th># roles tenidos</th>
+                                                            <th>Fecha actualización</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($usuario as $user)
+                                                    @foreach($estadisticas as $estadistica)
                                                         <tr>                                                        
-                                                            <td>{{$user->first_name}}</td>
-                                                            <td>6</td>
-                                                            <td>{{$user->cantidad_cambios_contra}}</td>
-                                                            <td>{{$user->cantidad_roles}}</td>
+                                                            <td>{{$estadistica->user->first_name}}</td>
+                                                            <td>0</td>
+                                                            <td>{{$estadistica->password_changes}}</td>
+                                                            <td>{{$estadistica->number_of_roles}}</td>
+                                                            <td>{{$estadistica->updated_at}}</td>
                                                         </tr>
                                                     @endforeach    
                                                     </tbody>
@@ -79,8 +75,4 @@
         </div>
     </section>
 
-    <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
-	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
 @endsection

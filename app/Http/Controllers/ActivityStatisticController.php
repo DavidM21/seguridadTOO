@@ -13,15 +13,22 @@ class ActivityStatisticController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function mostrarestadistica()
     {
-        //
-    }
+        $estadisticas = ActivityStatistic::get();
+        return view('estadistica',compact('estadisticas'));
+    } 
 
     public function mostrarestado()
     {
         $usuario = User::get();
         return view('estado',compact('usuario'));
+    }
+
+    public function index()
+    {
+        //
     }
 
     /**
@@ -31,7 +38,7 @@ class ActivityStatisticController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
