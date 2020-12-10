@@ -97,7 +97,7 @@
                                 </td>
                                 <td>
                                     <h6 class="text-muted" data-toggle="tooltip"
-                                        data-placement="top" title="21 MAY 2020"><i class="fas fa-circle text-c-red f-10 m-r-15" ></i>Si</h6>
+                                        data-placement="top" title="21 MAY 2020"><i class="fas fa-circle text-c-red f-10 m-r-15" ></i>No</h6>
                                 </td>
                                 <!--<td>
                                     <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>

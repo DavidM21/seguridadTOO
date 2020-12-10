@@ -127,6 +127,22 @@
                         </span>
                         <span class="pcoded-mtext">Roles & Permisos</span></a>
                 </li>
+                <li data-username="form elements advance componant validation masking wizard picker select"
+                    class="nav-item">
+                    <a href="{{route('estadistica.mostrarestadistica')}}" class="nav-link ">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-clipboard"></i>
+                        </span>
+                        <span class="pcoded-mtext">Estadisticas</span></a>
+                </li>
+                <li data-username="form elements advance componant validation masking wizard picker select"
+                    class="nav-item">
+                    <a href="{{route('estado.mostrarestado')}}" class="nav-link ">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-check-circle"></i>
+                        </span>
+                        <span class="pcoded-mtext">Estado de usuarios</span></a>
+                </li>
                 @endcan
                 <!-- Fin Super Admin -->
 <!--

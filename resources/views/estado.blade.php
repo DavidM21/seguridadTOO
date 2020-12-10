@@ -4,50 +4,37 @@
 
 @section('content')
 
-<div class="container">
-            <div class="auth-bg">
-                <span class="r"></span>
-                <span class="r s"></span>
-                <span class="r s"></span>
-                <span class="r"></span>
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">ESTADOS DE USUARIOS</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="feather icon-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="javascript:">Estados</a></li>
+                </ul>
+
             </div>
 
+        </div>
+    </div>
 </div>
 
-<section class="pcoded-main-container">
-        <div class="pcoded-wrapper">
-            <div class="pcoded-content">
-                <div class="pcoded-inner-content">
-                    <!-- [ breadcrumb ] start -->
-                    <div class="page-header">
-                        <div class="page-block">
-                            <div class="row align-items-center">
-                                <div class="col-md-12">
-                                    <div class="page-header-title">
-                                        <h5 class="m-b-10">Estados</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- [ breadcrumb ] end -->
-                    <div class="main-body">
-                        <div class="page-wrapper">
-                            <!-- [ Main Content ] start -->
-                            <div class="row">
-                                <!-- [ Hover-table ] start -->
-                                <div class="col-xl-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Estados de Usuarios</h5>
-                                        </div>
+<div class="col-xl-12">
+    <div class="card Recent-Users">
+        <div class="card-header unread">
+            <h5>Estados</h5>
+            <span class="badge badge-success">{{count($usuario)}}</span>
+        </div>   
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
                                                     <thead>
                                                         <tr>
-                                                            <th>Primer Nombre</th>
-                                                            <th>Segundo Nombre</th>
+                                                            <th>Nombre</th>
+                                                            <th>Apellido</th>
                                                             <th>Estado</th>
                                                         </tr>
                                                     </thead>
@@ -59,11 +46,11 @@
                                                             <td>
                                                             @if($user->isOnline())
                                                                 <li class="text-success">
-                                                                    Online
+                                                                    Activo
                                                                 </li>
                                                             @else
-                                                            <li class="text-muted">
-                                                                    Offline
+                                                            <li class="text-danger">
+                                                                    Inactivo
                                                                 </li>
                                                             @endif
                                                             </td>
@@ -88,7 +75,5 @@
     </section>
 
         <!-- Required Js -->
-    <script src="assets/js/vendor-all.min.js"></script>
-	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
+
 @endsection
