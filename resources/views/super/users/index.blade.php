@@ -64,7 +64,8 @@
                             <th>Nombre</th>
                             <th >Email</th>
                             <th>Roles</th>
-                            <th>Baneado</th>
+                            <th>Activo</th>
+                            <th>Bloqueado</th>
                             <th >Acciones</th>
                         </tr>
                         </thead>
@@ -96,8 +97,26 @@
                                     @endif
                                 </td>
                                 <td>
+                                    @if($user->ban->active)
                                     <h6 class="text-muted" data-toggle="tooltip"
-                                        data-placement="top" title="21 MAY 2020"><i class="fas fa-circle text-c-red f-10 m-r-15" ></i>Si</h6>
+                                        data-placement="top" title="{{ $user->ban->active_at }}"><i class="fas fa-circle
+                                        text-c-green f-10 m-r-15" ></i>Si</h6>
+                                    @else
+                                    <h6 class="text-muted" data-toggle="tooltip"
+                                        data-placement="top" title="{{$user->ban->active_at}}"><i class="fas fa-circle
+                                        text-c-red f-10 m-r-15" ></i>No</h6>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($user->ban->blocked)
+                                        <h6 class="text-muted" data-toggle="tooltip"
+                                            data-placement="top" title="{{$user->ban->blocked_at}}"><i class="fas fa-circle
+                                        text-c-red f-10 m-r-15" ></i>Si</h6>
+                                    @else
+                                        <h6 class="text-muted" data-toggle="tooltip"
+                                            data-placement="top" title="{{$user->ban->blocked_at}}"><i class="fas fa-circle
+                                        text-c-green f-10 m-r-15" ></i>No</h6>
+                                    @endif
                                 </td>
                                 <!--<td>
                                     <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
@@ -108,16 +127,18 @@
                                         <span class="pcoded-micon"><i class="feather icon-eye"></i></span>
                                         <!--<span class="pcoded-mtext">Editar</span>-->
                                     </a>
-                                    @role('Super Administrador')
+                                    @if($user->id != 1)
                                         <a href="{{ route('users.edit', $user->id) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
                                            data-placement="top" title="Editar">
                                             <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
                                             <!--<span class="pcoded-mtext">Editar</span>-->
                                         </a>
+                                    @endif
+                                    @role('Super Administrador')
                                     @if(auth()->user()->id != $user->id)
                                         <a href="{{ route('users.confirm', $user->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
                                            data-placement="top" title="Eliminar">
-                                            <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
+                                            <span class="pcoded-micon"><i class="feather icon-trash"></i></span>
                                             <!--<span class="pcoded-mtext">Eliminar</span>-->
                                         </a>
                                     @endif

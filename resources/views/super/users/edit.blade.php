@@ -111,6 +111,7 @@
 
 
                         </div>
+                        @role('Super Administrador')
                         <div class="col-md-4">
 
                             <div class="form-group">
@@ -140,9 +141,41 @@
                             </div>
 
                         </div>
-
+                        @endrole
                     </div>
-
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group text-left mb-2">
+                                <label for="question_one">Usuario Activo</label>
+                                <select class="form-control @error('active') is-invalid
+                                        @enderror" id="question_one" name="active">
+                                    <option value="1" @if($ban[0]->active) selected="selected" @endif>Activo</option>
+                                    <option value="0" @if($ban[0]->active == false) selected="selected" @endif>Inactivo</option>
+                                </select>
+                                @error('active')
+                                <span class="invalid-feedback text-left" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-left mb-2">
+                                <label for="question_one">Usuario Bloqueado</label>
+                                <select class="form-control @error('blocked') is-invalid
+                                        @enderror" id="question_one" name="blocked">
+                                    <option value="1" @if($ban[0]->blocked) selected="selected" @endif>Bloqueado</option>
+                                    <option value="0" @if($ban[0]->blocked == false) selected="selected" @endif>Desbloqueado</option>
+                                </select>
+                                @error('blocked')
+                                <span class="invalid-feedback text-left" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <br>
                     <a href="{{ route('users.index')}}" type="button" class="btn btn-outline-danger">Cancelar</a>
                     <button type="submit" class="btn btn-outline-primary" id="guardar">Guardar</button>
                 </form>

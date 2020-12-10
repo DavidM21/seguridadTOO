@@ -128,12 +128,22 @@
                         <span class="pcoded-mtext">Roles & Permisos</span></a>
                 </li>
                 @endcan
+
+                    <li data-username="form elements advance componant validation masking wizard picker select"
+                        class="nav-item">
+                        <a href="{{route('estadistica.mostrarestadistica')}}" class="nav-link ">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-activity"></i>
+                        </span>
+                            <span class="pcoded-mtext">Actividad</span></a>
+                    </li>
+
                 <!-- Fin Super Admin -->
 <!--
                 <li class="nav-item pcoded-menu-caption">
                     <label>Administrador</label>
                 </li>-->
-
+                @role('Usuario')
                 <li class="nav-item pcoded-menu-caption">
                     <label>Negocio</label>
                 </li>
@@ -186,6 +196,7 @@
                     </a>
                 </li>
                 @endcan
+                @endrole
                 <li data-username="Disabled Menu" class="nav-item disabled">
                     <a href="javascript:" class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-power"></i></span>

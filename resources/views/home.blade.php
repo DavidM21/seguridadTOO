@@ -42,14 +42,41 @@
                             </a>
                         </div>
                     </div>
-                    <h2 class="mt-3 f-w-300">{{$roles_and_permisison}}<sub class="text-muted f-14">Roles & permisos</sub></h2>
+                    <h2 class="mt-3 f-w-300">{{$roles_and_permisison}}<sub class="text-muted f-14">Roles & Permisos</sub></h2>
                     <h6 class="text-muted mt-4 mb-0"></h6>
                     <i class="feather icon-award text-c-purple f-50"></i>
                 </div>
             </div>
         </div>
     @endcan
-    <!-- Inicio Card Roles -->
+    <!-- Fin Card Roles -->
+
+
+    <!-- Inicio Card Activities -->
+    @can('Gestor Usuarios')
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-event">
+                <div class="card-block">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col">
+                            <h5 class="m-0">ACTIVIDAD</h5>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('estadistica.mostrarestadistica')}}">
+                                <span class="label theme-bg2 text-white f-14 f-w-400 float-right">Ver</span>
+                            </a>
+                        </div>
+                    </div>
+                    <h2 class="mt-3 f-w-300">70<sub class="text-muted f-14">Registros</sub></h2>
+                    <h6 class="text-muted mt-4 mb-0"></h6>
+                    <i class="feather icon-activity text-c-purple f-50"></i>
+                </div>
+            </div>
+        </div>
+    @endcan
+    <!-- Fin Card Activities -->
+
+    @role('Usuario')
     <!-- Inicio Card Organizaciones -->
     @can('Gestor Organizaciones')
         <div class="col-xl-4 col-md-6">
@@ -168,6 +195,8 @@
         </div>
     @endcan
     <!-- Fin Card Empleados -->
+    @endrole
+
     <!-- Inicio Card Ajustes -->
     @hasanyrole('Super Administrador|Administrador|Usuarios')
     <div class="col-xl-4 col-md-6">

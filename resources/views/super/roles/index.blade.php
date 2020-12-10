@@ -98,7 +98,7 @@
                                     </a>
                                     <a href="{{ route('roles.confirm', $role->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
                                        data-placement="top" title="Eliminar">
-                                        <span class="pcoded-micon"><i class="feather icon-trash-2"></i></span>
+                                        <span class="pcoded-micon"><i class="feather icon-trash"></i></span>
                                         <!--<span class="pcoded-mtext">Eliminar</span>-->
                                     </a>
                                 </td>

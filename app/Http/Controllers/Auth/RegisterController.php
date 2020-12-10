@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Ask;
+use App\Ban;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Notifications\VerifyEmail;
@@ -125,7 +126,7 @@ class RegisterController extends Controller
         // Generando un contraseña temporal aleatoria
         $temp_password = str_random(16);
 
-        // Creación del usurio
+        // Creación del usuario
         $user = new User;
         $user->username = $username;
         $user->first_name = $request->first_name;
@@ -144,6 +145,10 @@ class RegisterController extends Controller
         $user->asks()->attach($request->question_one, ['anwer'=>Hash::make($request->answer_one)]);
         $user->asks()->attach($request->question_two, ['anwer'=>Hash::make($request->answer_two)]);
         $user->asks()->attach($request->question_three, ['anwer'=>Hash::make($request->answer_three)]);
+
+        $ban = new Ban;
+        $ban->user_id = $user->id;
+        $ban->save();
 
         // Envio de email para verificación de cuenta
         Mail::to($user->email)->send(new EmailVerification($user, $user->temp_password));

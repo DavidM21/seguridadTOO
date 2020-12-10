@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Super;
 
+use App\Ban;
+use App\Mail\EmailVerification;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
+use Carbon\Carbon;
 
 class UsersController extends Controller
 {
@@ -32,7 +36,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    
+
     public function create()
     {
         $roles = Role::all();
@@ -55,6 +59,8 @@ class UsersController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'cell_phone' => ['required', 'string', 'max:255'],
             'role' => ['required'],
+            'active' => ['required'],
+            'blocked' => ['required'],
         ]);
 
         //Generando un nombre de usuario por defecto
@@ -71,16 +77,27 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->cell_phone = $request->cell_phone;
         $user->passcode = Hash::make('0000');
-        $user->password = Hash::make('prueba123'); // cambiar por $temp_password
+        $user->password = Hash::make($temp_password);
+        $user->temp_password = $temp_password;
         $user->save();
 
         // Asignando roles
         $user->assignRole($request->role);
-        $user->increment('cantidad_roles');
 
+        // Creación de estados del usuarios, activo/inactivo etc
+        $ban = new Ban;
+        $ban->user_id = $user->id;
+        $ban->active = $request->active;
+        $ban->active_at = Carbon::now();
+        $ban->blocked = $request->blocked;
+        $ban->blocked_at = Carbon::now();
+        $ban->save();
 
-        //return 'funciona';
-        return redirect()->route('users.index')->with('notification', '¡Nuevo usuario ' .'"'. $user->username .'"'. ' guardado correctamente!');
+        // Envio de email para verificación de cuenta
+        Mail::to($user->email)->send(new EmailVerification($user, $user->temp_password));
+
+        return redirect()->route('users.index')->with('notification', '¡Nuevo usuario ' .'"'. $user->username .'"'.
+            ' guardado correctamente!');
     }
 
     /**
@@ -104,9 +121,10 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $ban = Ban::where('user_id', $id)->get();
         $roles = Role::all();
 
-        return view('super.users.edit', compact('user','roles'));
+        return view('super.users.edit', compact('user','roles', 'ban'));
     }
 
     /**
@@ -125,6 +143,8 @@ class UsersController extends Controller
             'birthday' => ['required', 'date', 'string', 'max:255'],
             'cell_phone' => ['required', 'string', 'max:255'],
             //'role' => ['required'],
+            'active' => ['required'],
+            'blocked' => ['required'],
             'email' => [
                 'required',
                 Rule::unique('users')->ignore($user->email, 'email')
@@ -141,8 +161,16 @@ class UsersController extends Controller
         // Reasignando roles
         $user->syncRoles([$request->role]);
 
+        // Creación de estados del usuarios, activo/inactivo etc
+        $ban = Ban::where('user_id', $user->id)->first();;
+        $ban->active = $request->active;
+        $ban->active_at = Carbon::now();
+        $ban->blocked = $request->blocked;
+        $ban->blocked_at =  Carbon::now();
+        $ban->save();
 
-        return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'. ' actualizado correctamente!');
+        return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'.
+            ' actualizado correctamente!');
     }
 
     public function confirm($id)

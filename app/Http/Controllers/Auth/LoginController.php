@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Auth\Events\Lockout;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\ValidationException;
 use PragmaRX\Google2FA\Google2FA;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -126,4 +130,36 @@ class LoginController extends Controller
 
         return redirect()->back()->withErrors(['email'=> 'Código de verificación incorrecto']);
     }
+
+    protected function attemptLogin(Request $request)
+    {
+        dd('funciona');
+        return $this->guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
+        );
+    }
+
+// Intentando bloquear al usuario
+
+    // Redirigir al usuario después de determinar que están bloqueados.
+    protected function sendLockoutResponse(Request $request)
+    {
+        //enviar la respuesta de bloqueo
+        $seconds = $this->limiter()->availableIn(
+            $this->throttleKey($request)
+        );
+
+        throw ValidationException::withMessages([
+            $this->username() => [Lang::get('auth.throttle', ['seconds' => $seconds])],
+        ])->status(Response::HTTP_TOO_MANY_REQUESTS);
+    }
+
+    // Disparar un evento cuando se produce un bloqueo.
+    protected function fireLockoutEvent(Request $request)
+    {
+        // Disparar un evento de bloqueo
+        event();
+        //event(new Lockout($request));
+    }
+
 }
