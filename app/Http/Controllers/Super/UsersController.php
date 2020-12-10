@@ -188,14 +188,22 @@ class UsersController extends Controller
         $ban->blocked_at =  Carbon::now();
         $ban->save();
 
+        $last_activity = ActivityStatistic::all();
+        $a = $last_activity->sortByDesc('updated_at')->first();
+        //dd($a);
+
+        $all_activities = ActivityStatistic::where('user_id', $user->id)->orderBy('updated_at', 'asc')->get();
+        $last_activity = $all_activities->last();
+        //dd($last_activity);
+
         $activity2 = ActivityStatistic::updateOrCreate([
         'user_id'   => $id,
         'number_of_roles'    => count($request->role),
-        'password_changes'    => $user->cantidad_cambios_contra,
+        'number_of_locks'    => $last_activity->number_of_locks,
+        'password_changes'    => $last_activity->password_changes,
         'updated_at' => Carbon::now()
         ]);
         $activity2->save();
-        $user->cantidad_roles = count($request->role);
         $user->save();
 
         return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'.
