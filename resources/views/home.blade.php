@@ -84,7 +84,7 @@
             <div class="card-block">
                 <div class="row align-items-center justify-content-center">
                     <div class="col">
-                        <h5 class="m-0">OORGANIZACIONES</h5>
+                        <h5 class="m-0">ORGANIZACIONES</h5>
                     </div>
                     <div class="col-auto">
                         <a href="{{route('organizacion.show')}}">
