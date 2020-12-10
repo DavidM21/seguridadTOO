@@ -19,7 +19,7 @@ class CreateBansTable extends Migration
             $table->boolean('active')->default(false);
             $table->timestamp('blocked_at')->nullable();
             $table->timestamp('active_at')->nullable();
-            $table->increments('attempts')->default(0);
+            $table->integer('attempts')->default(0);
 
             $table->text('comment')->nullable();
 
