@@ -9,7 +9,10 @@ use App\Rules\mayuscula;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-
+use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
+use App\ActivityStatistic;
+use Carbon\Carbon;
 
 class ResetPasswordController extends Controller
 {
@@ -67,6 +70,16 @@ class ResetPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         $request->user()->increment('cantidad_cambios_contra');
+
+        $activity = new ActivityStatistic;
+        $activity = ActivityStatistic::updateOrCreate([
+            'user_id'   => $request->user()->id,
+            'password_changes'    => $request->user()->cantidad_cambios_contra,
+            'number_of_roles'    => $request->user()->cantidad_roles,
+            'updated_at' => Carbon::now()
+        ]);
+        $activity->save();
+
         return $response == Password::PASSWORD_RESET
                     ? $this->sendResetResponse($request, $response)
                     : $this->sendResetFailedResponse($request, $response);

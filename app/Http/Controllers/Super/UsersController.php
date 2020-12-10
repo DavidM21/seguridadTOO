@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
+use App\ActivityStatistic;
 use Carbon\Carbon;
 
 class UsersController extends Controller
@@ -95,6 +96,21 @@ class UsersController extends Controller
 
         // Envio de email para verificación de cuenta
         Mail::to($user->email)->send(new EmailVerification($user, $user->temp_password));
+        $user->password = Hash::make('prueba123'); // cambiar por $temp_password
+
+
+        // Asignando roles
+        $user->assignRole($request->role);
+        // Codigo para contar los cambios de roles y asignarlos a la tabla de estadisticas
+        $activity2 = ActivityStatistic::updateOrCreate([
+        'user_id'   => $id,
+        'number_of_roles'    => count($request->role),
+        'password_changes'    => $user->cantidad_cambios_contra,
+        'updated_at' => Carbon::now()
+        ]);
+        $activity2->save();
+        $user->cantidad_roles = count($request->role);
+        $user->save();
 
         return redirect()->route('users.index')->with('notification', '¡Nuevo usuario ' .'"'. $user->username .'"'.
             ' guardado correctamente!');
@@ -142,9 +158,9 @@ class UsersController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'birthday' => ['required', 'date', 'string', 'max:255'],
             'cell_phone' => ['required', 'string', 'max:255'],
-            //'role' => ['required'],
             'active' => ['required'],
             'blocked' => ['required'],
+            'role' => ['required'],
             'email' => [
                 'required',
                 Rule::unique('users')->ignore($user->email, 'email')
@@ -156,10 +172,13 @@ class UsersController extends Controller
         $user->birthday = Date::make($request->birthday);
         $user->email = $request->email;
         $user->cell_phone = $request->cell_phone;
-        $user->save();
 
         // Reasignando roles
         $user->syncRoles([$request->role]);
+        $user->assignRole($request->role);
+
+        // Codigo para contar los cambios de roles y asignarlos a la tabla de estadisticas
+
 
         // Creación de estados del usuarios, activo/inactivo etc
         $ban = Ban::where('user_id', $user->id)->first();;
@@ -168,6 +187,16 @@ class UsersController extends Controller
         $ban->blocked = $request->blocked;
         $ban->blocked_at =  Carbon::now();
         $ban->save();
+
+        $activity2 = ActivityStatistic::updateOrCreate([
+        'user_id'   => $id,
+        'number_of_roles'    => count($request->role),
+        'password_changes'    => $user->cantidad_cambios_contra,
+        'updated_at' => Carbon::now()
+        ]);
+        $activity2->save();
+        $user->cantidad_roles = count($request->role);
+        $user->save();
 
         return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'.
             ' actualizado correctamente!');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\ActivityStatistic;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+
 
 class ActivityStatisticController extends Controller
 {
@@ -13,15 +15,34 @@ class ActivityStatisticController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function mostrarestadistica()
     {
-        //
+        $estadisticas = ActivityStatistic::paginate(10);
+        return view('estadistica',compact('estadisticas'));
+    } 
+
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        //$estadisticas = ActivityStatistic::where('user_id','like','%'.$search.'%')->paginate(10);
+        
+        $estadisticas = ActivityStatistic::whereHas('user', function($query) use($search){ 
+            return $query->where('first_name','like','%'.$search.'%')->orwhere('last_name','like','%'.$search.'%');
+        })->paginate(10);
+        
+        return view('estadistica',['estadisticas'=>$estadisticas]);
     }
 
     public function mostrarestado()
     {
-        $usuario = User::get();
+        $usuario = User::paginate(10);
         return view('estado',compact('usuario'));
+    }
+
+    public function index()
+    {
+        //
     }
 
     /**
@@ -31,7 +52,7 @@ class ActivityStatisticController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
