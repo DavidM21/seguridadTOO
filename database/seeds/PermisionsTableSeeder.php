@@ -12,7 +12,9 @@ class PermisionsTableSeeder extends Seeder
         'Gestor Departamentos',
         'Gestor Secciones',
         'Gestor Puestos',
-        'Gestor Empleados'
+        'Gestor Empleados',
+        'Gestor Estadísticas',
+        'Gestor Estados'
     ];
     public function run()
     {

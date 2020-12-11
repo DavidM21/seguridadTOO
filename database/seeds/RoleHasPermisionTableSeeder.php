@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 class RoleHasPermisionTableSeeder extends Seeder
 {
     static $roleUnos = [
-        1,2,3,4,5,6,7
+        1,2,3,4,5,6,7,8,9
     ];
     static $rolesDos = [
         1,3,4,5,6,7
