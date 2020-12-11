@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label><b>ISSS</b><span class="text-danger">*</span></label>
-                <input type="number" name="isss" class="form-control" placeholder="averiguar" value="{{ $employee->isss}}">
+                <input type="text" name="isss" class="form-control" placeholder="00000000-0" value="{{ $employee->isss}}">
                 {!! $errors->first('isss','<small class="text-danger">:message</small>')!!}
 
             </div>
