@@ -11,78 +11,64 @@
                 <span class="r s"></span>
                 <span class="r"></span>
             </div>
-
             <div class="card">
                 <div class="card-body text-center">
-                    <div class="panel-body">
-
-                        <div class="mb-3">
+                    <form method="POST" action="{{ route('temporary.password.post', $user->id) }}">
+                        @csrf
+                        <div class="mb-4">
                             <i class="feather icon-user-check auth-icon"></i>
                         </div>
-                        @csrf @method('GET')
-                        <h3 class="mb-4">Cambio de contraseña provisional</h3>
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                            <a href="/home">Regresar</a>
-                        @else
-
-                            <form class="form-horizontal" method="POST" action="{{ route('password.post_expired') }}">
-                                {{ csrf_field() }}
-
-                                <div class="form-group{{ $errors->has('current_password') ? ' has-error' : '' }}">
-
-                                    <div class="col-md-12">
-                                        <input id="current_password" type="password" class="form-control" name="current_password" placeholder="Contraseña Actual" required="">
-
-                                        @if ($errors->has('current_password'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('current_password') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-
-                                    <div class="col-md-12">
-                                        <input id="password" type="password" class="form-control" name="password" placeholder="Nueva Contraseña" required="">
-
-                                        @if ($errors->has('password'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                        <h3 class="mb-4">Cambio de Contraseña Provisional</h3>
+                        <div class="input-group mb-3">
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                   name="email" value="{{ old('email',  $user->email ? : '')}}"
+                                   autocomplete="email" autofocus placeholder="Correo Electrónico">
+                            @error('email')
+                            <span class="invalid-feedback text-left" role="alert">
+                                        <strong>{{ $message }}</strong>
                                     </span>
-                                        @endif
-                                    </div>
-                                </div>
-
-                                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                    <div class="col-md-12">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirmar Nueva Contraseña" required="">
-
-                                        @if ($errors->has('password_confirmation'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                            @enderror
+                        </div>
+                        <div class="input-group mb-4">
+                            <input id="temp_password" type="password" class="form-control
+                            @error('temp_password') is-invalid @enderror" name="temp_password"
+                                   autocomplete="current-password" placeholder="Constraseña Provisional">
+                            @error('temp_password')
+                            <span class="invalid-feedback text-left" role="alert">
+                                        <strong>{{ $message }}</strong>
                                     </span>
-                                        @endif
-                                    </div>
-                                </div>
+                            @enderror
+                        </div>
+                        <div class="input-group mb-4">
+                            <input id="new_password" type="password" class="form-control
+                            @error('new_password') is-invalid @enderror" name="new_password"
+                                   autocomplete="current-password" placeholder="Nueva Constraseña">
+                            @error('new_password')
+                            <span class="invalid-feedback text-left" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                        <div class="input-group mb-4">
+                            <input id="new_password_confirmation" type="password" class="form-control
+                            @error('new_password_confirmation') is-invalid @enderror" name="new_password_confirmation"
+                                   autocomplete="current-password" placeholder="Confirmación Nueva Constraseña">
+                            @error('new_password_confirmation')
+                            <span class="invalid-feedback text-left" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
 
-                                <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-5">
-                                        <button type="submit" class="btn btn-primary shadow-2 mb-4">
-                                            Actualizar Contraseña
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        @endif
+                        <button type="submit" class="btn btn-primary shadow-2 mb-4">Actualizar contraseña</button>
 
-                    </div>
+
+                        <p class="mb-0 text-muted">¿No tienes una cuenta? <a href="{{ route('register') }}">Regístrate</a></p>
+
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
+

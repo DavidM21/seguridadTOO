@@ -128,7 +128,7 @@
                         <span class="pcoded-mtext">Roles & Permisos</span></a>
                 </li>
                 @endcan
-                @can('Gestor Estadisticas')
+                @can('Gestor Estadísticas')
                     <li data-username="form elements advance componant validation masking wizard picker select"
                         class="nav-item">
                         <a href="{{route('estadistica.mostrarestadistica')}}" class="nav-link ">

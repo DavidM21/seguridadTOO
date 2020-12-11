@@ -31,7 +31,9 @@
                             <div class="col-lg-12">
                                 <div class="form-group row">
                                 <div class="input-group mb-3">
-                                    <input id="email" type="email" placeholder="Correo Electrónico" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    <input id="email" type="email" placeholder="Correo Electrónico" class="form-control
+                                    @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
+                                           required autocomplete="email">
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -51,7 +53,7 @@
                             </div>
                             </div>
                         </form>
-                </div>
+                    </div>
                 </div>
             </div>
         </div>

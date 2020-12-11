@@ -19,6 +19,11 @@
                             <i class="feather icon-unlock auth-icon"></i>
                         </div>
                         <h3 class="mb-4">Iniciar Sesión</h3>
+                        @if (session('alert-success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('alert-success') }}
+                            </div>
+                        @endif
                         <div class="input-group mb-3">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                    name="email" value="{{ old('email') }}" autocomplete="email" autofocus placeholder="Correo Electrónico">

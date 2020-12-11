@@ -12,8 +12,7 @@
     <li><b>{{$password}}</b></li>
 </ul>
 <p>La cual debes cambiar en el siguiente enlace:</p>
-
-<a class="btn" href="{{ route('temporary.password') }}">
+<a class="btn" href="{{ route('temporary.password', $user->id) }}">
     Verificarme
 </a>
 </body>
