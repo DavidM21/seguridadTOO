@@ -116,6 +116,8 @@ Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register_post');
 
 Route::get('/verify/{id}', 'Auth\VerificationController@resendEmail')->name('verify.resend');
+Route::get('/change/temporary/password/', 'Auth\VerificationController@changeTempPassword')->name('temporary.password');
+
 
 // Super Administrador & Administrador
 

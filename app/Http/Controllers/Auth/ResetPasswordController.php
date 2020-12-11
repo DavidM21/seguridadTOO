@@ -69,17 +69,18 @@ class ResetPasswordController extends Controller
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
+        /*
         $request->user()->increment('cantidad_cambios_contra');
-
+*/
         $activity = new ActivityStatistic;
-        $activity = ActivityStatistic::updateOrCreate([
+        /*$activity = ActivityStatistic::updateOrCreate([
             'user_id'   => $request->user()->id,
             'password_changes'    => $request->user()->cantidad_cambios_contra,
             'number_of_roles'    => $request->user()->cantidad_roles,
             'updated_at' => Carbon::now()
         ]);
         $activity->save();
-
+*/
         return $response == Password::PASSWORD_RESET
                     ? $this->sendResetResponse($request, $response)
                     : $this->sendResetFailedResponse($request, $response);

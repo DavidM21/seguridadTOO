@@ -44,7 +44,8 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
-    public function resendEmail(int $id){
+    public function resendEmail(int $id)
+    {
         $temp_password = str_random(16);
 
         $user = User::findOrFail($id);
@@ -55,5 +56,13 @@ class VerificationController extends Controller
         Mail::to($user->email)->send(new EmailVerification($user, $user->temp_password));
 
         return view('auth.verify', compact('user'));
+    }
+
+    protected function changeTempPassword()
+    {
+        // Checking current password
+
+
+        return view('auth.passwords.TempPassword');
     }
 }

@@ -13,7 +13,7 @@
 </ul>
 <p>La cual debes cambiar en el siguiente enlace:</p>
 
-<a class="btn" href="{{ route('password.update') }}">
+<a class="btn" href="{{ route('temporary.password') }}">
     Verificarme
 </a>
 </body>
