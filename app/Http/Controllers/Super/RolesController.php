@@ -24,7 +24,6 @@ class RolesController extends Controller
      */
     public function index()
     {
-
         $roles = Role::all();
         return view('super.roles.index', compact('roles'));
     }

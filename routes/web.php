@@ -108,8 +108,8 @@ Route::post('/login-two-factor/{user}', 'Auth\LoginController@login2FA')->name('
 Auth::routes(['verify' => true]);
 
 
-Route::get('/login', 'Auth\LoginController@index')->name('login');
-Route::post('/login', 'Auth\LoginController@login')->name('login_post');
+Route::get('/', 'Auth\LoginController@index')->name('login');
+Route::post('/', 'Auth\LoginController@login')->name('login_post');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout') ;
 
 Route::get('/register', 'Auth\RegisterController@index')->name('register');

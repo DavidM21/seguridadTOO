@@ -36,7 +36,10 @@ class JobPositionController extends Controller
      */
     public function create()
     {
-        $secciones = Section::all();
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
+        $secciones = Section::whereIn('department_id', $departments)->get();
+
         return view('crudPuestoDeTrabajo.crearPuesto',compact('secciones'));
     }
 
@@ -84,7 +87,10 @@ class JobPositionController extends Controller
      */
     public function edit(JobPosition $jobPosition)
     {
-        $secciones = Section::all();
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
+        $secciones = Section::whereIn('department_id', $departments)->get();
+
         return view('crudPuestoDeTrabajo.editarPuesto',['jobPosition' => $jobPosition],
             compact('secciones'));
 

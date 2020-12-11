@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="card-footer text-left">
-                            <a class="btn btn-outline-danger mb-1" href="{{ route('departamento.show')}}">Cancelar</a>
+                            <a class="btn btn-outline-danger mb-1" href="{{ route('seccion.show')}}">Cancelar</a>
                             <button type="submit" class="btn btn-outline-primary"  form="formulario">Guardar</button>
             </div>
             </div> <!-- hasta aca-->
