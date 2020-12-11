@@ -26,8 +26,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
-        $organizaciones = Department::whereIn('organization_id', $organizations)->get();
+        $organizaciones = Organization::where('user_id', '=', auth()->user()->id)->get();
 
         return view('crudDepartamento.crearDepartamento', compact ('organizaciones'));
     }

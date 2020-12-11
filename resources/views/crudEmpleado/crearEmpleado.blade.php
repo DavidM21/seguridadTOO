@@ -39,12 +39,12 @@
             </div>
             <div class="form-group">
                 <label><b>DUI</b><span class="text-danger">*</span></label>
-                <input type="text" name="dui" class="form-control" placeholder="00000000-0" value="{{ old('dui')}}">
+                <input type="text" name="dui" class="form-control" placeholder="00000000-0" data-mask="00000000-0" value="{{ old('dui')}}">
                 {!! $errors->first('dui','<small class="text-danger">:message</small>')!!}
             </div>
             <div class="form-group">
                 <label><b>ISSS</b><span class="text-danger">*</span></label>
-                <input type="text" name="isss" class="form-control" placeholder="00000000-0" value="{{ old('isss')}}">
+                <input type="text" name="isss" class="form-control" placeholder="00000000-0" data-mask="00000000-0" value="{{ old('isss')}}">
                 {!! $errors->first('isss','<small class="text-danger">:message</small>')!!}
 
             </div>
@@ -89,12 +89,12 @@
             </div>
             <div class="form-group">
                 <label><b>NIT</b><span class="text-danger">*</span></label>
-                <input type="text" name="nit" class="form-control" placeholder="0000-000000-000-0" value="{{ old('nit')}}">
+                <input type="text" name="nit" class="form-control" placeholder="0000-000000-000-0" data-mask="0000-000000-000-0" value="{{ old('nit')}}">
                 {!! $errors->first('nit','<small class="text-danger">:message</small>')!!}
             </div>
             <div class="form-group">
                 <label><b>NUP</b><span class="text-danger">*</span></label>
-                <input type="text" name="nup" class="form-control" placeholder="000000000000" value="{{ old('nup')}}">
+                <input type="text" name="nup" class="form-control" placeholder="000000000000" data-mask="000000000000" value="{{ old('nup')}}">
                 {!! $errors->first('nup','<small class="text-danger">:message</small>')!!}
             </div>
             <div class="form-group">
@@ -143,5 +143,5 @@
 
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 @endsection
