@@ -38,7 +38,6 @@
             <table class="table table-striped text-center">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Nombre</th>
                         <th colspan="2">Acciones</th>
                     </tr>
@@ -47,7 +46,6 @@
 
                     @foreach($organizations as $organization)
                         <tr>
-                            <td>{{$organization->id}}</td>
                             <td>{{$organization->name}}</td>
                             <td>
                             <a href="{{ route('departamento.show')}}" class="label btn-secondary text-white f-12" data-toggle="tooltip"
