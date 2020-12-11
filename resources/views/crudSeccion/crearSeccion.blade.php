@@ -35,7 +35,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputSect"><b>Seccion</b><span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="name" aria-describedby="sectHelp" placeholder="Enter Section">
+                            <input type="text" class="form-control" name="name" aria-describedby="sectHelp" placeholder="Nombre">
                             {!! $errors->first('name', '<small>:message</small>') !!}
                         </div>
                         <div class="form-group">
