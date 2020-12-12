@@ -71,6 +71,7 @@ class UsersController extends Controller
         // Generando un contraseña temporal aleatoria
         $temp_password = str_random(12);
 
+        // Creación del nuevo usuarios
         $user = new User;
         $user->username = $username;
         $user->first_name = $request->first_name;
@@ -78,7 +79,7 @@ class UsersController extends Controller
         $user->birthday = Date::make($request->birthday);
         $user->email = $request->email;
         $user->cell_phone = $request->cell_phone;
-        $user->passcode = Hash::make('0000');
+        $user->passcode = Hash::make('0000'); // Passcode por defecto sin defefinir
         $user->password = Hash::make($temp_password);
         $user->temp_password = $temp_password;
         $user->save();
@@ -86,7 +87,7 @@ class UsersController extends Controller
         // Asignando roles
         $user->assignRole($request->role);
 
-        // Creación de estados del usuarios, activo/inactivo etc
+        // Creación de tabla Ban para estados del usuarios, activo/inactivo etc
         $ban = new Ban;
         $ban->user_id = $user->id;
         $ban->active = $request->active;
@@ -97,8 +98,7 @@ class UsersController extends Controller
 
         // Envio de email para verificación de cuenta
         Mail::to($user->email)->send(new EmailVerification($user, $user->temp_password));
-        $user->password = Hash::make('prueba123'); // cambiar por $temp_password
-
+        $user->password = Hash::make($user->temp_password); // cambiar por $temp_password
 
         // Asignando roles
         $user->assignRole($request->role);
@@ -108,27 +108,27 @@ class UsersController extends Controller
         //dd($a);
 
         $all_activities = ActivityStatistic::where('user_id', $user->id)->orderBy('updated_at', 'asc')->get();
-        
+
         if ($all_activities->count()>0)
         {
             $last_activity = $all_activities->last();
             $activity2 = ActivityStatistic::updateOrCreate([
-            'user_id'   => $id,
+            'user_id'   => $user->id,
             'number_of_roles'    => count($request->role),
             'number_of_locks'    => $last_activity->number_of_locks,
             'password_changes'    => $last_activity->password_changes,
             'updated_at' => Carbon::now()
-            ]);   
-            
+            ]);
+
             $activity2->save();
         }
         else{
-       
+
             $activity2 = ActivityStatistic::Create([
-                'user_id'   => $id,
+                'user_id'   =>  $user->id,
                 'number_of_roles'    => count($request->role),
                 'updated_at' => Carbon::now()
-            ]); 
+            ]);
             $activity2->save();
         }
         $user->save();
@@ -143,7 +143,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(int $id)
     {
         $user = User::findOrFail($id);
         return view('super.users.show', compact('user'));
@@ -155,7 +155,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $user = User::findOrFail($id);
         $ban = Ban::where('user_id', $id)->get();
@@ -173,6 +173,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Buscamos al usuarios a editar
         $user = User::findOrFail($id);
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
@@ -187,6 +188,61 @@ class UsersController extends Controller
                 Rule::unique('users')->ignore($user->email, 'email')
             ],
         ]);
+
+        $last_activity = ActivityStatistic::all();
+        $a = $last_activity->sortByDesc('updated_at')->first();
+        $all_activities = ActivityStatistic::where('user_id', $user->id)->orderBy('updated_at', 'asc')->get();
+
+        // el if de la linea 222  verifica si ha habido un cambio de roles para realizar el registro en la tabla
+        // Estadisticas de actividad
+
+        // Pasando los roles de usuario a un array
+        for ($i = 0; $i < count($user->roles); $i++){
+            $current_roles[$i] = $user->roles[$i]->id;
+        }
+
+        // Comparando array $current_roles con el array de roles del request
+        // array_diff(): Devuelve un array que contiene todas las entradas de array1 que no están presentes en ninguna de
+        // los otros arrays.
+        //Si el array resultante está vacío es porque no hubo cambio en los roles
+
+        // En caso ed quitar roles
+        //dd(array_diff($current_roles,$request->role));
+        $roles_removed = array_diff($current_roles,$request->role);
+
+        // En caso de agregar roles
+        //dd(array_diff($request->role,$current_roles));
+        $added_roles = array_diff($request->role,$current_roles);
+        //dd(sizeof($removing_roles), sizeof($add_roles));
+
+        // Si al menos hay un elemento en el array es porque se quitó o agrego un nuevo rol,
+        // entonces registraremos la modificación del en la tabla ActivityStatistic
+        // En caso de no haber modificaciones en los roles del usuario no hará ningún registro
+        if( sizeof($roles_removed) > 0 || sizeof($added_roles) > 0) {
+            if ($all_activities->count()>0)
+            {
+                $last_activity = $all_activities->last();
+                $activity2 = ActivityStatistic::updateOrCreate([
+                    'user_id'   => $id,
+                    'number_of_roles'    => count($request->role),
+                    'number_of_locks'    => $last_activity->number_of_locks,
+                    'password_changes'    => $last_activity->password_changes,
+                    'updated_at' => Carbon::now()
+                ]);
+
+                $activity2->save();
+            }
+            else{
+
+                $activity2 = ActivityStatistic::Create([
+                    'user_id'   => $id,
+                    'number_of_roles'    => count($request->role),
+                    'updated_at' => Carbon::now()
+                ]);
+                $activity2->save();
+            }
+        }
+
 
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -209,34 +265,7 @@ class UsersController extends Controller
         $ban->blocked_at =  Carbon::now();
         $ban->save();
 
-        $last_activity = ActivityStatistic::all();
-        $a = $last_activity->sortByDesc('updated_at')->first();
-        //dd($a);
 
-        $all_activities = ActivityStatistic::where('user_id', $user->id)->orderBy('updated_at', 'asc')->get();
-
-        if ($all_activities->count()>0)
-        {
-            $last_activity = $all_activities->last();
-            $activity2 = ActivityStatistic::updateOrCreate([
-            'user_id'   => $id,
-            'number_of_roles'    => count($request->role),
-            'number_of_locks'    => $last_activity->number_of_locks,
-            'password_changes'    => $last_activity->password_changes,
-            'updated_at' => Carbon::now()
-            ]);   
-            
-            $activity2->save();
-        }
-        else{
-       
-            $activity2 = ActivityStatistic::Create([
-                'user_id'   => $id,
-                'number_of_roles'    => count($request->role),
-                'updated_at' => Carbon::now()
-            ]); 
-            $activity2->save();
-        }
 
         $user->save();
 

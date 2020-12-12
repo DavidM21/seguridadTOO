@@ -108,6 +108,16 @@
                     <label>Administración</label>
                 </li>
                 @endif
+                @can('Gestor Roles')
+                    <li data-username="form elements advance componant validation masking wizard picker select"
+                        class="nav-item">
+                        <a href="{{route('roles.index')}}" class="nav-link ">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-award"></i>
+                        </span>
+                            <span class="pcoded-mtext">Roles & Permisos</span></a>
+                    </li>
+                @endcan
                 @can('Gestor Usuarios')
                 <li data-username="form elements advance componant validation masking wizard picker select"
                     class="nav-item">
@@ -116,16 +126,6 @@
                             <i class="feather icon-users"></i>
                         </span>
                         <span class="pcoded-mtext">Usuarios</span></a>
-                </li>
-                @endcan
-                @can('Gestor Roles')
-                <li data-username="form elements advance componant validation masking wizard picker select"
-                    class="nav-item">
-                    <a href="{{route('roles.index')}}" class="nav-link ">
-                        <span class="pcoded-micon">
-                            <i class="feather icon-award"></i>
-                        </span>
-                        <span class="pcoded-mtext">Roles & Permisos</span></a>
                 </li>
                 @endcan
                 @can('Gestor Estadísticas')

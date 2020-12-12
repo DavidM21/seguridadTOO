@@ -140,7 +140,7 @@ class LoginController extends Controller
     }
 
 // Intentando bloquear al usuario
-
+/*
     // Redirigir al usuario después de determinar que están bloqueados.
     protected function sendLockoutResponse(Request $request)
     {
@@ -161,5 +161,5 @@ class LoginController extends Controller
         event();
         //event(new Lockout($request));
     }
-
+*/
 }

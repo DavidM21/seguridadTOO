@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActivityStatistic;
 use App\Department;
 use App\Employee;
 use App\JobPosition;
@@ -35,6 +36,8 @@ class HomeController extends Controller
 
         $roles_and_permisison = Role::all()->count() + Permission::all()->count();
 
+        $statistics = ActivityStatistic::all()->count();
+
         $organizations = Organization::where('user_id', '=', auth()->user()->id)->count();
 
         $organizations2 = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
@@ -52,7 +55,7 @@ class HomeController extends Controller
         $employee = Employee::whereIn('job_position_id', $jobpositions2)->count();
 
         //dd($organizations);
-        return view('home', compact('users', 'roles_and_permisison','organizations',
+        return view('home', compact('users', 'roles_and_permisison', 'statistics','organizations',
             'departments', 'sections', 'jobpositions', 'employee'));
     }
 }

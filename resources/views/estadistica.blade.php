@@ -29,7 +29,7 @@
             <h5>Estadisticas</h5>
             <span class="badge badge-success">{{count($estadisticas)}}</span>
         </div>
-                                                                                
+        <br>
         <div class="col-xl-3">
             <form action="/estadistica/search" method="get">
                 <div class="input-group">
@@ -40,62 +40,66 @@
                 </div>
             </form>
         </div>
-                                        
-                                    
-        <div class="card-block table-border-style">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
+
+        <div class="col-lg-12">
+            <div class="card-block table-border-style">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
                         <tr>
-                            <th>Nombre usuario</th>
-                            <th>Apellido usuario</th>
+                            <th>Usuario</th>
                             <th># bloqueos</th>
                             <th># cambios de clave</th>
                             <th># roles</th>
                             <th>Fecha actualización</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($estadisticas as $estadistica)
-                        <tr>                                                        
-                            <td>{{$estadistica->user->first_name}}</td>
-                            <td>{{$estadistica->user->last_name}}</td>
-                            <td>0</td>
-                            <td>{{$estadistica->password_changes}}</td>
-                            <td>{{$estadistica->number_of_roles}}</td>
-                            <td>{{$estadistica->updated_at}}</td>
-                        </tr>
-                    @endforeach    
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($estadisticas as $estadistica)
+                            <tr>
+                                <td>{{$estadistica->user->first_name}} {{$estadistica->user->last_name}}</td>
+                                <td>0</td>
+                                <td>{{$estadistica->password_changes}}</td>
+                                <td>{{$estadistica->number_of_roles}}</td>
+                                <td>{{$estadistica->updated_at}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="card-block table-border-style">
-            <h5>Cantidad de usuarios por roles</h5>
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
+        <div class="col-lg-5">
+            <div class="card-block table-border-style">
+                <h5>Cantidad de Usuarios por Roles</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
                         <tr>
-                            <th>Nombre del rol</th>
+                            <th>Rol</th>
                             <th>Cantidad de usuarios</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($role as $roles)
-                        <tr>                                                        
-                            <td>{{$roles->name}}</td>
-                            <td>{{ count($roles->users) }}</td>
-                        </tr>
-                    @endforeach    
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($role as $roles)
+                            <tr>
+                                <td>{{$roles->name}}</td>
+                                <td>{{ count($roles->users) }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
+
+
 
     </div>
 </div>
 <!-- [ Hover-table ] end -->
-{!! $estadisticas ->links() !!}    
+{!! $estadisticas ->links() !!}
 
 
 <!-- [ Main Content ] end -->
