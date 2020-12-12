@@ -70,6 +70,27 @@
                 </table>
             </div>
         </div>
+        <div class="card-block table-border-style">
+            <h5>Cantidad de usuarios por roles</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre del rol</th>
+                            <th>Cantidad de usuarios</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($role as $roles)
+                        <tr>                                                        
+                            <td>{{$roles->name}}</td>
+                            <td>{{ count($roles->users) }}</td>
+                        </tr>
+                    @endforeach    
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
 </div>

@@ -29,6 +29,7 @@ class ExpiredPasswordController extends Controller
         ]);
         
         // Incrementando la cantidad de password changes para las estadisticas   
+        /*
         $request->user()->increment('cantidad_cambios_contra');    
         $activity = new ActivityStatistic;
         $activity = ActivityStatistic::updateOrCreate([
@@ -38,6 +39,36 @@ class ExpiredPasswordController extends Controller
             'updated_at' => Carbon::now()
         ]);
         $activity->save();
+        */
+
+        //$last_activity = ActivityStatistic::all();
+        //$a = $last_activity->sortByDesc('updated_at')->first();
+        //dd($a);
+
+        $all_activities = ActivityStatistic::where('user_id', $request->user()->id)->orderBy('updated_at', 'asc')->get();
+
+        if ($all_activities->count()>0)
+        {
+            $last_activity = $all_activities->last();
+            //dd($last_activity);
+            $suma = ($last_activity->password_changes)+1;
+            $activity2 = ActivityStatistic::updateOrCreate([
+            'user_id'   => $request->user()->id,
+            'number_of_roles'    => $last_activity->number_of_roles,
+            'number_of_locks'    => $last_activity->number_of_locks,
+            'password_changes'    => $suma,
+            'updated_at' => Carbon::now()
+            ]);   
+            $activity2->save();
+        }
+        else{
+            $activity2 = ActivityStatistic::Create([
+                'user_id'   => $request->user()->id,
+                'password_changes'    => 1,
+                'updated_at' => Carbon::now()
+            ]); 
+            $activity2->save();
+        }
 
         return redirect()->back()->with(['status' => 'Contraseña actualizada correctamente']);
     }

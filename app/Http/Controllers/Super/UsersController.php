@@ -14,6 +14,7 @@ use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use App\ActivityStatistic;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class UsersController extends Controller
 {
@@ -60,7 +61,7 @@ class UsersController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'cell_phone' => ['required', 'string', 'max:255'],
             'role' => ['required'],
-            'active' => ['required'],
+            //'active' => ['required'],
             'blocked' => ['required'],
         ]);
 
@@ -102,14 +103,34 @@ class UsersController extends Controller
         // Asignando roles
         $user->assignRole($request->role);
         // Codigo para contar los cambios de roles y asignarlos a la tabla de estadisticas
-        $activity2 = ActivityStatistic::updateOrCreate([
-        'user_id'   => $id,
-        'number_of_roles'    => count($request->role),
-        'password_changes'    => $user->cantidad_cambios_contra,
-        'updated_at' => Carbon::now()
-        ]);
-        $activity2->save();
-        $user->cantidad_roles = count($request->role);
+        $last_activity = ActivityStatistic::all();
+        $a = $last_activity->sortByDesc('updated_at')->first();
+        //dd($a);
+
+        $all_activities = ActivityStatistic::where('user_id', $user->id)->orderBy('updated_at', 'asc')->get();
+        
+        if ($all_activities->count()>0)
+        {
+            $last_activity = $all_activities->last();
+            $activity2 = ActivityStatistic::updateOrCreate([
+            'user_id'   => $id,
+            'number_of_roles'    => count($request->role),
+            'number_of_locks'    => $last_activity->number_of_locks,
+            'password_changes'    => $last_activity->password_changes,
+            'updated_at' => Carbon::now()
+            ]);   
+            
+            $activity2->save();
+        }
+        else{
+       
+            $activity2 = ActivityStatistic::Create([
+                'user_id'   => $id,
+                'number_of_roles'    => count($request->role),
+                'updated_at' => Carbon::now()
+            ]); 
+            $activity2->save();
+        }
         $user->save();
 
         return redirect()->route('users.index')->with('notification', '¡Nuevo usuario ' .'"'. $user->username .'"'.
@@ -193,17 +214,30 @@ class UsersController extends Controller
         //dd($a);
 
         $all_activities = ActivityStatistic::where('user_id', $user->id)->orderBy('updated_at', 'asc')->get();
-        $last_activity = $all_activities->last();
-        //dd($last_activity);
 
-        $activity2 = ActivityStatistic::updateOrCreate([
-        'user_id'   => $id,
-        'number_of_roles'    => count($request->role),
-        'number_of_locks'    => $last_activity->number_of_locks,
-        'password_changes'    => $last_activity->password_changes,
-        'updated_at' => Carbon::now()
-        ]);
-        $activity2->save();
+        if ($all_activities->count()>0)
+        {
+            $last_activity = $all_activities->last();
+            $activity2 = ActivityStatistic::updateOrCreate([
+            'user_id'   => $id,
+            'number_of_roles'    => count($request->role),
+            'number_of_locks'    => $last_activity->number_of_locks,
+            'password_changes'    => $last_activity->password_changes,
+            'updated_at' => Carbon::now()
+            ]);   
+            
+            $activity2->save();
+        }
+        else{
+       
+            $activity2 = ActivityStatistic::Create([
+                'user_id'   => $id,
+                'number_of_roles'    => count($request->role),
+                'updated_at' => Carbon::now()
+            ]); 
+            $activity2->save();
+        }
+
         $user->save();
 
         return redirect()->route('users.index')->with('notification', '¡Usuario ' .'"'. $user->username .'"'.

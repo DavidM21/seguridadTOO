@@ -6,6 +6,7 @@ use App\ActivityStatistic;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Spatie\Permission\Models\Role;
 
 
 class ActivityStatisticController extends Controller
@@ -19,7 +20,9 @@ class ActivityStatisticController extends Controller
     public function mostrarestadistica()
     {
         $estadisticas = ActivityStatistic::paginate(10);
-        return view('estadistica',compact('estadisticas'));
+        $role = Role::all();
+        //dd($role[0]);
+        return view('estadistica',compact('estadisticas','role'));
     } 
 
     public function search(Request $request)
@@ -30,8 +33,9 @@ class ActivityStatisticController extends Controller
         $estadisticas = ActivityStatistic::whereHas('user', function($query) use($search){ 
             return $query->where('first_name','like','%'.$search.'%')->orwhere('last_name','like','%'.$search.'%');
         })->paginate(10);
-        
-        return view('estadistica',['estadisticas'=>$estadisticas]);
+        $role = Role::all();
+
+        return view('estadistica',compact('estadisticas','role'));
     }
 
     public function mostrarestado()
