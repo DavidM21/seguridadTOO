@@ -15,6 +15,14 @@
                         <li class="breadcrumb-item"><a href="{{route('users.index')}}">Usuarios</a></li>
                         <li class="breadcrumb-item"><a href="#">Editar usuario</a></li>
                     </ul>
+                    <script>
+  $( function() {
+    $( "#birthday" ).datepicker({
+      numberOfMonths: 2,
+      showButtonPanel: true
+    });
+  } );
+  </script>
                 </div>
             </div>
         </div>
@@ -81,10 +89,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Cumpleaños</label>
-                                <input class="form-control @error('birthday') is-invalid @enderror" id="birthday"
-                                       name="birthday" placeholder="mm/dd/aaaa" data-mask="00/00/0000"
-                                       value="{{ old('birthday',  $user->birthday ? : '')}}">
-
+                                <input type=date class="form-control @error('birthday') is-invalid @enderror" id="birthday"
+                                       name="birthday" value="{{ $user->birthday}}">
                                 @error('birthday')
                                 <span class="invalid-feedback text-left" role="alert">
                                            <strong>{{ $message }}</strong>
