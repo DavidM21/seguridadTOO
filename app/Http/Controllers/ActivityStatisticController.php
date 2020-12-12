@@ -35,7 +35,7 @@ class ActivityStatisticController extends Controller
         })->paginate(10);
         $role = Role::all();
 
-        return view('estadistica',compact('estadisticas','role'));
+        return view('estadistica',['estadisticas'=>$estadisticas],['role'=>$role]);
     }
 
     public function mostrarestado()

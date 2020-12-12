@@ -28,52 +28,47 @@
             <h5>Estados</h5>
             <span class="badge badge-success">{{count($usuario)}}</span>
         </div>   
-                                        <div class="card-block table-border-style">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Nombre</th>
-                                                            <th>Apellido</th>
-                                                            <th>Estado</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($usuario as $user)
-                                                        <tr>                                                        
-                                                            <td>{{$user->first_name}}</td>
-                                                            <td>{{$user->last_name}}</td>
-                                                            <td>
-                                                            @if($user->isOnline())
-                                                                <li class="text-success">
-                                                                    Activo
-                                                                </li>
-                                                            @else
-                                                            <li class="text-danger">
-                                                                    Inactivo
-                                                                </li>
-                                                            @endif
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach    
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- [ Hover-table ] end -->
-                                {!! $usuario ->links() !!}   
-                                
-                            </div>
-                            <!-- [ Main Content ] end -->
-                        </div>
-                    </div>
-                </div>
+        <div class="card-block table-border-style">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($usuario as $user)
+                        <tr>                                                        
+                            <td>{{$user->first_name}}</td>
+                            <td>{{$user->last_name}}</td>
+                            <td>
+                            @if($user->isOnline())
+                                <li class="text-success">
+                                    Activo
+                                </li>
+                            @else
+                            <li class="text-danger">
+                                    Inactivo
+                                </li>
+                            @endif
+                            </td>
+                        </tr>
+                    @endforeach    
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
+    </div>
+</div>
+<!-- [ Hover-table ] end -->
+{!! $usuario ->links() !!}   
 
-        <!-- Required Js -->
+<!-- [ Main Content ] end -->
+
+</section>
+
+<!-- Required Js -->
 
 @endsection
