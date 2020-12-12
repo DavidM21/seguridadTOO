@@ -108,14 +108,18 @@ Route::post('/login-two-factor/{user}', 'Auth\LoginController@login2FA')->name('
 Auth::routes(['verify' => true]);
 
 
-Route::get('/login', 'Auth\LoginController@index')->name('login');
-Route::post('/login', 'Auth\LoginController@login')->name('login_post');
+Route::get('/', 'Auth\LoginController@index')->name('login');
+Route::post('/', 'Auth\LoginController@login')->name('login_post');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout') ;
 
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
 Route::post('/register', 'Auth\RegisterController@register')->name('register_post');
 
 Route::get('/verify/{id}', 'Auth\VerificationController@resendEmail')->name('verify.resend');
+Route::get('/temporary/password/{id}', 'Auth\VerificationController@changeTempPassword')->name('temporary.password');
+Route::post('/temporary/password/{id}', 'Auth\VerificationController@changeTempPasswordPost')->name('temporary.password.post');
+
+
 
 // Super Administrador & Administrador
 
@@ -134,11 +138,12 @@ Route::group(['prefix'=>'admin', 'namespace'=>'super', 'middleware'=>'role:Super
 /* FIN SOSA */
 
 //Cris
-Route::get('/estadistica', 'ActivityStatisticController@mostrarestadistica')->name('estadistica.mostrarestadistica');
-Route::get('/estadistica/search', 'ActivityStatisticController@search')->name('estadistica.search');
+Route::group(['prefix'=>'super', 'middleware'=>'role:Super Administrador'], function(){
+    Route::get('/estadistica', 'ActivityStatisticController@mostrarestadistica')->name('estadistica.mostrarestadistica');
+    Route::get('/estadistica/search', 'ActivityStatisticController@search')->name('estadistica.search');
 
-Route::get('/estado', 'ActivityStatisticController@mostrarestado')->name('estado.mostrarestado');
-
+    Route::get('/estado', 'ActivityStatisticController@mostrarestado')->name('estado.mostrarestado');
+});
 
 //Route::get('/password/reset', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 

@@ -42,7 +42,6 @@
             <table class="table table-striped text-center">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Nombre</th>
                         <th>Salario</th>
                         <th>Sección</th>
@@ -52,7 +51,6 @@
                 <tbody>
                 @foreach($puestos as $puesto)
                     <tr>
-                        <th>{{$puesto->id}}</th>
                         <td>{{$puesto->name}}</td>
                         <td>{{$puesto->salary}}</td>
                         <td>{{$puesto->section->name}}</td>

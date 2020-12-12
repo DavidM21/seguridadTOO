@@ -23,11 +23,13 @@ class SectionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        $departamentos=Department::all();
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departamentos = Department::whereIn('organization_id', $organizations)->get();
+
         return view('crudSeccion.crearSeccion', compact ('departamentos'));
     }
 
@@ -35,7 +37,7 @@ class SectionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store()
     {
@@ -59,9 +61,9 @@ class SectionController extends Controller
     {
         $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
         $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
-        $sections = Section::whereIn('department_id', $departments)->pluck('id');
 
-        $datos['sections']=Section::whereIn('department_id', $sections)->paginate(5);
+
+        $datos['sections']=Section::whereIn('department_id', $departments)->get();
         return view('crudSeccion.mostrarSeccion', $datos);
     }
 
@@ -69,11 +71,13 @@ class SectionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Seccion  $seccion
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Section $section)
     {
-        $departamentos=Department::all();
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departamentos = Department::whereIn('organization_id', $organizations)->get();
+
         return view('crudSeccion.editarSeccion', compact('section', 'departamentos'));
     }
 

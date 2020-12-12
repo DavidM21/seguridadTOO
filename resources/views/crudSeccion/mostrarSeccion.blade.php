@@ -44,7 +44,6 @@
             <table class="table table-striped text-center">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Nombre</th>
                         <th>Departamento</th>
                         <th colspan="2">Acciones</th>
@@ -54,7 +53,6 @@
 
                     @foreach($sections as $section)
                         <tr>
-                            <td>{{$section->id}}</td>
                             <td>{{$section->name}}</td>
                             <td>{{$section->department->name}}</td>
                             <td>

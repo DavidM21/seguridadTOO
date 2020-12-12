@@ -108,7 +108,7 @@ class RegisterController extends Controller
          $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'birthday' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'string', 'max:255','date_format:Y-m-d'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'cell_phone' => ['required', 'string', 'max:255'],
             'passcode' => ['required', 'digits:4'],

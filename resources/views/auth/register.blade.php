@@ -61,9 +61,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-group mb-3 col-6">
-                                        <input name="birthday" class="form-control @error('birthday') is-invalid @enderror"
-                                               value="{{ old('birthday') }}" autocomplete="name"
-                                               autofocus data-mask="00/00/0000" placeholder="Fecha de Nac - mm/dd/aaaa">
+                                        <input name="birthday" id="birthday" type=text onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control @error('birthday') is-invalid @enderror"
+                                               value="{{ old('birthday') }}" placeholder="Cumpleaños">
                                         @error('birthday')
                                         <span class="invalid-feedback text-left" role="alert">
                                                <strong>{{ $message }}</strong>
@@ -240,6 +239,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('js_after')

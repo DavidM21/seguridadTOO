@@ -35,7 +35,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputSect"><b>Seccion</b><span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="name" aria-describedby="sectHelp" placeholder="Enter Section">
+                            <input type="text" class="form-control" name="name" aria-describedby="sectHelp" placeholder="Nombre">
                             {!! $errors->first('name', '<small>:message</small>') !!}
                         </div>
                         <div class="form-group">
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="card-footer text-left">
-                            <a class="btn btn-outline-danger mb-1" href="{{ route('departamento.show')}}">Cancelar</a>
+                            <a class="btn btn-outline-danger mb-1" href="{{ route('seccion.show')}}">Cancelar</a>
                             <button type="submit" class="btn btn-outline-primary"  form="formulario">Guardar</button>
             </div>
             </div> <!-- hasta aca-->

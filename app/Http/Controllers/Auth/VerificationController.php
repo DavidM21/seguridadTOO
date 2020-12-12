@@ -4,11 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerification;
-use http\Env\Request;
+use App\Rules\especial;
+use App\Rules\mayuscula;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+
+
+
 
 class VerificationController extends Controller
 {
@@ -44,7 +51,8 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
-    public function resendEmail(int $id){
+    public function resendEmail(int $id)
+    {
         $temp_password = str_random(16);
 
         $user = User::findOrFail($id);
@@ -55,5 +63,39 @@ class VerificationController extends Controller
         Mail::to($user->email)->send(new EmailVerification($user, $user->temp_password));
 
         return view('auth.verify', compact('user'));
+    }
+
+
+    protected function changeTempPassword(int $id)
+    {
+        $user = User::findOrFail($id);
+        return view('auth.passwords.TempPassword', compact('user'));
+    }
+
+    protected function changeTempPasswordPost(Request $request, int $id)
+    {
+        // Checking current password
+        $request->validate([
+            'email' => 'required|email|exists:users,email|string|max:255',
+            'temp_password' => 'required|string|max:255',
+            'new_password' => ['required', 'string', 'min:12', 'max:255',new especial, new mayuscula, 'confirmed'],
+        ]);
+
+        $user = User::findORfail($id);
+
+        // Comprobanndo si la contraseña provisional no se ha cambiado la primera vez
+        if (Hash::check($user->temp_password,$user->password)) {
+            // Comprobando si la contraseña provisional del form coincide con la contraseña provisional actual
+            if (Hash::check($request->temp_password, $user->password)) {
+                $user->password = Hash::make($request->new_password);
+                $user->save();
+                return redirect()->route('login')->with('alert-success', '¡Contraseña provisional actualizada con éxito!');
+            }
+        }else{
+            return redirect()->back()->withErrors(['email'=> 'La contraseña provisional ya fue cambiada la primera vez.']);
+        }
+
+        //dd('no coinciden');
+        return redirect()->back()->withErrors(['email'=> 'Estas credenciales no coinciden con nuestros registros.']);
     }
 }

@@ -44,7 +44,6 @@
             <table class="table table-striped text-center">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>DUI</th>
@@ -55,7 +54,6 @@
                 <tbody>
                 @foreach($empleados as $empleado)
                     <tr>
-                        <th>{{$empleado->id}}</th>
                         <td>{{$empleado->first_name}}</td>
                         <td>{{$empleado->last_name}}</td>
                         <td>{{$empleado->dui}}</td>

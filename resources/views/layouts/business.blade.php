@@ -127,14 +127,18 @@
                         </span>
                         <span class="pcoded-mtext">Roles & Permisos</span></a>
                 </li>
-                <li data-username="form elements advance componant validation masking wizard picker select"
-                    class="nav-item">
-                    <a href="{{route('estadistica.mostrarestadistica')}}" class="nav-link ">
-                        <span class="pcoded-micon">
-                            <i class="feather icon-clipboard"></i>
-                        </span>
-                        <span class="pcoded-mtext">Estadisticas</span></a>
-                </li>
+                @endcan
+                @can('Gestor Estadísticas')
+                    <li data-username="form elements advance componant validation masking wizard picker select"
+                        class="nav-item">
+                        <a href="{{route('estadistica.mostrarestadistica')}}" class="nav-link ">
+                            <span class="pcoded-micon">
+                                <i class="feather icon-clipboard"></i>
+                            </span>
+                            <span class="pcoded-mtext">Estadisticas</span></a>
+                    </li>
+                @endcan
+                @can('Gestor Estados')
                 <li data-username="form elements advance componant validation masking wizard picker select"
                     class="nav-item">
                     <a href="{{route('estado.mostrarestado')}}" class="nav-link ">
@@ -144,15 +148,6 @@
                         <span class="pcoded-mtext">Estado de usuarios</span></a>
                 </li>
                 @endcan
-
-                    <li data-username="form elements advance componant validation masking wizard picker select"
-                        class="nav-item">
-                        <a href="{{route('estadistica.mostrarestadistica')}}" class="nav-link ">
-                        <span class="pcoded-micon">
-                            <i class="feather icon-activity"></i>
-                        </span>
-                            <span class="pcoded-mtext">Actividad</span></a>
-                    </li>
 
                 <!-- Fin Super Admin -->
 <!--
@@ -424,6 +419,8 @@
 <script src="{{ asset('assets/js/vendor-all.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/pcoded.min.js') }}"></script>
+<script src="{{ asset('assets/js/empleado.js') }}"></script>
+
 
 
 @yield('js_after')

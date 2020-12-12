@@ -45,8 +45,14 @@ class EmployeeController extends Controller
         $estadoCiviles = MaritalStatus::all();
         $municipios = City::all();
         $departamentos = State::all();
-        $puestos = JobPosition::all();
-        //dd($puestos);
+        //$puestos = JobPosition::all();
+
+        // Obtener el los puestos de la organizaciones del usuario
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
+        $sections = Section::whereIn('department_id', $departments)->pluck('id');
+        $puestos = JobPosition::whereIn('section_id', $sections)->get();
+
         return view('crudEmpleado.crearEmpleado',compact('generos','estadoCiviles','municipios','departamentos','puestos'));
     }
 
@@ -118,7 +124,13 @@ class EmployeeController extends Controller
         $estadoCiviles = MaritalStatus::all();
         $municipios = City::all();
         $departamentos = State::all();
-        $puestos = JobPosition::all();
+
+        // Obtener el los puestos de la organizaciones del usuario
+        $organizations = Organization::where('user_id', '=', auth()->user()->id)->pluck('id');
+        $departments = Department::whereIn('organization_id', $organizations)->pluck('id');
+        $sections = Section::whereIn('department_id', $departments)->pluck('id');
+        $puestos = JobPosition::whereIn('section_id', $sections)->get();
+
         return view('crudEmpleado.editarEmpleado',['employee' => $employee],
             compact('generos','estadoCiviles','municipios','departamentos','puestos'));
     }
