@@ -195,7 +195,8 @@ class UsersController extends Controller
 
         // el if de la linea 222  verifica si ha habido un cambio de roles para realizar el registro en la tabla
         // Estadisticas de actividad
-
+        //Declaración de array
+        $current_roles =  array();
         // Pasando los roles de usuario a un array
         for ($i = 0; $i < count($user->roles); $i++){
             $current_roles[$i] = $user->roles[$i]->id;

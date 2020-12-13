@@ -6,6 +6,7 @@ use App\Ask;
 use App\Ban;
 use App\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use App\Mail\EmailVerification;
 use Illuminate\Http\Request;
@@ -148,6 +149,9 @@ class RegisterController extends Controller
 
         $ban = new Ban;
         $ban->user_id = $user->id;
+        $ban->blocked = false;
+        $ban->active = true;
+        $ban->active_at = Carbon::now();
         $ban->save();
 
         // Envio de email para verificación de cuenta
