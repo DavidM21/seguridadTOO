@@ -117,7 +117,6 @@
 
 
                         </div>
-                        @role('Super Administrador')
                             <div class="col-md-4">
                             <div class="form-group">
                                 <label>Roles</label>
@@ -128,14 +127,14 @@
                                         data-hide-disabled="true" data-actions-box="true" data-virtual-scroll="false">
 
                                         @foreach($roles as $role)
-                                            @if($user->id == 1 && $role->name != 'Super Administrador')
+
                                             <option value="{{ $role->id }}"
                                                     @foreach($user->roles->pluck('name') as $role2)
                                                         @if ($role2 == $role->name) selected="selected" @endif"
                                                     @endforeach>
                                             {{ $role->name }}
                                             </option>
-                                            @endif
+
                                         @endforeach
                                 </select>
 
@@ -147,7 +146,6 @@
                             </div>
 
                         </div>
-                        @endrole
                     </div>
                     <div class="row">
                         <div class="col-md-4">

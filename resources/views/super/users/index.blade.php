@@ -127,13 +127,15 @@
                                         <span class="pcoded-micon"><i class="feather icon-eye"></i></span>
                                         <!--<span class="pcoded-mtext">Editar</span>-->
                                     </a>
-
+                                    @role('Super Administrador')
+                                    @if($user->id != 1)
                                         <a href="{{ route('users.edit', $user->id) }}" class="label btn-info text-white f-12" data-toggle="tooltip"
                                            data-placement="top" title="Editar">
                                             <span class="pcoded-micon"><i class="feather icon-edit-2"></i></span>
                                             <!--<span class="pcoded-mtext">Editar</span>-->
                                         </a>
-                                    @role('Super Administrador')
+                                    @endif
+
                                     @if(auth()->user()->id != $user->id)
                                         <a href="{{ route('users.confirm', $user->id) }}" class="label btn-danger text-white f-12" data-toggle="tooltip"
                                            data-placement="top" title="Eliminar">
