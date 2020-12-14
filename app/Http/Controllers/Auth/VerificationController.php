@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\EmailVerification;
 use App\Rules\especial;
 use App\Rules\mayuscula;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -88,6 +89,7 @@ class VerificationController extends Controller
             // Comprobando si la contraseña provisional del form coincide con la contraseña provisional actual
             if (Hash::check($request->temp_password, $user->password)) {
                 $user->password = Hash::make($request->new_password);
+                $user->email_verified_at = Carbon::now();
                 $user->save();
                 return redirect()->route('login')->with('alert-success', '¡Contraseña provisional actualizada con éxito!');
             }
