@@ -125,13 +125,13 @@ Route::post('/temporary/password/{id}', 'Auth\VerificationController@changeTempP
 
 // Roles
 
-Route::group(['prefix'=>'super', 'namespace'=>'super', 'middleware'=>'role:Super Administrador'], function(){
+Route::group(['prefix'=>'super', 'namespace'=>'Super', 'middleware'=>'role:Super Administrador'], function(){
     Route::resource('roles', 'RolesController');
     Route::get('/roles/{id}/confirm', 'RolesController@confirm')->name('roles.confirm');
 });
 
 // Users
-Route::group(['prefix'=>'admin', 'namespace'=>'super', 'middleware'=>'role:Super Administrador|Administrador'], function (){
+Route::group(['prefix'=>'admin', 'namespace'=>'Super', 'middleware'=>'role:Super Administrador|Administrador'], function (){
     Route::resource('users', 'UsersController');
     Route::get('/users/{id}/confirm', 'UsersController@confirm')->name('users.confirm');
 });
